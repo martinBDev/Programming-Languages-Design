@@ -1,14 +1,60 @@
 grammar Pmm;	
 
-program: expression EOF
+program: variableDefinition* funcDefinition* mainProgram EOF
        ;
 
-expression:
-      INT_CONSTANT
+
+funcDefinition:'def' ID '(' (variable (',' variable)* )? ')' ':' (builtInType)? functionBody
+;
+
+mainProgram:'def' 'main' '(' ')' ':' functionBody;
+
+functionBody: '{' variableDefinition*  statement* '}'
+;
+
+statement: ('print'|'input') expression(','expression)* ';'
+|expression '=' expression ';'
+|'if' expression ':'  stmBody  ('else'':' stmBody )?
+|'while' expression ':' stmBody
+|'return' expression ';'
+| ID '(' (expression (','expression)* )? ')' ';'
+;
+
+
+stmBody: '{'statement+'}'
+| statement
+;
+
+
+variableDefinition: variable ';' ;
+
+variable: ID (',' ID)* ':' type;
+
+
+expression: INT_CONSTANT
     | CHAR_CONSTANT
     | REAL_CONSTANT
     | ID
+    | ID '(' (expression (','expression)* )? ')'
+    | expression'['expression']'
+    | expression'.'expression
+    | '('type')'expression
+    | '-'expression
+    |'!'expression
+    |expression ('*'|'/'|'%') expression
+    |expression ('+'|'-') expression
+    |expression ('>'|'>='|'<'|'<='|'!='|'==')expression
+    |expression ('&&'|'||')expression
     ;
+
+type: builtInType
+ | '['INT_CONSTANT']' type
+ | 'struct''{' (variableDefinition+) '}';
+
+ builtInType:'char'
+              | 'int'
+              | 'double';
+
 
 fragment
 DIGIT:[0-9];
@@ -29,7 +75,6 @@ fragment
 MANTISSA: (FLOATING_POINT|DIGIT+)('E'|'e')('+'|'-')?DIGIT+;
 
 
-
 TRASH: ([ \t\n\r]+ | NEW_LINE) -> skip;
 
 ONE_LINE_COMMENT: '#' .*? (NEW_LINE | EOF) -> skip;
@@ -42,7 +87,10 @@ INT_CONSTANT: [1-9]DIGIT*
 
 ID: (LETTER|'_')(DIGIT|'_'|LETTER)*;
 
-CHAR_CONSTANT: ('\'' . '\'') | ('\'\\n\'') | ('\'\\t\'') | ('\'\\' DIGIT+ '\'');
+CHAR_CONSTANT: ('\'' . '\'')
+            | ('\'\\n\'')
+            | ('\'\\t\'')
+            | ('\'\\' DIGIT+ '\'');
 
 
 REAL_CONSTANT: FLOATING_POINT | MANTISSA;

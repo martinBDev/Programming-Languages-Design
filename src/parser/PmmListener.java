@@ -28,6 +28,16 @@ public interface PmmListener extends ParseTreeListener {
 	 */
 	void exitFuncDefinition(PmmParser.FuncDefinitionContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link PmmParser#mainProgram}.
+	 * @param ctx the parse tree
+	 */
+	void enterMainProgram(PmmParser.MainProgramContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PmmParser#mainProgram}.
+	 * @param ctx the parse tree
+	 */
+	void exitMainProgram(PmmParser.MainProgramContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link PmmParser#functionBody}.
 	 * @param ctx the parse tree
 	 */

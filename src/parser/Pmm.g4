@@ -1,18 +1,20 @@
 grammar Pmm;	
 
-program: expression EOF
+program: ( variableDefinition | funcDefinition )* mainProgram EOF
        ;
 
 
 funcDefinition:'def' ID '(' (variable (',' variable)* )? ')' ':' (builtInType)? functionBody
 ;
 
+mainProgram:'def' 'main' '(' ')' ':' functionBody;
+
 functionBody: '{' variableDefinition*  statement* '}'
 ;
 
 statement: ('print'|'input') expression(','expression)* ';'
 |expression '=' expression ';'
-|'if' expression ':'  stmBody  ('else'':' stmBody )?
+|'if' expression ':'  stmBody  ('else' stmBody )?
 |'while' expression ':' stmBody
 |'return' expression ';'
 | ID '(' (expression (','expression)* )? ')' ';'
