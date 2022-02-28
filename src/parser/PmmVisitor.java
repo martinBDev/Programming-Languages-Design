@@ -1,4 +1,4 @@
-// Generated from C:/Users/usuario/Desktop/Eii/AÑO 3 GRADO INGENIERIA INFORMATICA/Diseño de Lenguaje de Programacion/Lab_project/src/parser\Pmm.g4 by ANTLR 4.9.2
+// Generated from C:/Users/usuario/Desktop/Eii/AÑO 3 GRADO INGENIERIA INFORMATICA/Diseño de Lenguaje de Programacion/DLP_Repo_Project/src/parser\Pmm.g4 by ANTLR 4.9.2
 package parser;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -16,4 +16,58 @@ public interface PmmVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitProgram(PmmParser.ProgramContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PmmParser#funcDefinition}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncDefinition(PmmParser.FuncDefinitionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PmmParser#functionBody}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFunctionBody(PmmParser.FunctionBodyContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PmmParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStatement(PmmParser.StatementContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PmmParser#stmBody}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStmBody(PmmParser.StmBodyContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PmmParser#variableDefinition}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVariableDefinition(PmmParser.VariableDefinitionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PmmParser#variable}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVariable(PmmParser.VariableContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PmmParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExpression(PmmParser.ExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PmmParser#type}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitType(PmmParser.TypeContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link PmmParser#builtInType}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBuiltInType(PmmParser.BuiltInTypeContext ctx);
 }

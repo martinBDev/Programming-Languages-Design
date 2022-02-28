@@ -1,10 +1,14 @@
 grammar Pmm;	
 
-program: 
+program: expression EOF
        ;
 
-
-
+expression:
+      INT_CONSTANT
+    | CHAR_CONSTANT
+    | REAL_CONSTANT
+    | ID
+    ;
 
 fragment
 DIGIT:[0-9];
@@ -18,7 +22,9 @@ NEW_LINE: ('\r')?('\n'| EOF)
             ;
 
 fragment
-FLOATING_POINT: (DIGIT+'.'DIGIT+) | ('.'DIGIT+) | (DIGIT+'.');
+FLOATING_POINT: (DIGIT+'.'DIGIT+)
+                | ('.'DIGIT+)
+                | (DIGIT+'.');
 fragment
 MANTISSA: (FLOATING_POINT|DIGIT+)('E'|'e')('+'|'-')?DIGIT+;
 
@@ -31,7 +37,7 @@ ONE_LINE_COMMENT: '#' .*? (NEW_LINE | EOF) -> skip;
 MULTI_LINE_COMMENT: '"""' .*? '"""' -> skip;
 
 INT_CONSTANT: [1-9]DIGIT*
-                |'0'
+            |'0'
             ;
 
 ID: (LETTER|'_')(DIGIT|'_'|LETTER)*;
