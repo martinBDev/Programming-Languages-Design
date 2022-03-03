@@ -1,26 +1,18 @@
 package ast.definition;
 
-import ast.node.AstNodeImpl;
 import ast.statement.Statement;
 import ast.type.Type;
 
-public class VariableDefinition extends AstNodeImpl implements Definition, Statement {
+public class VariableDefinition extends AbstractDefinition implements Statement {
 
 
-    private String name;
-    private Type type;
 
-    public VariableDefinition(int line, int column) {
-        super(line, column);
+    public VariableDefinition(int line, int column, String name, Type type) {
+
+        super(line, column,name,type);
     }
 
-    @Override
-    public String getName() {
-        return this.name;
-    }
 
-    @Override
-    public Type getType() {
-        return this.type;
-    }
+
+
 }

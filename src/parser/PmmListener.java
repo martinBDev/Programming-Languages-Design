@@ -1,5 +1,16 @@
 // Generated from C:/Users/usuario/Desktop/Eii/AÑO 3 GRADO INGENIERIA INFORMATICA/Diseño de Lenguaje de Programacion/DLP_Repo_Project/src/parser\Pmm.g4 by ANTLR 4.9.2
 package parser;
+
+import ast.definition.*;
+import ast.expression.*;
+import ast.node.*;
+import ast.statement.*;
+import ast.type.*;
+import ast.type.Integer;
+import ast.type.Double;
+import ast.*;
+
+
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -37,16 +48,6 @@ public interface PmmListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitMainProgram(PmmParser.MainProgramContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link PmmParser#functionBody}.
-	 * @param ctx the parse tree
-	 */
-	void enterFunctionBody(PmmParser.FunctionBodyContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link PmmParser#functionBody}.
-	 * @param ctx the parse tree
-	 */
-	void exitFunctionBody(PmmParser.FunctionBodyContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link PmmParser#statement}.
 	 * @param ctx the parse tree

@@ -1,8 +1,6 @@
 package ast.type;
 
-import ast.node.AstNodeImpl;
-
-public class Void extends AstNodeImpl implements Type{
+public class Void extends AbstractType{
     public Void(int line, int column) {
         super(line, column);
     }

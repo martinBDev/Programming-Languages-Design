@@ -1,9 +1,18 @@
 package ast.type;
 
-import ast.node.AstNodeImpl;
+public class Char extends AbstractType{
 
-public class Char extends AstNodeImpl implements Type{
-    public Char(int line, int column) {
+    private static Char instance = null;
+
+    public static Char getInstance(){
+        if(instance == null){
+            instance = new Char(0,0);
+        }
+
+        return instance;
+    }
+
+    private Char(int line, int column) {
         super(line, column);
     }
 }

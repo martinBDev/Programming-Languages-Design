@@ -1,9 +1,17 @@
 package ast.type;
 
-import ast.node.AstNodeImpl;
+public class Double extends AbstractType{
 
-public class Double extends AstNodeImpl implements Type{
-    public Double(int line, int column) {
+    private static Double instance = null;
+
+    public static Double getInstance(){
+        if(instance == null){
+            instance = new Double(0,0);
+        }
+        return instance;
+    }
+
+    private Double(int line, int column) {
         super(line, column);
     }
 }

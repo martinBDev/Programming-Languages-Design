@@ -1,11 +1,10 @@
 package ast.statement;
 
 import ast.expression.Expression;
-import ast.node.AstNodeImpl;
 
 import java.util.List;
 
-public class Input extends AstNodeImpl implements Statement {
+public class Input   extends AbstractStatement {
     private List<Expression> expressions;
 
     public Input(int line, int column) {

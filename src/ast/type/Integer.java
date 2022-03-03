@@ -1,9 +1,17 @@
 package ast.type;
 
-import ast.node.AstNodeImpl;
+public class Integer extends AbstractType{
 
-public class Integer extends AstNodeImpl implements Type{
-    public Integer(int line, int column) {
+    private static Integer instance = null;
+
+    public static Integer getInstance(){
+        if(instance == null){
+            instance = new Integer(0,0);
+        }
+        return instance;
+    }
+
+    private Integer(int line, int column) {
         super(line, column);
     }
 }

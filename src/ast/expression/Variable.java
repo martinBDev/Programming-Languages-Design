@@ -1,9 +1,14 @@
 package ast.expression;
 
-import ast.node.AstNodeImpl;
-
-public class Variable extends AstNodeImpl implements Expression {
-    public Variable(int line, int column) {
+public class Variable   extends AbstractExpression {
+    public Variable(int line, int column, String name) {
         super(line, column);
+        this.name = name;
+    }
+
+    private String name;
+
+    public String getName(){
+        return this.name;
     }
 }

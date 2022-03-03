@@ -1,13 +1,22 @@
 package ast.type;
 
-import ast.node.AstNodeImpl;
-
-public class Array extends AstNodeImpl implements Type{
+public class Array extends AbstractType{
 
     private int size;
     private Type type;
 
-    public Array(int line, int column) {
+    public Array(int line, int column, int size, Type type) {
+
         super(line, column);
+        this.size = size;
+        this.type = type;
+    }
+
+    public int getSize(){
+        return this.size;
+    }
+
+    public Type getType(){
+        return this.type;
     }
 }

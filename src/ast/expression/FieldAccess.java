@@ -1,13 +1,23 @@
 package ast.expression;
 
-import ast.node.AstNodeImpl;
-
-public class FieldAccess extends AstNodeImpl implements Expression{
+public class FieldAccess   extends AbstractExpression{
 
     private String fieldName;
-    private Expression expr;
+    private Expression expression;
 
-    public FieldAccess(int line, int column) {
+    public FieldAccess(int line, int column, Expression expression, String fieldName) {
+
         super(line, column);
+        this.fieldName = fieldName;
+        this.expression = expression;
+    }
+
+
+    public Expression getExpression(){
+        return this.expression;
+    }
+
+    public String getFieldName(){
+        return this.fieldName;
     }
 }

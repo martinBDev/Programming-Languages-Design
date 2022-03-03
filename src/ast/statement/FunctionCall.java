@@ -1,8 +1,6 @@
 package ast.statement;
 
-import ast.node.AstNodeImpl;
-
-public class FunctionCall extends AstNodeImpl implements Statement {
+public class FunctionCall   extends AbstractStatement {
 
 
     public FunctionCall(int line, int column) {

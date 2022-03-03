@@ -1,9 +1,8 @@
 package ast.statement;
 
 import ast.expression.Expression;
-import ast.node.AstNodeImpl;
 
-public class Assignment extends AstNodeImpl implements Statement{
+public class Assignment extends AbstractStatement{
 
     private Expression leftExpr;
     private Expression rigthExpr;

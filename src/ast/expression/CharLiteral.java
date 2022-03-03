@@ -1,9 +1,16 @@
 package ast.expression;
 
-import ast.node.AstNodeImpl;
+public class CharLiteral   extends AbstractExpression {
 
-public class CharLiteral extends AstNodeImpl implements Expression {
-    public CharLiteral(int line, int column) {
+    private char value;
+
+    public CharLiteral(int line, int column, char value) {
+
         super(line, column);
+        this.value = value;
+    }
+
+    public char getValue(){
+        return this.value;
     }
 }

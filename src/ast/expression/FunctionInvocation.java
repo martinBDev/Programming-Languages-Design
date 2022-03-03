@@ -1,14 +1,30 @@
 package ast.expression;
 
-import ast.node.AstNodeImpl;
 import ast.statement.Statement;
 
-public class FunctionInvocation extends AstNodeImpl implements Expression {
+import java.util.ArrayList;
+import java.util.List;
 
-    private Statement expr;
+public class FunctionInvocation   extends AbstractExpression {
+
+    private List<Expression> expressions;
     private Variable name;
 
-    public FunctionInvocation(int line, int column) {
+    public FunctionInvocation(int line, int column, Variable name) {
         super(line, column);
+        this.expressions = new ArrayList<Expression>();
+        this.name = name;
+    }
+
+    public void addExpression(Expression expr){
+        this.expressions.add(expr);
+    }
+
+    public List<Expression> getExpressions(){
+        return new ArrayList<>(this.expressions);
+    }
+
+    public Variable getName(){
+        return this.name;
     }
 }

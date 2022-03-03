@@ -1,9 +1,15 @@
 package ast.expression;
 
-import ast.node.AstNodeImpl;
-
-public class DoubleLiteral extends AstNodeImpl implements Expression {
-    public DoubleLiteral(int line, int column) {
+public class DoubleLiteral extends AbstractExpression {
+    public DoubleLiteral(int line, int column, double value) {
         super(line, column);
+        this.value = value;
+    }
+
+    private Double value;
+
+
+    public Double getValue(){
+        return this.value;
     }
 }

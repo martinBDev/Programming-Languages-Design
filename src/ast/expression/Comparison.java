@@ -1,11 +1,29 @@
 package ast.expression;
 
-import ast.node.AstNodeImpl;
+public class Comparison   extends AbstractExpression{
 
-public class Comparison extends AstNodeImpl implements Expression{
+    private Expression leftExpr;
+    private Expression rightExpr;
+    private String operand;
 
-
-    public Comparison(int line, int column) {
+    public Comparison(int line, int column, Expression left, Expression right, String operand)
+    {
         super(line, column);
+        this.leftExpr=left;
+        this.rightExpr=right;
+        this.operand = operand;
+    }
+
+
+    public Expression getRightExpr() {
+        return rightExpr;
+    }
+
+    public Expression getLeftExpr() {
+        return leftExpr;
+    }
+
+    public String getOperand() {
+        return operand;
     }
 }

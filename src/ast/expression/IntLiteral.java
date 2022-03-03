@@ -1,9 +1,14 @@
 package ast.expression;
 
-import ast.node.AstNodeImpl;
-
-public class IntLiteral extends AstNodeImpl implements Expression {
-    public IntLiteral(int line, int column) {
+public class IntLiteral   extends AbstractExpression {
+    public IntLiteral(int line, int column,int value) {
         super(line, column);
+        this.value = value;
+    }
+
+    private int value;
+
+    public int getValue(){
+        return this.value;
     }
 }
