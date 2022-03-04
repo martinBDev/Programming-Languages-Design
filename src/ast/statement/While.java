@@ -8,18 +8,21 @@ import java.util.List;
 public class While   extends AbstractStatement{
 
     private List<Statement> statements;
-    private List<Expression> expressions;
+    private Expression expression;
 
 
-    public While(int line, int column) {
+    public While(int line, int column, Expression expression ,List<Statement> statements)
+    {
         super(line, column);
+        this.statements = statements;
+        this.expression = expression;
     }
 
     public List<Statement> getStatements(){
         return new ArrayList<>(this.statements);
     }
 
-    public List<Expression> getExpressions(){
-        return new ArrayList<>(this.expressions);
+    public Expression getExpression(){
+        return this.expression;
     }
 }

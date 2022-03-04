@@ -16,7 +16,8 @@ import ast.*;
        ;
 */
 
-program returns [AstNode ast]: expression {$ast = $expression.ast;};
+program returns [AstNode ast]: (expression {$ast = $expression.ast;} | statement{$ast = $statement.ast;})*
+;
 
 
 funcDefinition:'def' ID '(' (variable (',' variable)* )? ')' ':' (builtInType)? '{' variableDefinition*  statement* '}'
@@ -25,17 +26,40 @@ funcDefinition:'def' ID '(' (variable (',' variable)* )? ')' ':' (builtInType)? 
 mainProgram:'def' 'main' '(' ')' ':' '{' variableDefinition*  statement* '}';
 
 
-statement: ('print'|'input') expression(','expression)* ';'
-|expression '=' expression ';'
-|'if' expression ':'  stmBody  ('else' stmBody )?
-|'while' expression ':' stmBody
-|'return' expression ';'
-| ID '(' (expression (','expression)* )? ')' ';'
+statement returns [Statement ast]: p=('print'|'input') expression(','expression)* ';'
+|e1=expression '=' e2=expression ';'{$ast = new Assignment($e1.ast.getLine(),
+                                                           $e1.ast.getColumn(),
+                                                           $e1.ast,
+                                                           $e2.ast);}
+|ifTxt='if' e1=expression ':'  s1=stmBody  {If ifStatement = new If($ifTxt.getLine(),
+                                                    $ifTxt.getCharPositionInLine(),
+                                                    $e1.ast);
+
+                                      ifStatement.addAllStatementsTrue($s1.ast);
+
+                                      }
+                        ('else' s2=stmBody {ifStatement.addAllStatementsFalse($s2.ast);}
+                        )? {$ast = ifStatement;}
+|w='while' e1=expression ':' s1=stmBody {$ast = new While($w.getLine(),
+                                                        $w.getCharPositionInLine(),
+                                                        $e1.ast,$s1.ast);}
+|r='return' e1=expression ';' {$ast = new Return($r.getLine(),
+                                               $r.getCharPositionInLine(),
+                                               $e1.ast);}
+| i1=ID '(' {ProcedureInvocation pi = new ProcedureInvocation($i1.getLine(),
+                                                              $i1.getCharPositionInLine(),
+                                                              new Variable($i1.getLine(),
+                                                                           $i1.getCharPositionInLine(),
+                                                                           $i1.text));}
+        (e1=expression {pi.addExpression($e1.ast);}(','e2=expression {pi.addExpression($e2.ast);})* )? ')' ';'
+
+        {$ast = pi;}
 ;
 
 
-stmBody: '{'statement+'}'
-| statement
+stmBody returns [List<Statement> ast] locals [List<Statement> stms = new ArrayList<>()]:
+'{'(s1=statement {$stms.add($s1.ast);})+'}' {$ast = $stms;}
+| s1=statement {$stms.add($s1.ast); $ast = $stms;}
 ;
 
 
