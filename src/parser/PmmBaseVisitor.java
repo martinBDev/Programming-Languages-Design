@@ -8,6 +8,7 @@ import ast.statement.*;
 import ast.type.*;
 import ast.type.Integer;
 import ast.type.Double;
+import ast.type.Void;
 import ast.*;
 
 

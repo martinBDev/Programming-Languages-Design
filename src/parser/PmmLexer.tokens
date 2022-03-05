@@ -51,8 +51,8 @@ REAL_CONSTANT=44
 '}'=7
 'main'=8
 'print'=9
-'input'=10
-';'=11
+';'=10
+'input'=11
 '='=12
 'if'=13
 'else'=14

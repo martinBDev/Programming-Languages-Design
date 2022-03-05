@@ -1,6 +1,11 @@
 package ast;
 
+import ast.definition.Definition;
+import ast.definition.VariableDefinition;
 import ast.node.AstNode;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Program implements AstNode {
 
@@ -8,10 +13,21 @@ public class Program implements AstNode {
     private int column;
 
 
+    private List<Definition> definitions;
+
     public Program(int line, int column) {
         this.line = line;
         this.column = column;
+        this.definitions = new ArrayList<>();
 
+    }
+
+    public void addDefinition(Definition definition){
+        this.definitions.add(definition);
+    }
+
+    public void addAllVariableDefinitions(List<VariableDefinition> defs){
+        this.definitions.addAll(defs);
     }
 
     @Override
