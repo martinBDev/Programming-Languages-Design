@@ -5,7 +5,7 @@ import ast.statement.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FunctionInvocation   extends AbstractExpression {
+public class FunctionInvocation   extends AbstractExpression implements Statement{
 
     private List<Expression> expressions;
     private Variable name;

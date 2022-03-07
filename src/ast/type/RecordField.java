@@ -1,13 +1,20 @@
 package ast.type;
 
-public class RecordField {
+import ast.node.AstNode;
+
+public class RecordField implements AstNode {
 
     private String name;
     private Type type;
+    private int line;
+    private int column;
 
-    public RecordField(String name,Type type){
+    public RecordField(int line, int column,String name,Type type){
+
         this.name = name;
         this.type = type;
+        this.line = line;
+        this.column = column;
     }
 
     public String getName(){
@@ -16,5 +23,15 @@ public class RecordField {
 
     public Type getType(){
         return this.type;
+    }
+
+    @Override
+    public int getLine() {
+        return this.line;
+    }
+
+    @Override
+    public int getColumn() {
+        return this.column;
     }
 }

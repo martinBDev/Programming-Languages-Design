@@ -13,9 +13,6 @@ import ast.*;
 
 }
 
-/*program returns [AstNode ast]: ( variableDefinition | funcDefinition )* mainProgram EOF
-       ;
-*/
 
 program returns [AstNode ast]: {Program program = new Program(0,0);}
                             (
@@ -32,7 +29,7 @@ program returns [AstNode ast]: {Program program = new Program(0,0);}
 funcDefinition returns [FunctionDefinition ast]
 locals [List<VariableDefinition> params = new ArrayList<>()]: d='def' i1=ID
                '(' (
-                     v1=variable {$params.addAll($v1.ast);}(',' v2=variable {$params.addAll($v2.ast);})*
+                     v1=builtInVariable {$params.addAll($v1.ast);}(',' v2=builtInVariable {$params.addAll($v2.ast);})*
                     )?
                 ')'
                col=':' {Type builtIn = new Void($col.getLine(),$col.getCharPositionInLine()+1);}
@@ -102,7 +99,7 @@ statement returns [Statement ast]:  p='print'{Print stm = new Print($p.getLine()
 |r='return' e1=expression ';' {$ast = new Return($r.getLine(),
                                                $r.getCharPositionInLine()+1,
                                                $e1.ast);}
-| i1=ID '(' {ProcedureInvocation pi = new ProcedureInvocation($i1.getLine(),
+| i1=ID '(' {FunctionInvocation pi = new FunctionInvocation($i1.getLine(),
                                                               $i1.getCharPositionInLine()+1,
                                                               new Variable($i1.getLine(),
                                                                            $i1.getCharPositionInLine()+1,
@@ -119,7 +116,29 @@ stmBody returns [List<Statement> ast] locals [List<Statement> stms = new ArrayLi
 ;
 
 
+
+
 variableDefinition returns [List<VariableDefinition> ast]: v1=variable {$ast = $v1.ast;}';' ;
+
+
+builtInVariable returns [List<VariableDefinition> ast]: i1=ID {
+                                                      List<VariableDefinition> list = new ArrayList<>();
+                                                      list.add(new VariableDefinition($i1.getLine(),
+                                                                                      $i1.getCharPositionInLine()+1,
+                                                                                      $i1.text,
+                                                                                      null));
+                                                    } (',' id2=ID {
+                                                                     list.add(new VariableDefinition($id2.getLine(),
+                                                                                                     $id2.getCharPositionInLine()+1,
+                                                                                                     $id2.text,
+                                                                                                     null));
+                                                                    }
+                                                       )* ':' t1=builtInType {
+                                                                     for(VariableDefinition vd : list){vd.setType($t1.ast);}
+
+                                                                    }
+        {$ast = list;}
+;
 
 variable returns [List<VariableDefinition> ast]: i1=ID {
                                                       List<VariableDefinition> list = new ArrayList<>();
@@ -139,6 +158,8 @@ variable returns [List<VariableDefinition> ast]: i1=ID {
                                                                     }
         {$ast = list;}
 ;
+
+
 
 
 expression returns [Expression ast]:
@@ -165,9 +186,9 @@ expression returns [Expression ast]:
         {
             $ast = new ArrayAccess($ep1.ast.getLine(), $ep1.ast.getColumn(), $ep1.ast, $ep2.ast);
         }
-    | ep1=expression'.'ep2=expression
+    | ep1=expression'.'i1=ID
         {
-                $ast = new FieldAccess($ep1.ast.getLine(), $ep1.ast.getColumn(), $ep1.ast, $ep2.text);
+                $ast = new FieldAccess($ep1.ast.getLine(), $ep1.ast.getColumn(), $ep1.ast, $i1.text);
         }
     | '('t1=type')'ep1=expression
         {
@@ -217,7 +238,9 @@ type returns [Type ast] locals [List<RecordField> fields = new ArrayList<RecordF
  | 'struct''{' ((v=variableDefinition {
 
                                         for(VariableDefinition df : $v.ast){
-                                               $fields.add( new RecordField(df.getName(),
+                                               $fields.add( new RecordField(df.getLine(),
+                                                                            df.getColumn(),
+                                                                            df.getName(),
                                                                            df.getType()
                                                                            )
                                                           );

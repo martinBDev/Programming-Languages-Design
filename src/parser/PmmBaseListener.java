@@ -100,6 +100,18 @@ public class PmmBaseListener implements PmmListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterBuiltInVariable(PmmParser.BuiltInVariableContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBuiltInVariable(PmmParser.BuiltInVariableContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterVariable(PmmParser.VariableContext ctx) { }
 	/**
 	 * {@inheritDoc}

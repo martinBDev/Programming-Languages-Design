@@ -80,6 +80,16 @@ public interface PmmListener extends ParseTreeListener {
 	 */
 	void exitVariableDefinition(PmmParser.VariableDefinitionContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link PmmParser#builtInVariable}.
+	 * @param ctx the parse tree
+	 */
+	void enterBuiltInVariable(PmmParser.BuiltInVariableContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link PmmParser#builtInVariable}.
+	 * @param ctx the parse tree
+	 */
+	void exitBuiltInVariable(PmmParser.BuiltInVariableContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link PmmParser#variable}.
 	 * @param ctx the parse tree
 	 */
