@@ -13,4 +13,12 @@ public class CharLiteral   extends AbstractExpression {
     public char getValue(){
         return this.value;
     }
+
+    @Override
+    public String toString(){
+
+        return "CharLiteral: "
+                + this.value;
+
+    }
 }

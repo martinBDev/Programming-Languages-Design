@@ -22,4 +22,19 @@ public class Input   extends AbstractStatement {
     public List<Expression> getExpressions(){
         return new ArrayList<>(this.expressions);
     }
+
+    @Override
+    public String toString(){
+
+        String str = "Input: "
+                + " - Expressions: ";
+
+
+        for(Expression x : expressions){
+            str += "\n\t" + x.toString();
+        }
+
+
+        return str;
+    }
 }

@@ -27,4 +27,19 @@ public class FunctionInvocation   extends AbstractExpression implements Statemen
     public Variable getName(){
         return this.name;
     }
+
+    @Override
+    public String toString(){
+
+        String str =  "Function Invocation: "
+                + " - Variable: "
+                + this.name.toString()
+                + " - Expressions: ";
+
+        for(Expression x : expressions){
+            str += "\n" + x.toString();
+        }
+
+        return str;
+    }
 }

@@ -315,7 +315,7 @@ public class PmmParser extends Parser {
 			match(T__3);
 			setState(56);
 			((FuncDefinitionContext)_localctx).col = match(T__4);
-			Type builtIn = new Void(((FuncDefinitionContext)_localctx).col.getLine(),((FuncDefinitionContext)_localctx).col.getCharPositionInLine()+1);
+			Type builtIn = Void.getInstance();
 			setState(61);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
@@ -445,7 +445,7 @@ public class PmmParser extends Parser {
 			                                             "main",
 			                                             new FunctionType(((MainProgramContext)_localctx).col.getLine(),
 			                                                              ((MainProgramContext)_localctx).col.getCharPositionInLine()+1,
-			                                                              new Void(0,0),
+			                                                              Void.getInstance(),
 			                                                              new ArrayList<>()
 			                                                              )
 			                                             );

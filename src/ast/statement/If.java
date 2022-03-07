@@ -36,4 +36,25 @@ public class If   extends AbstractStatement
         this.whenFalse.add(stmn);
     }
 
+
+    @Override
+    public String toString(){
+        String str =  "If: "
+                + " - Condition: "
+                +this.condition.toString()
+                +" - When Condition True: "
+                ;
+
+
+        for(Statement s : whenTrue) {
+            str += "\n" + s.toString();
+        }
+
+        str += "\n" + " - When Condition False: ";
+        for(Statement s : whenFalse) {
+            str += "\n" + s.toString();
+        }
+        return str;
+    }
+
 }

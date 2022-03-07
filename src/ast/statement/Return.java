@@ -15,4 +15,11 @@ public class Return extends AbstractStatement implements Expression {
     public Expression getExprToReturn(){
         return this.exprToReturn;
     }
+
+    @Override
+    public String toString(){
+        return  "Return: - Expression to return: "
+                + this.exprToReturn.toString();
+
+    }
 }

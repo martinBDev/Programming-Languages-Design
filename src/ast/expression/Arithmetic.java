@@ -12,4 +12,14 @@ public class Arithmetic extends AbstractExpression {
         this.secondStatement = secondStatement;
         this.firstStatement = firstStatement;
     }
+
+
+    @Override
+    public String toString(){
+
+        return "Arithmetic: " + firstStatement.toString()
+                + this.operator
+                + secondStatement.toString();
+
+    }
 }

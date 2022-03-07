@@ -5,20 +5,31 @@ import ast.expression.Expression;
 public class Assignment extends AbstractStatement{
 
     private Expression leftExpr;
-    private Expression rigthExpr;
+    private Expression rightExpr;
 
-    public Assignment(int line, int column, Expression leftExpr, Expression rigthExpr) {
+    public Assignment(int line, int column, Expression leftExpr, Expression rightExpr) {
 
         super(line, column);
         this.leftExpr = leftExpr;
-        this.rigthExpr = rigthExpr;
+        this.rightExpr = rightExpr;
     }
 
     public Expression getLeftExpr(){
         return this.leftExpr;
     }
 
-    public Expression getRigthExpr(){
-        return this.rigthExpr;
+    public Expression getRightExpr(){
+        return this.rightExpr;
     }
+
+    @Override
+    public String toString(){
+        return "Assignment: "
+                + " - Left Expression: "
+                +this.leftExpr.toString()
+                +" - Right Expression "
+                +this.rightExpr.toString();
+    }
+
+
 }

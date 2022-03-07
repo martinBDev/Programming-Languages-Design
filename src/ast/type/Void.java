@@ -1,7 +1,17 @@
 package ast.type;
 
 public class Void extends AbstractType{
-    public Void(int line, int column) {
+
+    private static Void instance;
+    private Void(int line, int column) {
         super(line, column);
+    }
+
+
+
+    public static Void getInstance(){
+        if(instance == null) instance = new Void(0,0);
+
+        return instance;
     }
 }

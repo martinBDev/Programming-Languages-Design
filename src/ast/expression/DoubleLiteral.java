@@ -12,4 +12,13 @@ public class DoubleLiteral extends AbstractExpression {
     public Double getValue(){
         return this.value;
     }
+
+    @Override
+    public String toString(){
+
+        return "DoubleLiteral: "
+                + " - Value: "
+                + this.value;
+
+    }
 }

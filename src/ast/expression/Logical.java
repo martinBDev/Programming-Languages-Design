@@ -27,4 +27,17 @@ public class Logical extends AbstractExpression{
     public String getOperand() {
         return operand;
     }
+
+    @Override
+    public String toString(){
+
+        return "Logical: "
+                + " - Left Expression: "
+                + this.leftExpr.toString()
+                + " - Operand: "
+                + this.operand
+                + " - Right Expression"
+                + this.rightExpr.toString();
+
+    }
 }

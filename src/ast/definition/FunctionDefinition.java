@@ -1,5 +1,6 @@
 package ast.definition;
 
+import ast.expression.Expression;
 import ast.statement.Statement;
 import ast.type.Type;
 
@@ -44,5 +45,25 @@ public class FunctionDefinition extends AbstractDefinition{
 
     public List<Statement> getStatements(){
         return new ArrayList<>(this.statements);
+    }
+
+    @Override
+    public String toString(){
+        String str =  "Function Definition - Type: "
+                + super.getType().toString() + " - Name: "
+                + super.getName()
+                + ":\n\t-Variable Definition:";
+
+        for(VariableDefinition v : variableDefinitions){
+            str += "\n\t\t" + v.toString();
+        }
+
+        str += "\n\t-Statement:";
+        for(Statement s : statements){
+            str += "\n\t\t" + s.toString();
+        }
+
+
+        return str;
     }
 }

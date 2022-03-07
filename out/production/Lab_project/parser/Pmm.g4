@@ -32,7 +32,7 @@ locals [List<VariableDefinition> params = new ArrayList<>()]: d='def' i1=ID
                      v1=builtInVariable {$params.addAll($v1.ast);}(',' v2=builtInVariable {$params.addAll($v2.ast);})*
                     )?
                 ')'
-               col=':' {Type builtIn = new Void($col.getLine(),$col.getCharPositionInLine()+1);}
+               col=':' {Type builtIn = Void.getInstance();}
                (b=builtInType {builtIn=$b.ast;})?
                {$ast = new FunctionDefinition($d.getLine(),
                                               $d.getCharPositionInLine()+1,
@@ -56,7 +56,7 @@ mainProgram returns [FunctionDefinition ast]:d='def' 'main' '(' ')' col=':'
                                              "main",
                                              new FunctionType($col.getLine(),
                                                               $col.getCharPositionInLine()+1,
-                                                              new Void(0,0),
+                                                              Void.getInstance(),
                                                               new ArrayList<>()
                                                               )
                                              );

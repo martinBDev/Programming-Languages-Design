@@ -20,4 +20,15 @@ public class FieldAccess   extends AbstractExpression{
     public String getFieldName(){
         return this.fieldName;
     }
+
+    @Override
+    public String toString(){
+
+        return "FieldAccess: "
+                + " - Field Name: "
+                + this.fieldName
+                + " - Expression: "
+                + this.expression.toString();
+
+    }
 }

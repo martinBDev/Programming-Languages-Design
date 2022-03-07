@@ -13,4 +13,14 @@ public class UnaryMinus   extends AbstractExpression{
     public Expression getExpression(){
         return this.expression;
     }
+
+    @Override
+    public String toString(){
+
+        return "UnaryMinus: "
+                + " - Expression: "
+                + this.expression.toString()
+                ;
+
+    }
 }

@@ -25,4 +25,19 @@ public class While   extends AbstractStatement{
     public Expression getExpression(){
         return this.expression;
     }
+
+    @Override
+    public String toString(){
+
+        String str = "While - Condition Expression: "
+                + this.expression.toString()
+                + " - Statements: ";
+
+        for(Statement s : statements){
+            str += "\n" + s.toString();
+        }
+
+        return str;
+
+    }
 }

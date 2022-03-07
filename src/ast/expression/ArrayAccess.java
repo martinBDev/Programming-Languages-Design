@@ -3,19 +3,29 @@ package ast.expression;
 public class ArrayAccess extends AbstractExpression{
 
     private Expression leftExpr;
-    private Expression rigthExpr;
+    private Expression rightExpr;
 
-    public ArrayAccess(int line, int column, Expression leftExpr, Expression rigthExpr) {
+    public ArrayAccess(int line, int column, Expression leftExpr, Expression rightExpr) {
         super(line, column);
         this.leftExpr = leftExpr;
-        this.rigthExpr= rigthExpr;
+        this.rightExpr= rightExpr;
     }
 
     public Expression getLeftExpr(){
         return this.leftExpr;
     }
 
-    public Expression getRigthExpr(){
-        return this.rigthExpr;
+    public Expression getRightExpr(){
+        return this.rightExpr;
+    }
+
+    @Override
+    public String toString(){
+
+        return "ArrayAccess: " + leftExpr.toString()
+                + '['
+                + rightExpr.toString()
+                +']';
+
     }
 }

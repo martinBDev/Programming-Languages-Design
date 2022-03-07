@@ -26,4 +26,17 @@ public class Print   extends AbstractStatement{
         return new ArrayList<>(this.expressions);
     }
 
+    @Override
+    public String toString(){
+        String str = "Print: - Expressions: ";
+        for(Expression x : expressions){
+
+            str += "\n"+x.toString();
+
+        }
+
+
+        return str;
+    }
+
 }

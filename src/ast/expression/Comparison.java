@@ -26,4 +26,14 @@ public class Comparison   extends AbstractExpression{
     public String getOperand() {
         return operand;
     }
+
+    @Override
+    public String toString(){
+
+        return "Comparison: [ Left Expression : " + leftExpr.toString()
+                + " - Operand: " + operand
+                + " - Right Expression : "+rightExpr.toString() + "]"
+                ;
+
+    }
 }

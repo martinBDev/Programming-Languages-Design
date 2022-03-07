@@ -13,6 +13,14 @@ public class VariableDefinition extends AbstractDefinition implements Statement 
     }
 
 
+    @Override
+    public String toString(){
+        return "Variable Definition - Type: "
+                + super.getType().toString()
+                + " - Name: "
+                + super.getName();
+
+    }
 
 
 }

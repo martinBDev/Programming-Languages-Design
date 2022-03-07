@@ -11,4 +11,15 @@ public class Variable   extends AbstractExpression {
     public String getName(){
         return this.name;
     }
+
+    @Override
+    public String toString(){
+
+        return "Variable: "
+                + " - Name: "
+                + this.name
+                ;
+
+    }
+
 }

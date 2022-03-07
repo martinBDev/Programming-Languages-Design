@@ -12,4 +12,14 @@ public class UnaryNot extends AbstractExpression{
     public Expression getExpression() {
         return expression;
     }
+
+    @Override
+    public String toString(){
+
+        return "UnaryNot: "
+                + " - Expression: "
+                + this.expression.toString()
+                ;
+
+    }
 }
