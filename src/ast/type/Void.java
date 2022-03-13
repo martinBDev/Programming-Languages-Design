@@ -14,4 +14,11 @@ public class Void extends AbstractType{
 
         return instance;
     }
+
+    @Override
+    public String toString(){
+        return "Void";
+    }
+
+
 }

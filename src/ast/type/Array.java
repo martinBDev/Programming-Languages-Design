@@ -19,4 +19,11 @@ public class Array extends AbstractType{
     public Type getType(){
         return this.type;
     }
+
+    @Override
+    public String toString(){
+        return "Array \n- Size: " + this.size + " \n- Type: " + this.type;
+    }
+
+
 }

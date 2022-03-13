@@ -1,0 +1,16 @@
+# Variable and function definitions
+i, j, n: int;
+c: char;
+
+# Empty function--> fail: funciones no admiten struct como param
+def p(n:struct): {
+
+
+    a = (int)(char)(struct)b;
+
+}
+
+# Main function definition
+def main(): {
+
+}

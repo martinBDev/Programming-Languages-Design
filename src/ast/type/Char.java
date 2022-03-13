@@ -15,4 +15,11 @@ public class Char extends AbstractType{
     private Char(int line, int column) {
         super(line, column);
     }
+
+
+    @Override
+    public String toString(){
+        return "Char";
+    }
+
 }

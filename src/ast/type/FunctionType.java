@@ -25,5 +25,18 @@ public class FunctionType extends AbstractType{
     }
 
 
+    @Override
+    public String toString(){
+        String st =  "FunctionType: - Returning Type: " + this.returningType +
+                " - Parameters: ";
+
+        for(VariableDefinition vars : params){
+            st += vars.toString() + ",";
+        }
+
+
+        return st;
+    }
+
 
 }

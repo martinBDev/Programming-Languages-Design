@@ -39,4 +39,15 @@ public class Program implements AstNode {
     public int getColumn() {
         return 0;
     }
+
+
+    @Override
+    public String toString(){
+        String st = "";
+        for(Definition df : definitions){
+            st += "\n - " + df.toString();
+        }
+        return  st;
+    }
+
 }

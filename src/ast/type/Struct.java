@@ -17,4 +17,16 @@ public class Struct extends AbstractType{
     public void addField(RecordField field){
         this.fields.add(field);
     }
+
+
+    @Override
+    public String toString(){
+        String st = "Struct: - Fields: ";
+
+        for(RecordField rf : fields){
+            st += "\n - " + rf.toString();
+        }
+        return st;
+    }
+
 }

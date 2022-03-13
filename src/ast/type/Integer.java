@@ -14,4 +14,11 @@ public class Integer extends AbstractType{
     private Integer(int line, int column) {
         super(line, column);
     }
+
+
+    @Override
+    public String toString(){
+        return "Integer";
+    }
+
 }

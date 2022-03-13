@@ -14,4 +14,11 @@ public class Double extends AbstractType{
     private Double(int line, int column) {
         super(line, column);
     }
+
+
+    @Override
+    public String toString(){
+    return "Double";
+    }
+
 }

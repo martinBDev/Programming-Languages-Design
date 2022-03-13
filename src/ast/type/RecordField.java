@@ -34,4 +34,12 @@ public class RecordField implements AstNode {
     public int getColumn() {
         return this.column;
     }
+
+
+    @Override
+    public String toString(){
+        return "RecordField - Type: " + this.type +
+                " - Name: " + this.name ;
+    }
+
 }
