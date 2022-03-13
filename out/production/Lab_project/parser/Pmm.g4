@@ -104,7 +104,9 @@ statement returns [Statement ast]:  p='print'{Print stm = new Print($p.getLine()
                                                               new Variable($i1.getLine(),
                                                                            $i1.getCharPositionInLine()+1,
                                                                            $i1.text));}
-        (e1=expression {pi.addExpression($e1.ast);}(','e2=expression {pi.addExpression($e2.ast);})* )? ')' ';'
+        (e1=expression {pi.addExpression($e1.ast);}
+            (','e2=expression {pi.addExpression($e2.ast);})*
+        )? ')' ';'
 
         {$ast = pi;}
 ;
@@ -174,6 +176,8 @@ expression returns [Expression ast]:
     | CHAR_CONSTANT {$ast = new CharLiteral($CHAR_CONSTANT.getLine(),
                                             $CHAR_CONSTANT.getCharPositionInLine()+1,
                                             LexerHelper.lexemeToChar($CHAR_CONSTANT.text));}
+
+    | '(' e1=expression ')' {$ast = $e1.ast;}
     | ID  {
                      FunctionInvocation fi = new FunctionInvocation($ID.getLine(),
                                                    $ID.getCharPositionInLine()+1,
