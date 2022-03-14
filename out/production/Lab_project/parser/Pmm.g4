@@ -125,16 +125,31 @@ variableDefinition returns [List<VariableDefinition> ast]: v1=variable {$ast = $
 
 builtInVariable returns [List<VariableDefinition> ast]: i1=ID {
                                                       List<VariableDefinition> list = new ArrayList<>();
-                                                      list.add(new VariableDefinition($i1.getLine(),
-                                                                                      $i1.getCharPositionInLine()+1,
-                                                                                      $i1.text,
-                                                                                      null));
+
+                                                       list.add(new VariableDefinition($i1.getLine(),
+                                                                                       $i1.getCharPositionInLine()+1,
+                                                                                       $i1.text,
+                                                                                       null));
+
                                                     } (',' id2=ID {
-                                                                     list.add(new VariableDefinition($id2.getLine(),
-                                                                                                     $id2.getCharPositionInLine()+1,
-                                                                                                     $id2.text,
-                                                                                                     null));
+
+                                                               VariableDefinition df = new VariableDefinition(
+                                                                                     $id2.getLine(),
+                                                                                     $id2.getCharPositionInLine()+1,
+                                                                                     $id2.text,
+                                                                                     null);
+
+                                                             if(!list.stream().map(i -> i.getName()).toList().contains($id2.text)){
+
+                                                                list.add(df);
+
+                                                             }else{
+                                                                ErrorType et = new ErrorType(
+                                                                                $id2.getLine(),
+                                                                                $id2.getCharPositionInLine()+1,
+                                                                                "Already defined variable with name: " + $id2.text);
                                                                     }
+                                                                  }
                                                        )* ':' t1=builtInType {
                                                                      for(VariableDefinition vd : list){vd.setType($t1.ast);}
 
@@ -144,16 +159,32 @@ builtInVariable returns [List<VariableDefinition> ast]: i1=ID {
 
 variable returns [List<VariableDefinition> ast]: i1=ID {
                                                       List<VariableDefinition> list = new ArrayList<>();
+
                                                       list.add(new VariableDefinition($i1.getLine(),
                                                                                       $i1.getCharPositionInLine()+1,
                                                                                       $i1.text,
                                                                                       null));
+
+
                                                     } (',' id2=ID {
-                                                                     list.add(new VariableDefinition($id2.getLine(),
-                                                                                                     $id2.getCharPositionInLine()+1,
-                                                                                                     $id2.text,
-                                                                                                     null));
+                                                            VariableDefinition df = new VariableDefinition(
+                                                                                     $id2.getLine(),
+                                                                                     $id2.getCharPositionInLine()+1,
+                                                                                     $id2.text,
+                                                                                     null);
+
+
+                                                             if(!list.stream().map(i -> i.getName()).toList().contains($id2.text)){
+
+                                                               list.add(df);
+
+                                                             }else{
+                                                                ErrorType et = new ErrorType(
+                                                                                $id2.getLine(),
+                                                                                $id2.getCharPositionInLine()+1,
+                                                                                "Already defined variable with name: " + $id2.text);
                                                                     }
+                                                        }
                                                        )* ':' t1=type {
                                                                      for(VariableDefinition vd : list){vd.setType($t1.ast);}
 
@@ -242,12 +273,25 @@ type returns [Type ast] locals [List<RecordField> fields = new ArrayList<RecordF
  | 'struct''{' ((v=variableDefinition {
 
                                         for(VariableDefinition df : $v.ast){
-                                               $fields.add( new RecordField(df.getLine(),
-                                                                            df.getColumn(),
-                                                                            df.getName(),
-                                                                           df.getType()
-                                                                           )
-                                                          );
+
+                                            if(!$fields.stream().map(i -> i.getName()).toList().contains(df.getName())){
+
+                                            $fields.add( new RecordField(df.getLine(),
+                                                                    df.getColumn(),
+                                                                    df.getName(),
+                                                                   df.getType()
+                                                                   )
+                                                  );
+
+                                            }else{
+
+                                            ErrorType et = new ErrorType(
+                                                        df.getLine(),
+                                                        df.getColumn(),
+                                                        "Already defined field in struct with name: " + df.getName());
+
+                                            }
+
                                          }
 
 

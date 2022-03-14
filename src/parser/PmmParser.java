@@ -941,10 +941,12 @@ public class PmmParser extends Parser {
 			((BuiltInVariableContext)_localctx).i1 = match(ID);
 
 			                                                      List<VariableDefinition> list = new ArrayList<>();
-			                                                      list.add(new VariableDefinition(((BuiltInVariableContext)_localctx).i1.getLine(),
-			                                                                                      ((BuiltInVariableContext)_localctx).i1.getCharPositionInLine()+1,
-			                                                                                      (((BuiltInVariableContext)_localctx).i1!=null?((BuiltInVariableContext)_localctx).i1.getText():null),
-			                                                                                      null));
+
+			                                                       list.add(new VariableDefinition(((BuiltInVariableContext)_localctx).i1.getLine(),
+			                                                                                       ((BuiltInVariableContext)_localctx).i1.getCharPositionInLine()+1,
+			                                                                                       (((BuiltInVariableContext)_localctx).i1!=null?((BuiltInVariableContext)_localctx).i1.getText():null),
+			                                                                                       null));
+
 			                                                    
 			setState(218);
 			_errHandler.sync(this);
@@ -957,11 +959,24 @@ public class PmmParser extends Parser {
 				setState(214);
 				((BuiltInVariableContext)_localctx).id2 = match(ID);
 
-				                                                                     list.add(new VariableDefinition(((BuiltInVariableContext)_localctx).id2.getLine(),
-				                                                                                                     ((BuiltInVariableContext)_localctx).id2.getCharPositionInLine()+1,
-				                                                                                                     (((BuiltInVariableContext)_localctx).id2!=null?((BuiltInVariableContext)_localctx).id2.getText():null),
-				                                                                                                     null));
-				                                                                    
+
+				                                                               VariableDefinition df = new VariableDefinition(
+				                                                                                     ((BuiltInVariableContext)_localctx).id2.getLine(),
+				                                                                                     ((BuiltInVariableContext)_localctx).id2.getCharPositionInLine()+1,
+				                                                                                     (((BuiltInVariableContext)_localctx).id2!=null?((BuiltInVariableContext)_localctx).id2.getText():null),
+				                                                                                     null);
+
+				                                                             if(!list.stream().map(i -> i.getName()).toList().contains((((BuiltInVariableContext)_localctx).id2!=null?((BuiltInVariableContext)_localctx).id2.getText():null))){
+
+				                                                                list.add(df);
+
+				                                                             }else{
+				                                                                ErrorType et = new ErrorType(
+				                                                                                ((BuiltInVariableContext)_localctx).id2.getLine(),
+				                                                                                ((BuiltInVariableContext)_localctx).id2.getCharPositionInLine()+1,
+				                                                                                "Already defined variable with name: " + (((BuiltInVariableContext)_localctx).id2!=null?((BuiltInVariableContext)_localctx).id2.getText():null));
+				                                                                    }
+				                                                                  
 				}
 				}
 				setState(220);
@@ -1032,10 +1047,13 @@ public class PmmParser extends Parser {
 			((VariableContext)_localctx).i1 = match(ID);
 
 			                                                      List<VariableDefinition> list = new ArrayList<>();
+
 			                                                      list.add(new VariableDefinition(((VariableContext)_localctx).i1.getLine(),
 			                                                                                      ((VariableContext)_localctx).i1.getCharPositionInLine()+1,
 			                                                                                      (((VariableContext)_localctx).i1!=null?((VariableContext)_localctx).i1.getText():null),
 			                                                                                      null));
+
+
 			                                                    
 			setState(233);
 			_errHandler.sync(this);
@@ -1048,11 +1066,24 @@ public class PmmParser extends Parser {
 				setState(229);
 				((VariableContext)_localctx).id2 = match(ID);
 
-				                                                                     list.add(new VariableDefinition(((VariableContext)_localctx).id2.getLine(),
-				                                                                                                     ((VariableContext)_localctx).id2.getCharPositionInLine()+1,
-				                                                                                                     (((VariableContext)_localctx).id2!=null?((VariableContext)_localctx).id2.getText():null),
-				                                                                                                     null));
-				                                                                    
+				                                                            VariableDefinition df = new VariableDefinition(
+				                                                                                     ((VariableContext)_localctx).id2.getLine(),
+				                                                                                     ((VariableContext)_localctx).id2.getCharPositionInLine()+1,
+				                                                                                     (((VariableContext)_localctx).id2!=null?((VariableContext)_localctx).id2.getText():null),
+				                                                                                     null);
+
+
+				                                                             if(!list.stream().map(i -> i.getName()).toList().contains((((VariableContext)_localctx).id2!=null?((VariableContext)_localctx).id2.getText():null))){
+
+				                                                               list.add(df);
+
+				                                                             }else{
+				                                                                ErrorType et = new ErrorType(
+				                                                                                ((VariableContext)_localctx).id2.getLine(),
+				                                                                                ((VariableContext)_localctx).id2.getCharPositionInLine()+1,
+				                                                                                "Already defined variable with name: " + (((VariableContext)_localctx).id2!=null?((VariableContext)_localctx).id2.getText():null));
+				                                                                    }
+				                                                        
 				}
 				}
 				setState(235);
@@ -1549,12 +1580,25 @@ public class PmmParser extends Parser {
 
 
 					                                        for(VariableDefinition df : ((TypeContext)_localctx).v.ast){
-					                                               _localctx.fields.add( new RecordField(df.getLine(),
-					                                                                            df.getColumn(),
-					                                                                            df.getName(),
-					                                                                           df.getType()
-					                                                                           )
-					                                                          );
+
+					                                            if(!_localctx.fields.stream().map(i -> i.getName()).toList().contains(df.getName())){
+
+					                                            _localctx.fields.add( new RecordField(df.getLine(),
+					                                                                    df.getColumn(),
+					                                                                    df.getName(),
+					                                                                   df.getType()
+					                                                                   )
+					                                                  );
+
+					                                            }else{
+
+					                                            ErrorType et = new ErrorType(
+					                                                        df.getLine(),
+					                                                        df.getColumn(),
+					                                                        "Already defined field in struct with name: " + df.getName());
+
+					                                            }
+
 					                                         }
 
 

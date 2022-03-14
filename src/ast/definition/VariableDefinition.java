@@ -22,5 +22,5 @@ public class VariableDefinition extends AbstractDefinition implements Statement 
 
     }
 
-
+ 
 }
