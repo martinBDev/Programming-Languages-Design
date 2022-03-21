@@ -1,6 +1,7 @@
 package ast.statement;
 
 import ast.expression.Expression;
+import visitor.Visitor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,7 @@ public class While   extends AbstractStatement{
     }
 
     public List<Statement> getStatements(){
-        return new ArrayList<>(this.statements);
+        return this.statements;
     }
 
     public Expression getExpression(){
@@ -39,5 +40,10 @@ public class While   extends AbstractStatement{
 
         return str;
 
+    }
+
+    @Override
+    public <TP, TR> TR accept(Visitor<TP, TR> v, TP param) {
+        return v.visit(this,param);
     }
 }

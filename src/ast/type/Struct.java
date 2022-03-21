@@ -1,5 +1,7 @@
 package ast.type;
 
+import visitor.Visitor;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,4 +31,9 @@ public class Struct extends AbstractType{
         return st;
     }
 
+
+    @Override
+    public <TP, TR> TR accept(Visitor<TP, TR> v, TP param) {
+        return v.visit(this,param);
+    }
 }

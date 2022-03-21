@@ -1,6 +1,7 @@
 package ast.statement;
 
 import ast.expression.Expression;
+import visitor.Visitor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,18 @@ public class If   extends AbstractStatement
         this.condition = condition;
         this.whenFalse = new ArrayList<>();
         this.whenTrue = new ArrayList<>();
+    }
+
+    public List<Statement> getStatementsWhenTrue(){
+        return this.whenTrue;
+    }
+
+    public List<Statement> getStatementsWhenFalse(){
+        return this.whenFalse;
+    }
+
+    public Expression getCondition(){
+        return this.condition;
     }
 
     public void addAllStatementsTrue(List<Statement> stmns){
@@ -55,6 +68,11 @@ public class If   extends AbstractStatement
             str += "\n" + s.toString();
         }
         return str;
+    }
+
+    @Override
+    public <TP, TR> TR accept(Visitor<TP, TR> v, TP param) {
+        return v.visit(this,param);
     }
 
 }

@@ -1,6 +1,7 @@
 package ast.type;
 
 import errorhandler.EH;
+import visitor.Visitor;
 
 public class ErrorType extends AbstractType{
 
@@ -15,5 +16,10 @@ public class ErrorType extends AbstractType{
         return this.message
                 + " - Line: " + this.getLine()
                 + " - Column: " + this.getColumn();
+    }
+
+    @Override
+    public <TP, TR> TR accept(Visitor<TP, TR> v, TP param) {
+        return v.visit(this,param);
     }
 }

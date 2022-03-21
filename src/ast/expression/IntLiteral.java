@@ -1,5 +1,7 @@
 package ast.expression;
 
+import visitor.Visitor;
+
 public class IntLiteral   extends AbstractExpression {
     public IntLiteral(int line, int column,int value) {
         super(line, column);
@@ -19,6 +21,11 @@ public class IntLiteral   extends AbstractExpression {
                 + " - Value: "
                 + this.value;
 
+    }
+
+    @Override
+    public <TP, TR> TR accept(Visitor<TP, TR> v, TP param) {
+        return v.visit(this,param);
     }
 
 }

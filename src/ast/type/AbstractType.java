@@ -1,6 +1,7 @@
 package ast.type;
 
-public class AbstractType implements Type{
+
+public abstract class AbstractType implements Type{
 
 
     private int line;
@@ -23,5 +24,8 @@ public class AbstractType implements Type{
     public int getColumn() {
         return this.line;
     }
+
+
+
 
 }

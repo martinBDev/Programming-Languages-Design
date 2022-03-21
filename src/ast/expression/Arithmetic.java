@@ -1,25 +1,39 @@
 package ast.expression;
 
+import visitor.Visitor;
+
 public class Arithmetic extends AbstractExpression {
 
     private String operator;
-    private Expression firstStatement;
-    private Expression secondStatement;
+    private Expression firstExpression;
+    private Expression secondExpression;
 
-    public Arithmetic(int line, int column,Expression firstStatement, String operator, Expression secondStatement) {
+    public Arithmetic(int line, int column,Expression firstExpression, String operator, Expression secondExpression) {
         super(line, column);
         this.operator = operator;
-        this.secondStatement = secondStatement;
-        this.firstStatement = firstStatement;
+        this.secondExpression = secondExpression;
+        this.firstExpression = firstExpression;
     }
 
+    public Expression getLeft(){
+        return this.firstExpression;
+    }
+
+    public Expression getRight(){
+        return this.secondExpression;
+    }
 
     @Override
     public String toString(){
 
-        return "Arithmetic: " + firstStatement.toString()
+        return "Arithmetic: " + firstExpression.toString()
                 + this.operator
-                + secondStatement.toString();
+                + secondExpression.toString();
 
+    }
+
+    @Override
+    public <TP, TR> TR accept(Visitor<TP, TR> v, TP param) {
+        return v.visit(this,param);
     }
 }

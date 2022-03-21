@@ -1,8 +1,9 @@
 package ast.statement;
 
 import ast.expression.Expression;
+import visitor.Visitor;
 
-public class Return extends AbstractStatement implements Expression {
+public class Return extends AbstractStatement  {
 
     private Expression exprToReturn;
 
@@ -22,4 +23,10 @@ public class Return extends AbstractStatement implements Expression {
                 + this.exprToReturn.toString();
 
     }
+
+    @Override
+    public <TP, TR> TR accept(Visitor<TP, TR> v, TP param) {
+        return v.visit(this,param);
+    }
+
 }

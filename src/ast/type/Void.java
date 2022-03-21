@@ -1,5 +1,7 @@
 package ast.type;
 
+import visitor.Visitor;
+
 public class Void extends AbstractType{
 
     private static Void instance;
@@ -18,6 +20,11 @@ public class Void extends AbstractType{
     @Override
     public String toString(){
         return "Void";
+    }
+
+    @Override
+    public <TP, TR> TR accept(Visitor<TP, TR> v, TP param) {
+        return v.visit(this,param);
     }
 
 

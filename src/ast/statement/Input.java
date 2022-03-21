@@ -1,6 +1,7 @@
 package ast.statement;
 
 import ast.expression.Expression;
+import visitor.Visitor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,7 @@ public class Input   extends AbstractStatement {
     }
 
     public List<Expression> getExpressions(){
-        return new ArrayList<>(this.expressions);
+        return this.expressions;
     }
 
     @Override
@@ -36,5 +37,10 @@ public class Input   extends AbstractStatement {
 
 
         return str;
+    }
+
+    @Override
+    public <TP, TR> TR accept(Visitor<TP, TR> v, TP param) {
+        return v.visit(this,param);
     }
 }

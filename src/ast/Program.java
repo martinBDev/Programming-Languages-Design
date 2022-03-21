@@ -3,6 +3,7 @@ package ast;
 import ast.definition.Definition;
 import ast.definition.VariableDefinition;
 import ast.node.AstNode;
+import visitor.Visitor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +39,16 @@ public class Program implements AstNode {
     @Override
     public int getColumn() {
         return 0;
+    }
+
+    public List<Definition> getDefinitions(){
+        return this.definitions;
+    }
+
+
+    @Override
+    public <TP, TR> TR accept(Visitor<TP, TR> v, TP param) {
+        return v.visit(this,param);
     }
 
 

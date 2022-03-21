@@ -1,6 +1,7 @@
 package ast.type;
 
 import ast.node.AstNode;
+import visitor.Visitor;
 
 public class RecordField implements AstNode {
 
@@ -36,10 +37,18 @@ public class RecordField implements AstNode {
     }
 
 
+
+
     @Override
     public String toString(){
         return "RecordField - Type: " + this.type +
                 " - Name: " + this.name ;
     }
+
+    @Override
+    public <TP, TR> TR accept(Visitor<TP, TR> v, TP param) {
+        return v.visit(this,param);
+    }
+
 
 }
