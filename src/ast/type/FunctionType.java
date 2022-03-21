@@ -18,7 +18,7 @@ public class FunctionType extends AbstractType{
 
 
     public List<VariableDefinition> getParams(){
-        return new ArrayList<>(this.params);
+        return this.params;
     }
 
     public Type getReturningType(){

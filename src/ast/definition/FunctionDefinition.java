@@ -45,7 +45,11 @@ public class FunctionDefinition extends AbstractDefinition{
     }
 
     public List<Statement> getStatements(){
-        return new ArrayList<>(this.statements);
+        return this.statements;
+    }
+
+    public List<VariableDefinition>  getVariableDefinitions(){
+        return this.variableDefinitions;
     }
 
     @Override

@@ -16,6 +16,9 @@ public class Struct extends AbstractType{
     }
 
 
+    public List<RecordField> getFields(){
+        return this.fields;
+    }
     public void addField(RecordField field){
         this.fields.add(field);
     }

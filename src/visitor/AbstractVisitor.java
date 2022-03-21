@@ -148,16 +148,21 @@ public class AbstractVisitor<TP,TR> implements  Visitor<TP,TR>{
     @Override
     public TR visit(FunctionDefinition f, TP param) {
 
+        f.getStatements().stream().forEach((Statement s)->{s.accept(this,param);});
+        f.getVariableDefinitions().stream().forEach((VariableDefinition s)->{s.accept(this,param);});
         return null;
     }
 
     @Override
     public TR visit(Array a, TP param) {
+
+        a.getType().accept(this,param);
         return null;
     }
 
     @Override
     public TR visit(Integer i, TP param) {
+
         return null;
     }
 
@@ -173,11 +178,14 @@ public class AbstractVisitor<TP,TR> implements  Visitor<TP,TR>{
 
     @Override
     public TR visit(Struct s, TP param) {
+        s.getFields().stream().forEach((RecordField rf)->{rf.accept(this,param);});
         return null;
     }
 
     @Override
     public TR visit(FunctionType ft, TP param) {
+        ft.getParams().stream().forEach((VariableDefinition vd)->{vd.accept(this,param);});
+        ft.getReturningType().accept(this,param);
         return null;
     }
 
@@ -193,6 +201,7 @@ public class AbstractVisitor<TP,TR> implements  Visitor<TP,TR>{
 
     @Override
     public TR visit(RecordField rf, TP param) {
+        rf.getType().accept(this,param);
         return null;
     }
 }
