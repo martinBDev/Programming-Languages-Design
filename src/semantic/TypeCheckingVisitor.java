@@ -1,6 +1,8 @@
 package semantic;
 
 import ast.expression.*;
+import ast.statement.Assignment;
+import ast.type.ErrorType;
 import visitor.AbstractVisitor;
 
 public class TypeCheckingVisitor extends AbstractVisitor<Object,Object> {
@@ -103,6 +105,19 @@ public class TypeCheckingVisitor extends AbstractVisitor<Object,Object> {
         return null;
     }
 
+    @Override
+    public Object visit(Assignment a, Object param){
+        a.getLeftExpr().accept(this,param);
+        a.getRightExpr().accept(this,param);
+        if( !a.getLeftExpr().getLValue() ) new ErrorType(
+                a.getLeftExpr().getLine(),
+                a.getLeftExpr().getColumn(),
+                "Cannot use an assignment on the left hand side of another assignment");
+
+
+
+        return null;
+    }
 
 
 }
