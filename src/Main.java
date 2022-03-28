@@ -1,12 +1,18 @@
+
+
 import ast.node.AstNode;
+import errorhandler.EH;
+import introspector.test.ast.ASTNode;
 import parser.*;
 
 import org.antlr.v4.runtime.*;
 
 import ast.Program;
-import errorhandler.EH;
 import introspector.model.IntrospectorModel;
 import introspector.view.IntrospectorTree;
+import semantic.IdentificationVisitor;
+import semantic.TypeCheckingVisitor;
+import visitor.Visitor;
 
 public class Main {
 	
@@ -24,16 +30,19 @@ public class Main {
 		CommonTokenStream tokens = new CommonTokenStream(lexer); 
 		PmmParser parser = new PmmParser(tokens);	
 		AstNode ast = parser.program().ast;
-		
-		// * Check errors 
+
+		ast.accept(new IdentificationVisitor(), null);
+		ast.accept(new TypeCheckingVisitor(),null);
+
+		// * Check errors
 		if(EH.getEH().hasErrors()){
 			// * Show errors
 			EH.getEH().showErrors(System.err);
 		}
-		else{			
+		else{
 			// * The AST is shown
 			IntrospectorModel model=new IntrospectorModel("Program", ast);
 			new IntrospectorTree("Introspector", model);
-		}		
+		}
 	}
 }
