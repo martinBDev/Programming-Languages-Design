@@ -7,6 +7,7 @@ import ast.expression.FunctionInvocation;
 import ast.expression.Variable;
 import ast.statement.Statement;
 import ast.type.ErrorType;
+import ast.type.FunctionType;
 import errorhandler.EH;
 import symboltable.SymbolTable;
 import visitor.AbstractVisitor;
@@ -41,6 +42,8 @@ public class IdentificationVisitor extends AbstractVisitor<Object,Object> {
 
         table.set();
 
+        fd.getType().accept(this,param);
+
         for(Definition def : fd.getVariableDefinitions()){
             def.accept(this,param);
         }
@@ -54,6 +57,14 @@ public class IdentificationVisitor extends AbstractVisitor<Object,Object> {
         return null;
     }
 
+    @Override
+    public Object visit(FunctionType ft, Object param){
+
+        ft.getReturningType().accept(this,param);
+        ft.getParams().stream().forEach((VariableDefinition vd)->{vd.accept(this,param);});
+
+        return null;
+    }
 
 
 }
