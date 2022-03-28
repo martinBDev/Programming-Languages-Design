@@ -7,4 +7,6 @@ public interface Definition extends AstNode {
 
     String getName();
     Type getType();
+    int getScope();
+    void setScope(int scope);
 }

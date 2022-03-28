@@ -7,15 +7,17 @@ public class SymbolTable {
 	
 	private int scope=0;
 	private List<Map<String, Definition>> table;
+
+
 	public SymbolTable()  {
 		table = new ArrayList<Map<String, Definition>>();
-		table.set(scope ,new HashMap<String, Definition>());
+		table.add( new HashMap<String, Definition>());
 	}
 
 	public void set() {
 
 		scope++;
-		table.set(scope ,new HashMap<String, Definition>());
+		table.add(new HashMap<String, Definition>());
 	}
 	
 	public void reset() {
@@ -27,8 +29,9 @@ public class SymbolTable {
 	
 	public boolean insert(Definition definition) {
 
+		definition.setScope(scope);
 		//If definition already exists
-		if(find(definition.getName()) != null){
+		if(findInCurrentScope(definition.getName()) != null){
 			return false;
 		}
 

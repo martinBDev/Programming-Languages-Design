@@ -14,6 +14,8 @@ public class FunctionDefinition extends AbstractDefinition{
     private List<Statement> statements;
     private List<VariableDefinition> variableDefinitions;
 
+    private int scope;
+
 
     public FunctionDefinition(int line, int column, String name, Type type) {
 
@@ -23,6 +25,8 @@ public class FunctionDefinition extends AbstractDefinition{
 
 
     }
+
+
 
 
     public void addVariableDefinition(VariableDefinition var){
@@ -75,5 +79,15 @@ public class FunctionDefinition extends AbstractDefinition{
     @Override
     public <TP, TR> TR accept(Visitor<TP, TR> v, TP param) {
         return v.visit(this,param);
+    }
+
+    @Override
+    public int getScope() {
+        return this.scope;
+    }
+
+    @Override
+    public void setScope(int scope) {
+        this.scope = scope;
     }
 }

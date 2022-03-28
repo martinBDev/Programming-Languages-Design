@@ -7,6 +7,7 @@ import visitor.Visitor;
 public class VariableDefinition extends AbstractDefinition implements Statement {
 
 
+    private int scope;
 
     public VariableDefinition(int line, int column, String name, Type type) {
 
@@ -28,5 +29,14 @@ public class VariableDefinition extends AbstractDefinition implements Statement 
         return v.visit(this,param);
     }
 
- 
+
+    @Override
+    public int getScope() {
+        return scope;
+    }
+
+    @Override
+    public void setScope(int scope) {
+this.scope = scope;
+    }
 }
