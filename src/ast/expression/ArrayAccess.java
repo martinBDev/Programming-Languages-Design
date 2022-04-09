@@ -32,7 +32,7 @@ public class ArrayAccess extends AbstractExpression{
     }
 
     @Override
-    public <TP, TR> TR accept(Visitor<TP, TR> v, TP param) {
+    public <TR, TP> TR accept(Visitor<TR, TP> v, TP param) {
         return v.visit(this,param);
     }
 }

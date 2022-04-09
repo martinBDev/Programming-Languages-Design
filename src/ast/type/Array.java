@@ -1,5 +1,6 @@
 package ast.type;
 
+import ast.node.AstNode;
 import visitor.Visitor;
 
 public class Array extends AbstractType{
@@ -29,8 +30,37 @@ public class Array extends AbstractType{
 
 
     @Override
-    public <TP, TR> TR accept(Visitor<TP, TR> v, TP param) {
+    public <TR, TP> TR accept(Visitor<TR, TP> v, TP param) {
         return v.visit(this,param);
     }
+
+    @Override
+    public Type squareBrackets(Type ofIndexB){
+
+        if(ofIndexB.isErrorType()){
+            return ofIndexB;
+        }
+
+        if(ofIndexB.equals(Integer.getInstance())){
+            return this;
+        }
+
+        return new ErrorType(this.getLine(),this.getColumn()
+                ,"Square access not allowed, only integers allowed inside brackets.");
+
+    }
+
+    @Override
+    public Type promotesTo(Type otherType, AstNode node) {
+
+        if(otherType instanceof Array){
+            return this;
+        }
+
+
+        return new ErrorType(node.getLine(),node.getColumn()
+                , "Cannot promote to Array type.");
+    }
+
 
 }

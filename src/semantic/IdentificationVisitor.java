@@ -3,7 +3,6 @@ package semantic;
 import ast.definition.Definition;
 import ast.definition.FunctionDefinition;
 import ast.definition.VariableDefinition;
-import ast.expression.FunctionInvocation;
 import ast.expression.Variable;
 import ast.statement.Statement;
 import ast.type.ErrorType;
@@ -32,7 +31,19 @@ public class IdentificationVisitor extends AbstractVisitor<Object,Object> {
     @Override
     public Object visit(Variable vd, Object param){
 
-        vd.setDefinition(table.find(vd.getName()));
+        Definition def = table.find(vd.getName());
+        //If variable not defined, assigned to it a vardefinition of type ERROR
+        if(def == null){
+
+            ErrorType error = new ErrorType(vd.getLine(),
+                                            vd.getColumn(),
+                                            "Error: variable " + vd.getName() + " has not been defined.");
+            vd.setDefinition(new VariableDefinition(vd.getLine(),vd.getColumn(),vd.getName(),error));
+        }else{
+            vd.setDefinition(def);
+        }
+
+
         return null;
     }
 

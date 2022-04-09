@@ -1,5 +1,6 @@
 package ast.type;
 
+import ast.node.AstNode;
 import visitor.Visitor;
 
 import java.util.ArrayList;
@@ -36,7 +37,20 @@ public class Struct extends AbstractType{
 
 
     @Override
-    public <TP, TR> TR accept(Visitor<TP, TR> v, TP param) {
+    public <TR, TP> TR accept(Visitor<TR, TP> v, TP param) {
         return v.visit(this,param);
+    }
+
+    @Override
+    public Type dot(String fieldName, AstNode node){
+
+        for(RecordField rf : fields){
+            if(rf.getName().equals(fieldName)){
+                return rf.getType();
+            }
+        }
+
+        return new ErrorType(node.getLine(),node.getColumn(),"Non existing field name in struct.");
+
     }
 }

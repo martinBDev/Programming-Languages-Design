@@ -10,7 +10,7 @@ import ast.type.Double;
 import ast.type.Integer;
 import ast.type.Void;
 
-public interface Visitor<TP, TR> {
+public interface Visitor<TR, TP> {
 
 
     //PROGRAM

@@ -11,7 +11,7 @@ import ast.type.Double;
 import ast.type.Integer;
 import ast.type.Void;
 
-public class AbstractVisitor<TP,TR> implements  Visitor<TP,TR>{
+public class AbstractVisitor<TR,TP> implements  Visitor<TR,TP>{
     @Override
     public TR visit(Program p, TP param) {
         p.getDefinitions().stream().forEach((Definition d) -> {d.accept(this,param);});

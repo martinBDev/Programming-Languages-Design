@@ -7,6 +7,6 @@ public interface AstNode {
 
     int getLine();
     int getColumn();
-    <TP,TR> TR accept(Visitor<TP,TR> v, TP param);
+    <TR,TP> TR accept(Visitor<TR,TP> v, TP param);
 
 }
