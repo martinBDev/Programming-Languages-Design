@@ -75,7 +75,7 @@ public interface Type extends AstNode {
      * @param ofIndexB type of what is inside the brackets (type of index B)
      * @return TYPE OF THE ARRAY
      */
-    Type squareBrackets(Type ofIndexB);
+    Type squareBrackets(Type ofIndexB, AstNode node);
 
 
     /**

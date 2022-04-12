@@ -94,6 +94,11 @@ public class Double extends AbstractType{
             return this;
         }
 
+        if(otherType.isErrorType()){
+            return otherType;
+        }
+
+
         return new ErrorType(node.getLine(),node.getColumn()
                 , "Double cannot promote to " +otherType.typeName());
     }

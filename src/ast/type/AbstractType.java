@@ -47,7 +47,7 @@ public  abstract class AbstractType implements Type{
          
 
         return new ErrorType(node.getLine(),node.getColumn()
-                , "Cannot perform arithmetic operation.");
+                , "Cannot perform arithmetic operation with " + otherType.typeName());
     }
 
     @Override
@@ -88,14 +88,14 @@ public  abstract class AbstractType implements Type{
     }
 
     @Override
-    public Type squareBrackets(Type ofIndexB) {
+    public Type squareBrackets(Type ofIndexB, AstNode node) {
 
         if(ofIndexB instanceof ErrorType){
             return ofIndexB;
         }
 
-        return new ErrorType(0,0
-                , "Square brackets are only for accessing an array");
+        return new ErrorType(node.getLine(),node.getColumn()
+                , "Square brackets are only for accessing an array, you are trying to index a " + ofIndexB.typeName());
     }
 
     @Override

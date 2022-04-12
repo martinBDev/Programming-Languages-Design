@@ -42,7 +42,7 @@ public class TypeCheckingVisitor extends AbstractVisitor<java.lang.Void,Type> {
         a.getRightExpr().accept(this,param);
 
         a.setType(
-                a.getRightExpr().getType().squareBrackets( a.getLeftExpr().getType())
+                a.getLeftExpr().getType().squareBrackets( a.getRightExpr().getType(), a)
         );
 
         return null;
@@ -303,6 +303,7 @@ public class TypeCheckingVisitor extends AbstractVisitor<java.lang.Void,Type> {
     @Override
     public Void visit(FunctionDefinition f, Type param) {
 
+        //We pass the type as param, so visit(ReturnStatement) can use it
         f.getStatements().stream().forEach((Statement s)->{s.accept(this,f.getType());});
         f.getVariableDefinitions().stream().forEach((VariableDefinition s)->{s.accept(this,param);});
         return null;

@@ -36,18 +36,18 @@ public class Array extends AbstractType{
 
     @Override
     public String typeName() {
-        return "Array of " + type.typeName();
+        return "[Array of ]" + type.typeName();
     }
 
     @Override
-    public Type squareBrackets(Type ofIndexB){
+    public Type squareBrackets(Type ofIndexB, AstNode node){
 
         if(ofIndexB.isErrorType()){
             return ofIndexB;
         }
 
         if(ofIndexB.equals(Integer.getInstance())){
-            return this;
+            return this.type;
         }
 
         return new ErrorType(this.getLine(),this.getColumn()

@@ -7,7 +7,7 @@ def f(a:int):int {
 }
 
 def g(b:int, b:double): {		# Error 3 --> already defined variable  - checked
-  return 3;						# Error 4 --> no return type
+  return 3;						# Error 4 --> no return type - checked
 }
 
 def g(): {						# Error 5 --> already defined function - checked
