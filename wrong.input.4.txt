@@ -2,19 +2,19 @@
 i:int;
 
 def f(a:int):int {
-  a:double;						# Error 1 --> already defined variable
-  return 34.5;					# Error 2 --> expected return type is int, but double returned
+  a:double;						# Error 1 --> already defined variable - checked
+  return 34.5;					# Error 2 --> expected return type is int, but double returned - checked
 }
 
-def g(b:int, b:double): {		# Error 3 --> already defined variable
+def g(b:int, b:double): {		# Error 3 --> already defined variable  - checked
   return 3;						# Error 4 --> no return type
 }
 
-def g(): {						# Error 5 --> already defined function
+def g(): {						# Error 5 --> already defined function - checked
 }
 
 def main(): {
-  f();       					# Error 6 --> function with parameters defined
-  f(3.2);    					# Error 7 --> wrong arguemtn type
-  i = g();     					# Error 8 --> not passing correct parameters, variable i accnot be assigned to Error type
+  f();       					# Error 6 --> function with parameters defined - checked
+  f(3.2);    					# Error 7 --> wrong argument type - checked
+  i = g();     					# Error 8 --> not passing correct parameters, variable i cannot be assigned to Error type - checked
 }

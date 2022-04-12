@@ -1,5 +1,6 @@
 package semantic;
 
+import ast.definition.FunctionDefinition;
 import ast.definition.VariableDefinition;
 import ast.expression.*;
 import ast.statement.*;
@@ -47,6 +48,8 @@ public class TypeCheckingVisitor extends AbstractVisitor<java.lang.Void,Type> {
         return null;
 
     }
+
+
 
     @Override
     public Void visit(Cast c , Type param){
@@ -117,9 +120,19 @@ public class TypeCheckingVisitor extends AbstractVisitor<java.lang.Void,Type> {
             typesParams.add(ex.getType());
         }
 
-        fi.setType(
-                fi.getDefinition().getType().parenthesis( typesParams, fi)
-        );
+        //This check is to avoid repeated errors. if for example the function has not been defined, its type will be error,
+        //and a message will appear, without this check, the message appears, and then errorTyoe call parenthesis(), and
+        //in the abstract visitor it will throw another error
+        if(!fi.getDefinition().getType().isErrorType()) {
+            fi.setType(
+                    fi.getDefinition().getType().parenthesis( typesParams, fi)
+            );
+        }else{
+            fi.setType(
+                    fi.getDefinition().getType()
+            );
+        }
+
 
         return null;
     }
@@ -286,11 +299,23 @@ public class TypeCheckingVisitor extends AbstractVisitor<java.lang.Void,Type> {
 
         return null;
     }
+
+    @Override
+    public Void visit(FunctionDefinition f, Type param) {
+
+        f.getStatements().stream().forEach((Statement s)->{s.accept(this,f.getType());});
+        f.getVariableDefinitions().stream().forEach((VariableDefinition s)->{s.accept(this,param);});
+        return null;
+    }
+
+
+
     //TODO
     @Override
     public Void visit(Return returnStmnt , Type param){
 
-        returnStmnt.getExprToReturn().accept(this,param);
+        FunctionType retType = (FunctionType) param;
+        returnStmnt.getExprToReturn().accept(this,retType.getReturningType());
 
         //If type of return expr is different from defined on function definition, the type of return changes to error
         returnStmnt.getExprToReturn().setType(

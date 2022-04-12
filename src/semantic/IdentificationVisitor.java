@@ -21,10 +21,10 @@ public class IdentificationVisitor extends AbstractVisitor<Object,Object> {
     public Object visit(VariableDefinition vd, Object param){
 
        if(!table.insert(vd)){
-           EH.getEH().addError(new ErrorType(vd.getLine(),vd.getColumn(),
+           new ErrorType(vd.getLine(),vd.getColumn(),
                    "Error in definition of '"
                            + vd.getName()
-                           + "' in scope " + vd.getScope()));
+                           + "' in scope " + vd.getScope()+ ". Variable already defined.");
        }
         return null;
     }
@@ -60,6 +60,7 @@ public class IdentificationVisitor extends AbstractVisitor<Object,Object> {
                     fi.getColumn(),
                     "Error: function " + fi.getName() + " has not been defined.");
             fi.setDefinition(new FunctionDefinition(fi.getLine(),fi.getColumn(),fi.getName().getName(),error));
+
         }else{
             fi.setDefinition(def);
         }
@@ -71,6 +72,13 @@ public class IdentificationVisitor extends AbstractVisitor<Object,Object> {
 
     @Override
     public Object visit(FunctionDefinition fd, Object param){
+
+        if(!table.insert(fd)){
+            new ErrorType(fd.getLine(),fd.getColumn(),
+                    "Error in definition of function '"
+                            + fd.getName()
+                            + "' in scope " + fd.getScope()+ ". Function already defined.");
+        }
 
 
         table.set();

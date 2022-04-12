@@ -49,6 +49,11 @@ public class FunctionType extends AbstractType{
     @Override
     public Type parenthesis(List<Type> passedAsParams, AstNode node){
         int count = 0;
+
+        if(passedAsParams.size() != params.size()){
+            return new ErrorType(node.getLine(),node.getColumn(),"Incorrect number of parameters");
+        }
+
         for(Type t : passedAsParams){
             if (t instanceof ErrorType){
                 return t;
@@ -59,8 +64,8 @@ public class FunctionType extends AbstractType{
                         ,node.getColumn()
                         ,"Parameter's type in position " +
                         count +
-                        " is different from type declared in definition. \nExpected: " + params.get(count).getType().toString() +
-                        "\nReceived: " + t.toString());
+                        " is different from type declared in definition. - Expected: " + params.get(count).getType().toString() +
+                        " - Received: " + t.toString());
             }
             count++;
 
