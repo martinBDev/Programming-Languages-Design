@@ -50,17 +50,9 @@ public class Array extends AbstractType{
 
     }
 
-    @Override
-    public Type promotesTo(Type otherType, AstNode node) {
-
-        if(otherType instanceof Array){
-            return this;
-        }
 
 
-        return new ErrorType(node.getLine(),node.getColumn()
-                , "Cannot promote to Array type.");
-    }
+
 
 
 }

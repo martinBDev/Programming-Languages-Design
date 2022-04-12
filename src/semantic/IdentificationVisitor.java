@@ -3,6 +3,7 @@ package semantic;
 import ast.definition.Definition;
 import ast.definition.FunctionDefinition;
 import ast.definition.VariableDefinition;
+import ast.expression.FunctionInvocation;
 import ast.expression.Variable;
 import ast.statement.Statement;
 import ast.type.ErrorType;
@@ -45,6 +46,27 @@ public class IdentificationVisitor extends AbstractVisitor<Object,Object> {
 
 
         return null;
+    }
+
+
+    @Override
+    public Object visit(FunctionInvocation fi, Object param){
+
+        Definition def = table.find(fi.getName().getName());
+        //If function not defined, assigned to it a funcdefinition of type ERROR
+        if(def == null){
+
+            ErrorType error = new ErrorType(fi.getLine(),
+                    fi.getColumn(),
+                    "Error: function " + fi.getName() + " has not been defined.");
+            fi.setDefinition(new FunctionDefinition(fi.getLine(),fi.getColumn(),fi.getName().getName(),error));
+        }else{
+            fi.setDefinition(def);
+        }
+
+
+        return null;
+
     }
 
     @Override

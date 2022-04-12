@@ -74,17 +74,12 @@ public class Char extends AbstractType{
     @Override
     public Type canBeCasted(Type otherType, AstNode node){
 
-        if(otherType.isErrorType()){
-            return otherType;
-        }
-
-        if(!otherType.isBuiltIn()){
-            return new ErrorType(node.getLine(), node.getColumn(),
-                    "Casts can only be performed from a type to built-in types.");
-        }
+        super.canBeCasted(otherType,node);
 
         if(otherType.equals(Integer.getInstance())){
             return Integer.getInstance();
+        }else if(otherType.equals(Char.getInstance())){
+            return Char.getInstance();
         }
 
         return new ErrorType(node.getLine(), node.getColumn(),

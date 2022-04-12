@@ -1,10 +1,11 @@
-i, i:int; # Error: duplicated variable
+integer:int;
+character:char;
+real:double;
 
-
-a: int;
-a: int;
-
-# Main program
 def main(): {
-	i = 0;
+  input integer; 
+  character = 8.5;	# Error 1 --> expected character, double provided. - checked
+  3 = integer;		# Error 2 --> 3 is not lvalue - checked
+  input integer+2; 	# Error 3 --> expression on the right has to be lvalue - checked
 }
+

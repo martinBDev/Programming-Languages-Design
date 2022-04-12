@@ -5,18 +5,18 @@ import visitor.Visitor;
 
 public class Cast   extends AbstractExpression{
 
-    private Type type;
+    private Type toTypeCast;
     private Expression expression;
 
-    public Cast(int line, int column, Type type, Expression expression) {
+    public Cast(int line, int column, Type toTypeCast, Expression expression) {
 
         super(line, column);
-        this.type = type;
+        this.toTypeCast = toTypeCast;
         this.expression = expression;
     }
 
-    public Type getType(){
-        return this.type;
+    public Type getToTypeCast(){
+        return this.toTypeCast;
     }
 
     public Expression getExpression(){
@@ -27,7 +27,7 @@ public class Cast   extends AbstractExpression{
     public String toString(){
 
         return "Cast: - Type: "
-                + this.type.toString()
+                + this.toTypeCast.toString()
                 + " - Expression: "
                 + this.expression.toString();
 

@@ -77,7 +77,7 @@ public  abstract class AbstractType implements Type{
 
 
         return new ErrorType(node.getLine(),node.getColumn()
-                , "Cannot perform unary negation in something different from a negation ");
+                , "Can only perform unary negation on logical type: integer");
 
     }
 
@@ -105,6 +105,15 @@ public  abstract class AbstractType implements Type{
 
     @Override
     public Type canBeCasted(Type otherType, AstNode node) {
+
+        if(otherType.isErrorType()){
+            return otherType;
+        }
+
+        if(!otherType.isBuiltIn()){
+            return new ErrorType(node.getLine(), node.getColumn(),
+                    "Casts can only be performed from a type to built-in types.");
+        }
         
         return new ErrorType(node.getLine(),node.getColumn()
                 , "Cannot invoke cast in something different from a cast");
@@ -120,13 +129,9 @@ public  abstract class AbstractType implements Type{
     }
 
     @Override
-    public Type parenthesis(AstNode node, List<Type> passedAsParams) {
+    public Type parenthesis(List<Type> passedAsParams, AstNode node) {
 
-        for(Type t : passedAsParams){
-            if (t instanceof ErrorType){
-                return t;
-            }
-        }
+
         return new ErrorType(node.getLine(),node.getColumn(),
                 "Cannot invoke parenthesis in something different from a function");
     }

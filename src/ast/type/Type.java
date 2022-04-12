@@ -110,7 +110,7 @@ public interface Type extends AstNode {
      * @param passedAsParams
      * @return type of the function???
      */
-    Type parenthesis(AstNode node, List<Type> passedAsParams);
+    Type parenthesis( List<Type> passedAsParams, AstNode node);
 
 
     /**

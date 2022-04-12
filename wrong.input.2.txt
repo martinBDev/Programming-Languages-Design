@@ -1,10 +1,10 @@
-tuple: struct { 
-	key:int;	
-	value:int;	
-	key:double; # Error: duplicated field
+date: struct  { 
+  day:int;
+  month:int;
+  day:double;		# Error 1 --> two variables with same name in same scope - checked
 };
 
-# Main program
 def main(): {
-	tuple.key = 0;
+  input date.year;	# Error 2 --> unknown field - checked
 }
+

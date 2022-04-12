@@ -1,6 +1,7 @@
 package ast.type;
 
 import ast.definition.VariableDefinition;
+import ast.node.AstNode;
 import visitor.Visitor;
 
 import java.util.ArrayList;
@@ -42,6 +43,30 @@ public class FunctionType extends AbstractType{
     @Override
     public <TR, TP> TR accept(Visitor<TR, TP> v, TP param) {
         return v.visit(this,param);
+    }
+
+
+    @Override
+    public Type parenthesis(List<Type> passedAsParams, AstNode node){
+        int count = 0;
+        for(Type t : passedAsParams){
+            if (t instanceof ErrorType){
+                return t;
+            }
+
+            if(!t.equals(params.get(count).getType())){
+                return new ErrorType(node.getLine()
+                        ,node.getColumn()
+                        ,"Parameter's type in position " +
+                        count +
+                        " is different from type declared in definition. \nExpected: " + params.get(count).getType().toString() +
+                        "\nReceived: " + t.toString());
+            }
+            count++;
+
+        }
+
+       return this;
     }
 
 }

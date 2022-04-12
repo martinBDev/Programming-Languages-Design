@@ -1,5 +1,7 @@
 package ast.expression;
 
+import ast.definition.Definition;
+import ast.definition.FunctionDefinition;
 import ast.statement.Statement;
 import visitor.Visitor;
 
@@ -10,6 +12,7 @@ public class FunctionInvocation   extends AbstractExpression implements Statemen
 
     private List<Expression> expressions;
     private Variable name;
+    private Definition funcDefinition;
 
     public FunctionInvocation(int line, int column, Variable name) {
         super(line, column);
@@ -47,5 +50,13 @@ public class FunctionInvocation   extends AbstractExpression implements Statemen
     @Override
     public <TR, TP> TR accept(Visitor<TR, TP> v, TP param) {
         return v.visit(this,param);
+    }
+
+    public Definition getDefinition(){
+        return this.funcDefinition;
+    }
+
+    public void setDefinition(Definition definition){
+        this.funcDefinition = definition;
     }
 }
