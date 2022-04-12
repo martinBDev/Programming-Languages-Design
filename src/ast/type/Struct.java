@@ -53,4 +53,9 @@ public class Struct extends AbstractType{
         return new ErrorType(node.getLine(),node.getColumn(),"Non existing field name in struct.");
 
     }
+
+    @Override
+    public String typeName() {
+        return "Struct";
+    }
 }

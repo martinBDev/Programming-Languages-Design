@@ -319,7 +319,7 @@ public class TypeCheckingVisitor extends AbstractVisitor<java.lang.Void,Type> {
 
         //If type of return expr is different from defined on function definition, the type of return changes to error
         returnStmnt.getExprToReturn().setType(
-                returnStmnt.getExprToReturn().getType().promotesTo(param,returnStmnt)
+                returnStmnt.getExprToReturn().getType().promotesTo(retType.getReturningType(),returnStmnt)
         );
 
 

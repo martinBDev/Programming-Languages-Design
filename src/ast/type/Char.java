@@ -96,6 +96,11 @@ public class Char extends AbstractType{
         }
 
         return new ErrorType(node.getLine(),node.getColumn()
-                , "Cannot promote to Char type.");
+                , "Char cannot promote to " +otherType.typeName());
+    }
+
+    @Override
+    public String typeName() {
+        return "Char";
     }
 }

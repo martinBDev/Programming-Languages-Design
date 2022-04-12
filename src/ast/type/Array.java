@@ -35,6 +35,11 @@ public class Array extends AbstractType{
     }
 
     @Override
+    public String typeName() {
+        return "Array of " + type.typeName();
+    }
+
+    @Override
     public Type squareBrackets(Type ofIndexB){
 
         if(ofIndexB.isErrorType()){

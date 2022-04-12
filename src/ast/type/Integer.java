@@ -128,7 +128,12 @@ public class Integer extends AbstractType{
         }
 
         return new ErrorType(node.getLine(),node.getColumn()
-                , "Cannot promote to Char type.");
+                , "Integer cannot promote to " + otherType.typeName());
+    }
+
+    @Override
+    public String typeName() {
+        return "Integer";
     }
 
 }

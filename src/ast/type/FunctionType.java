@@ -74,4 +74,9 @@ public class FunctionType extends AbstractType{
        return this;
     }
 
+    @Override
+    public String typeName() {
+        return "FunctionType";
+    }
+
 }

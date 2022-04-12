@@ -27,5 +27,9 @@ public class Void extends AbstractType{
         return v.visit(this,param);
     }
 
+    @Override
+    public String typeName() {
+        return "Void";
+    }
 
 }

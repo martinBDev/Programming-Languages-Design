@@ -27,4 +27,9 @@ public class ErrorType extends AbstractType{
     public boolean isErrorType(){
         return true;
     }
+
+    @Override
+    public String typeName() {
+        return "ErrorType";
+    }
 }
