@@ -1,5 +1,6 @@
 package ast.type;
 
+import ast.node.AstNode;
 import errorhandler.EH;
 import visitor.Visitor;
 
@@ -31,5 +32,11 @@ public class ErrorType extends AbstractType{
     @Override
     public String typeName() {
         return "ErrorType";
+    }
+
+    @Override
+    public Type promotesTo(Type otherType, AstNode node) {
+
+        return this;
     }
 }

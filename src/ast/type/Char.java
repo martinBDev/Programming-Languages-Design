@@ -74,16 +74,26 @@ public class Char extends AbstractType{
     @Override
     public Type canBeCasted(Type otherType, AstNode node){
 
-        super.canBeCasted(otherType,node);
 
-        if(otherType.equals(Integer.getInstance())){
-            return Integer.getInstance();
-        }else if(otherType.equals(Char.getInstance())){
-            return Char.getInstance();
+        if(otherType.isErrorType()){
+            return otherType;
         }
 
+        if (otherType.isBuiltIn()) {
+            return otherType;
+        }
+
+        /**
+         * if(otherType.equals(Integer.getInstance())){
+         *             return Integer.getInstance();
+         *         }else if(otherType.equals(Char.getInstance())){
+         *             return Char.getInstance();
+         *         }
+         */
+
+
         return new ErrorType(node.getLine(), node.getColumn(),
-                "Char can only be casted to integer.");
+                "Char can only be casted to integer, char or double.");
 
 
     }

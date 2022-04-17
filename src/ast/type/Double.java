@@ -73,17 +73,17 @@ public class Double extends AbstractType{
     @Override
     public Type canBeCasted(Type otherType, AstNode node){
 
-        super.canBeCasted(otherType,node);
 
-        if(otherType.equals(Integer.getInstance())){
-            return Integer.getInstance();
+        if(otherType.isBuiltIn()){
+            return otherType;
         }
-        else if (otherType.equals(Double.getInstance())){
-            return Double.getInstance();
+
+        if(otherType.isErrorType()){
+            return otherType;
         }
 
         return new ErrorType(node.getLine(), node.getColumn(),
-                "Integer can only be casted to integer.");
+                "Integer can only be casted to integer, char or double.");
 
     }
 

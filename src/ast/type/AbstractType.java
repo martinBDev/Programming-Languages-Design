@@ -122,6 +122,9 @@ public  abstract class AbstractType implements Type{
     @Override
     public Type promotesTo(Type otherType, AstNode node) {
 
+        if(otherType.isErrorType()){
+            return otherType;
+        }
 
          
         return new ErrorType(node.getLine(),node.getColumn()
