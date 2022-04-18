@@ -57,6 +57,10 @@ public class Array extends AbstractType{
 
 
 
+    @Override
+    public int numberOfBytes(){
+        return type.numberOfBytes() * size;
+    }
 
 
 

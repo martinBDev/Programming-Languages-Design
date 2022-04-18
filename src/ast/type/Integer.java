@@ -136,4 +136,10 @@ public class Integer extends AbstractType{
         return "Integer";
     }
 
+    @Override
+    public int numberOfBytes(){
+        return 2;
+    }
+
+
 }

@@ -120,4 +120,10 @@ public interface Type extends AstNode {
      */
     boolean isErrorType();
 
+
+    /**
+     * Return number of bytes of type itself
+     */
+    int numberOfBytes();
+
 }

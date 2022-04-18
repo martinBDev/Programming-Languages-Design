@@ -1,6 +1,7 @@
 
 
 import ast.node.AstNode;
+import codegenerator.OffsetVisitor;
 import errorhandler.EH;
 import introspector.test.ast.ASTNode;
 import parser.*;
@@ -33,6 +34,7 @@ public class Main {
 
 		ast.accept(new IdentificationVisitor(), null);
 		ast.accept(new TypeCheckingVisitor(),null);
+		ast.accept(new OffsetVisitor(),null);
 
 		// * Check errors
 		if(EH.getEH().hasErrors()){

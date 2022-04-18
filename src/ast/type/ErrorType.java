@@ -39,4 +39,6 @@ public class ErrorType extends AbstractType{
 
         return this;
     }
+
+
 }

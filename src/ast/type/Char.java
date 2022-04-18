@@ -117,4 +117,9 @@ public class Char extends AbstractType{
     public String typeName() {
         return "Char";
     }
+
+    @Override
+    public int numberOfBytes(){
+        return 1;
+    }
 }

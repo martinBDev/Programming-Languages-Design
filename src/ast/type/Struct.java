@@ -58,4 +58,14 @@ public class Struct extends AbstractType{
     public String typeName() {
         return "Struct";
     }
+
+    @Override
+    public int numberOfBytes(){
+        int total = 0;
+        for(RecordField rf : fields){
+            total += rf.getType().numberOfBytes();
+        }
+
+        return total;
+    }
 }

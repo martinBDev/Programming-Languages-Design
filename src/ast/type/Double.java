@@ -107,4 +107,9 @@ public class Double extends AbstractType{
     public String typeName() {
         return "Double";
     }
+
+    @Override
+    public int numberOfBytes(){
+        return 1;
+    }
 }

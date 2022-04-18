@@ -139,4 +139,9 @@ public  abstract class AbstractType implements Type{
                 "Cannot invoke parenthesis in something different from a function");
     }
 
+    @Override
+    public int numberOfBytes(){
+        return 0;
+    }
+
 }

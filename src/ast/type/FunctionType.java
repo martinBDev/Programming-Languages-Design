@@ -4,7 +4,6 @@ import ast.definition.VariableDefinition;
 import ast.node.AstNode;
 import visitor.Visitor;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class FunctionType extends AbstractType{
@@ -77,6 +76,15 @@ public class FunctionType extends AbstractType{
     @Override
     public String typeName() {
         return "FunctionType";
+    }
+
+    /**
+     *
+     * @return 2 --> integer: memory address aka pointer to function => we are never gona use this
+     */
+    @Override
+    public int numberOfBytes(){
+        return 2;
     }
 
 }
