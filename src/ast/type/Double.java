@@ -110,6 +110,6 @@ public class Double extends AbstractType{
 
     @Override
     public int numberOfBytes(){
-        return 1;
+        return 4;
     }
 }

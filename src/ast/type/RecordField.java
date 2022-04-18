@@ -9,6 +9,7 @@ public class RecordField implements AstNode {
     private Type type;
     private int line;
     private int column;
+    private int offset;
 
     public RecordField(int line, int column,String name,Type type){
 
@@ -51,5 +52,12 @@ public class RecordField implements AstNode {
     }
 
 
+    public int getOffset(){
+        return this.offset;
+    }
+
+    public void setOffset(int offset){
+        this.offset = offset;
+    }
 
 }

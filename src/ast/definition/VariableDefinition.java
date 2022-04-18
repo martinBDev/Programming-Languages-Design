@@ -8,12 +8,21 @@ public class VariableDefinition extends AbstractDefinition implements Statement 
 
 
     private int scope;
+    private int offset;
 
     public VariableDefinition(int line, int column, String name, Type type) {
 
         super(line, column,name,type);
     }
 
+
+    public int getOffset(){
+        return this.offset;
+    }
+
+    public void setOffset(int offset){
+        this.offset = offset;
+    }
 
     @Override
     public String toString(){
