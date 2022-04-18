@@ -7,8 +7,6 @@ import ast.statement.*;
 import ast.type.*;
 import ast.type.Double;
 import ast.type.Integer;
-import errorhandler.EH;
-import symboltable.SymbolTable;
 import visitor.AbstractVisitor;
 
 import java.lang.Void;
