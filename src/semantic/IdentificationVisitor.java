@@ -52,6 +52,9 @@ public class IdentificationVisitor extends AbstractVisitor<Object,Object> {
     @Override
     public Object visit(FunctionInvocation fi, Object param){
 
+        fi.getExpressions().stream().forEach(expression -> {expression.accept(this,param);});
+
+
         Definition def = table.find(fi.getName().getName());
         //If function not defined, assigned to it a funcdefinition of type ERROR
         if(def == null){

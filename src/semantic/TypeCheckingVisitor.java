@@ -203,10 +203,12 @@ public class TypeCheckingVisitor extends AbstractVisitor<java.lang.Void,Type> {
         a.getRightExpr().accept(this,param);
 
         if( !a.getLeftExpr().getLValue() )
-        {new ErrorType(
+        {
+            new ErrorType(
                 a.getLeftExpr().getLine(),
                 a.getLeftExpr().getColumn(),
-                "Invalid expression on left hand side of an assignment, must be Lvalue");}
+                "Invalid expression on left hand side of an assignment, must be Lvalue");
+        }
 
         a.getLeftExpr().setType(
                 a.getRightExpr().getType().promotesTo(a.getLeftExpr().getType(),a)

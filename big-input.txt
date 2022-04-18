@@ -10,7 +10,7 @@ def f(n: int,r: double): int {
   	c1, c2: char;
 	c1 = (char)(int)(double)n;
   	real = (double)c1 + (double)n + r;
-  	p(); # Invocation as a statement
+  	#p(); # Invocation as a statement
   	q((char)a,(int)(char)(a+b/12));
   	a = (a/(a*5));
   	return (int)c1;
