@@ -14,6 +14,8 @@ public class FunctionDefinition extends AbstractDefinition{
     private List<Statement> statements;
     private List<VariableDefinition> variableDefinitions;
 
+    private int offsetOfLocals = 0;
+
     private int scope;
 
 
@@ -89,5 +91,14 @@ public class FunctionDefinition extends AbstractDefinition{
     @Override
     public void setScope(int scope) {
         this.scope = scope;
+    }
+
+    public void setOffsetOfLocals(int offset){
+        this.offsetOfLocals = offset;
+    }
+
+
+    public int getOffsetOfLocals(){
+        return this.offsetOfLocals;
     }
 }

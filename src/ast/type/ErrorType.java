@@ -41,9 +41,10 @@ public class ErrorType extends AbstractType{
     }
 
 
+    @Override
     public int numberOfBytes() {
-        new IllegalAccessException("Cannot get number of bytes of a ErrorType");
-        return 0;
+        throw new IllegalStateException("Cannot get number of bytes of a ErrorType");
+
     }
 
 }

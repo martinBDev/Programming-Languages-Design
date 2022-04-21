@@ -9,6 +9,7 @@ import java.util.List;
 public class FunctionType extends AbstractType{
     private Type returningType;
     private List<VariableDefinition> params;
+    private int offsetOfParams = 0;
 
     public FunctionType(int line, int column,Type returningType ,  List<VariableDefinition> params) {
         super(line, column);
@@ -70,7 +71,7 @@ public class FunctionType extends AbstractType{
 
         }
 
-       return this;
+       return returningType;
     }
 
     @Override
@@ -80,11 +81,20 @@ public class FunctionType extends AbstractType{
 
     /**
      *
-     * @return 2 --> integer: memory address aka pointer to function => we are never gona use this
+     * can @return 2 --> integer: memory address aka pointer to function => we are never going to use this
      */
     @Override
     public int numberOfBytes(){
-        return 2;
+
+        throw new IllegalStateException("Cannot get number of bytes of a FuntionType");
     }
 
+
+    public void setOffsetOfParams(int offset){
+        this.offsetOfParams = offset;
+    }
+
+    public int getOffsetOfParams(){
+        return this.offsetOfParams;
+    }
 }

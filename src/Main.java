@@ -1,6 +1,8 @@
 
 
 import ast.node.AstNode;
+import codegenerator.CodeGenerator;
+import codegenerator.ExecuteCGVisitor;
 import codegenerator.OffsetVisitor;
 import errorhandler.EH;
 import introspector.test.ast.ASTNode;
@@ -34,7 +36,7 @@ public class Main {
 
 		ast.accept(new IdentificationVisitor(), null);
 		ast.accept(new TypeCheckingVisitor(),null);
-		ast.accept(new OffsetVisitor(),null);
+
 
 		// * Check errors
 		if(EH.getEH().hasErrors()){
@@ -43,8 +45,11 @@ public class Main {
 		}
 		else{
 			// * The AST is shown
-			IntrospectorModel model=new IntrospectorModel("Program", ast);
-			new IntrospectorTree("Introspector", model);
+			//IntrospectorModel model=new IntrospectorModel("Program", ast);
+			//new IntrospectorTree("Introspector", model);
+
+			ast.accept(new OffsetVisitor(),null);
+			ast.accept(new ExecuteCGVisitor(new CodeGenerator(args[1], args[0])),null);
 		}
 	}
 }
