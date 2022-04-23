@@ -141,5 +141,10 @@ public class Integer extends AbstractType{
         return 2;
     }
 
+    @Override
+    public char suffix(){
+        return 'i';
+    }
+
 
 }

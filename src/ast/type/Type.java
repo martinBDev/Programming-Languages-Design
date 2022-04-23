@@ -126,4 +126,9 @@ public interface Type extends AstNode {
      */
     int numberOfBytes();
 
+
+    /**
+     * Return suffix for code generation
+     */
+    char suffix();
 }

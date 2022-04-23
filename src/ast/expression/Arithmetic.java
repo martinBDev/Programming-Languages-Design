@@ -36,4 +36,8 @@ public class Arithmetic extends AbstractExpression {
     public <TR, TP> TR accept(Visitor<TR, TP> v, TP param) {
         return v.visit(this,param);
     }
+
+    public String getOperator(){
+        return operator;
+    }
 }
