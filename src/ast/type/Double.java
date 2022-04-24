@@ -117,4 +117,18 @@ public class Double extends AbstractType{
     public char suffix(){
         return 'f';
     }
+
+    @Override
+    public String convertTo(Type type){
+        if(type.equals(Integer.getInstance())){
+            return "f2i";
+        }else if(type.equals(Double.getInstance())){
+            return "";
+        }else if(type.equals(Char.getInstance())){
+            return "f2i\ni2b";
+        }
+
+        throw new IllegalStateException("Double can only be converted to integer, you try to convert to: " + type.toString());
+
+    }
 }

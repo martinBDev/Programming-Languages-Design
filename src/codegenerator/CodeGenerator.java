@@ -11,6 +11,8 @@ public class CodeGenerator {
     private String outFile;
     private String srcFile;
 
+    private boolean enableComments = true;
+
 
     public CodeGenerator(String outputFile, String sourceFile){
 
@@ -28,63 +30,101 @@ public class CodeGenerator {
 
     }
 
-    public void writeSource(){
-        out.write("#surce \"" + this.srcFile + "\"");
+    public void ret(int returnBytes, int localBytes, int paramBytes){
+        out.write("ret " + returnBytes + "," + localBytes + "," + paramBytes +  "\n");
         out.flush();
     }
 
+    public void enter(int num){
+        out.write("enter " + num + "\n");
+        out.flush();
+    }
+
+    public void label(String label){
+        out.write(label +":\n");
+        out.flush();
+    }
+
+    public void writeSource(){
+        out.write("#SOURCE \"" + this.srcFile + "\""+ "\n");
+        out.flush();
+    }
+
+    public void writeConvertion(String instruction){
+
+        String[] conversions = instruction.split("\n");
+
+        for(String s : conversions){
+
+            switch (s){
+                case "b2i": {this.b2i();break;}
+                case "i2f": {this.i2f();break;}
+                case "f2i": {this.f2i();break;}
+                case "i2b": {this.i2b();break;}
+            }
+
+
+
+        }
+
+
+    }
+
     public void push(char c){
-        out.write("pushb " + (int)c);
+        out.write("pushb " + (int)c + "\n");
         out.flush();
     }
 
     public void push(int i){
-        out.write("pushi " + i);
+        out.write("pushi " + i+ "\n");
         out.flush();
     }
 
     public void push(double d){
-        out.write("pushf " + d);
+        out.write("pushf " + d+ "\n");
         out.flush();
     }
 
     public void pushAddress(int i){
-        out.write("pusha " + i);
+        out.write("pusha " + i+ "\n");
         out.flush();
     }
 
     public void pushBP(){
-        out.write("push bp");
+        out.write("push bp"+ "\n");
         out.flush();
     }
 
-    public void push(Type type){
-        out.write("push" + type.suffix());
+    public void push(Type type, String number){
+        out.write("push" + type.suffix() + " " + number+ "\n");
         out.flush();
     }
 
     public void pop(Type type){
-        out.write("pop" + type.suffix());
+        out.write("pop" + type.suffix()+ "\n");
         out.flush();
     }
 
     public void dup(Type type){
-        out.write("dup" + type.suffix());
+        out.write("dup" + type.suffix()+ "\n");
         out.flush();
     }
 
     public void comment(String comment){
-        out.write("'" + comment);
-        out.flush();
+        if(enableComments){
+            out.write("'" + comment + "\n");
+            out.flush();
+        }
+
     }
 
     public void load(Type type){
-        out.write("load" + type.suffix());
+        out.write("load" + type.suffix() + "\n");
         out.flush();
     }
 
     public void store(Type type){
-        out.write("store" + type.suffix());
+        out.write("store" + type.suffix()+ "\n");
         out.flush();
     }
 
@@ -103,7 +143,7 @@ public class CodeGenerator {
 
         //Si sufijo == 'b' --> no lo usamos, porque sumar chars es sumar integers
         String suffix = type.suffix()=='b' ? "" : ""+type.suffix();
-        out.write(operation + suffix);
+        out.write(operation + suffix+ "\n");
         out.flush();
 
     }
@@ -126,7 +166,7 @@ public class CodeGenerator {
 
     public void mod(Type type){
         String suffix = type.suffix()=='i' ? "i" : "";
-        out.write("mod" + suffix);
+        out.write("mod" + suffix+ "\n");
         out.flush();
     }
 
@@ -134,15 +174,15 @@ public class CodeGenerator {
     //LOGICAL OPERATIONS
 
     public void and(){
-        out.write("and");
+        out.write("and"+ "\n");
         out.flush();
     }
     public void or(){
-        out.write("or");
+        out.write("or"+ "\n");
         out.flush();
     }
     public void not(){
-        out.write("not");
+        out.write("not"+ "\n");
         out.flush();
     }
 
@@ -163,7 +203,7 @@ public class CodeGenerator {
 
         //Si sufijo == 'b' --> no lo usamos, porque sumar chars es sumar integers
         String suffix = type.suffix()=='b' ? "" : ""+type.suffix();
-        out.write(comparison + suffix);
+        out.write(comparison + suffix+ "\n");
         out.flush();
 
     }
@@ -196,32 +236,32 @@ public class CodeGenerator {
     //Input/Output
 
     public void out(Type type){
-        out.write("out" + type.suffix());
+        out.write("out" + type.suffix()+ "\n");
         out.flush();
     }
     public void in(Type type){
-        out.write("in" + type.suffix());
+        out.write("in" + type.suffix()+ "\n");
         out.flush();
     }
 
     //Conversion
 
     public void b2i(){
-        out.write("b2i");
+        out.write("b2i"+ "\n");
         out.flush();
     }
 
     public void i2f(){
-        out.write("i2f");
+        out.write("i2f"+ "\n");
         out.flush();
     }
     public void f2i(){
-        out.write("f2i");
+        out.write("f2i"+ "\n");
         out.flush();
     }
 
     public void i2b(){
-        out.write("i2b");
+        out.write("i2b"+ "\n");
         out.flush();
     }
 
@@ -232,7 +272,12 @@ public class CodeGenerator {
     }
 
     public void write(String text){
-        out.write(text);
+        out.write(text+ "\n");
+        out.flush();
+    }
+
+    public void writeLine(int line){
+        out.write("#LINE\t" + line+ "\n");
         out.flush();
     }
 

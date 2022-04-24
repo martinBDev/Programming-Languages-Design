@@ -228,8 +228,11 @@ public class TypeCheckingVisitor extends AbstractVisitor<java.lang.Void,Type> {
             //Just to generate errors referring to INPUT only where an error has been raised before
             if(!exp.getType().isErrorType() ) {
 
-                //IF EXP IS NOT LVALUE
-                if(!exp.getLValue() ){
+                //IF EXP IS NOT LVALUE OR CHAR OR DOUBLE OR INT
+                if(!exp.getLValue()
+                        && !exp.getType().equals(Char.getInstance())
+                        && !exp.getType().equals(Integer.getInstance())
+                        && !exp.getType().equals(Double.getInstance())){
 
 
                     new ErrorType(printStmnt.getLine(),printStmnt.getColumn(),

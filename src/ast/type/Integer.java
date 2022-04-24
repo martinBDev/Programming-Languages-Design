@@ -146,5 +146,20 @@ public class Integer extends AbstractType{
         return 'i';
     }
 
+    @Override
+    public String convertTo(Type type){
+        if(type.equals(Char.getInstance())){
+            return "i2b";
+        }else if(type.equals(Double.getInstance())){
+            return "i2f";
+
+        }else if(type.equals(Integer.getInstance())){
+            return "";
+        }
+
+        throw new IllegalStateException("Integer can only be converted to double or char, you try to convert to: " + type.toString());
+
+    }
+
 
 }

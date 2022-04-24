@@ -24,6 +24,16 @@ public class Struct extends AbstractType{
         this.fields.add(field);
     }
 
+    public RecordField findField(String name){
+            for(RecordField rf : fields){
+                if(rf.getName().equals(name)){
+                    return rf;
+                }
+            }
+
+          throw new IllegalStateException("Non-existing field named " + name + " in struct.");
+    }
+
 
     @Override
     public String toString(){

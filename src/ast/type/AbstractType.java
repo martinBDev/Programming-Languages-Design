@@ -149,4 +149,9 @@ public  abstract class AbstractType implements Type{
         throw new IllegalStateException("Only built in types have suffix.");
     }
 
+    @Override
+    public String convertTo(Type type){
+        throw new IllegalStateException("This type cannot be converted");
+    }
+
 }

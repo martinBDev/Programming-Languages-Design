@@ -2,11 +2,14 @@ package codegenerator;
 
 import ast.Program;
 import ast.definition.Definition;
+import ast.definition.FunctionDefinition;
 import ast.definition.VariableDefinition;
 import ast.expression.Expression;
 import ast.statement.Assignment;
 import ast.statement.Input;
 import ast.statement.Print;
+import ast.type.FunctionType;
+import ast.type.Void;
 import visitor.AbstractVisitor;
 
 public class ExecuteCGVisitor extends AbstractCodeGeneratorVisitor<Void,Object> {
@@ -42,10 +45,26 @@ public class ExecuteCGVisitor extends AbstractCodeGeneratorVisitor<Void,Object> 
 
         cg.mainProgram();
 
+        //Primero variables globales
+        cg.comment("# GLOBAL VARIABLES");
         for( Definition def : program.getDefinitions()){
-            def.accept(this,param);
+
+            if(def instanceof VariableDefinition){
+                def.accept(this,param);
+            }
+
         }
 
+        //Después funciones
+        cg.comment("# FUNCTIONS");
+
+        for( Definition def : program.getDefinitions()){
+
+            if(def instanceof FunctionDefinition){
+                def.accept(this,param);
+            }
+
+        }
         return null;
     }
 
@@ -64,7 +83,7 @@ public class ExecuteCGVisitor extends AbstractCodeGeneratorVisitor<Void,Object> 
 
         assignment.getLeftExpr().accept(this.address,param);
         assignment.getRightExpr().accept(this.value,param);
-        cg.load(assignment.getLeftExpr().getType());
+        cg.store(assignment.getLeftExpr().getType());
 
         return null;
     }
@@ -94,8 +113,9 @@ public class ExecuteCGVisitor extends AbstractCodeGeneratorVisitor<Void,Object> 
     /**
      * execute[[Input : statement --> expresion*]]() =
      *        for(Expression exp : expresion*){
-     *            VALUE[[exp]]
+     *            address[[exp]]
      *            <in> exp.type.suffix()
+     *            <store> exp.type.suffix()
      *        }
      * @param input
      * @param param
@@ -105,8 +125,104 @@ public class ExecuteCGVisitor extends AbstractCodeGeneratorVisitor<Void,Object> 
     public Void visit(Input input, Object param){
 
         for(Expression exp : input.getExpressions()){
-            exp.accept(this.value,param);
+            exp.accept(this.address,param);
             cg.in(exp.getType());
+            cg.store(exp.getType());
+        }
+
+        return null;
+    }
+
+
+    /**
+     * execute[[VariableDefinition : definition --> type ID]]() =
+     *          <' * > type.toString  definition.getName() <(offset: > definition.offset <)>
+     *
+     * @param varDef
+     * @param param
+     * @return
+     */
+    @Override
+    public Void visit(VariableDefinition varDef , Object param){
+
+        cg.comment(" * " + varDef.getType().toString() + " " + varDef.getName() + " (offset: " + varDef.getOffset() + ")");
+
+        return null;
+    }
+
+
+    /**
+     * execute[[FunctionDefinition : definition --> type ID variableDefinition* statement*]]() =
+     *
+     *   <ID:>
+     *
+     *   <' * Locals: >
+     *   variableDefinition*.forEach( varDef -> { execute[[varDef]] });
+     *   int byteLocals = variableDefinition*.isEmpty() ? 0 : variableDefinition*.get(variableDefinition*.size() -1).offset
+     *
+     *   <enter > byteLocals
+     *
+     *   //type is casted to FunctionType
+     *
+     *   int bytesParameters = 0;
+     *   for(VariableDefinitions def : type.parameters){
+     *       bytesParameters += def.type.numberOfBytes();
+     *   }
+     *
+     *   int bytesReturn = type.getReturningType().numberOfBytes();
+     *
+     *   statement*.forEach(stmt -> { execute[[stmt]] })
+     *
+     *   if(type.getReturningType().equals( Void.getInstance() )){
+     *       <ret > bytesReturn , bytesLocals , bytesParams
+     *   }
+     *
+     *
+     * @param funcDef
+     * @param param
+     * @return
+     */
+    @Override
+    public Void visit(FunctionDefinition funcDef , Object param){
+
+        cg.label(funcDef.getName()); //<label:>
+        cg.comment(" * Locals: "); // ' * locals:
+        funcDef.getVariableDefinitions().forEach(def -> {def.accept(this,param);});
+
+        //LOCAL VARIABLES' BYTES
+        int byteLocals = funcDef.getVariableDefinitions().isEmpty() ?
+                0 :
+                - (funcDef
+                        .getVariableDefinitions()
+                        .get(funcDef.getVariableDefinitions().size() -1)
+                        .getOffset());
+
+        cg.enter(byteLocals);
+
+        //PARAMETER'S BYTES
+
+        FunctionType funcType = (FunctionType)funcDef.getType();
+
+        int bytesParameters = 0;
+        for(VariableDefinition def : funcType.getParams()){
+            bytesParameters += def.getType().numberOfBytes();
+        }
+
+        //RETURN'S PARAMETERS
+        int bytesReturn = funcType.getReturningType().numberOfBytes();
+
+
+        //EXECUTE FUNCTION'S STATEMENTS
+        //Array with bytesLocal and bytesParameters passed as param as INHERITED ATTRIBUTE
+        //to allow visit(Return) to know how many bytes to clean
+
+        int finalBytesParameters = bytesParameters;
+        funcDef.getStatements().forEach(stmt -> { stmt.accept(this, new int[] {byteLocals, finalBytesParameters}); });
+
+        //IF IT RETURNS VOID, THERE IS NO RETURN STATEMENT EXECUTED IN LINE ABOVE THIS ONE
+        //SO IT IS STILL NECESSARY TO INVOKE RET TO CLEAN THE STACK
+        if(funcType.getReturningType().equals(Void.getInstance())){
+            cg.ret(bytesReturn,byteLocals,bytesParameters);
         }
 
         return null;

@@ -131,4 +131,10 @@ public interface Type extends AstNode {
      * Return suffix for code generation
      */
     char suffix();
+
+
+    /**
+     *
+     */
+    String convertTo(Type type);
 }

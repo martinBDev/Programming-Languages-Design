@@ -32,5 +32,10 @@ public class Void extends AbstractType{
         return "Void";
     }
 
+    @Override
+    public int numberOfBytes() {
+        return 0;
+    }
+
 
 }

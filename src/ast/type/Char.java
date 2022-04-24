@@ -127,4 +127,18 @@ public class Char extends AbstractType{
     public char suffix(){
         return 'b';
     }
+
+    @Override
+    public String convertTo(Type type){
+        if(type.equals(Integer.getInstance())){
+            return "b2i";
+        }else if(type.equals(Char.getInstance())){
+            return "";
+        }else if(type.equals(Double.getInstance())){
+            return "b2i\ni2f";
+        }
+
+        throw new IllegalStateException("Char can only be converted to integer, you try to convert to: " + type.toString());
+
+    }
 }
