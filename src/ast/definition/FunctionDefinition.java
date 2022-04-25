@@ -1,6 +1,5 @@
 package ast.definition;
 
-import ast.expression.Expression;
 import ast.statement.Statement;
 import ast.type.Type;
 import visitor.Visitor;
@@ -14,7 +13,7 @@ public class FunctionDefinition extends AbstractDefinition{
     private List<Statement> statements;
     private List<VariableDefinition> variableDefinitions;
 
-    private int offsetOfLocals = 0;
+    private int bytesOfLocals = 0;
 
     private int scope;
 
@@ -93,12 +92,12 @@ public class FunctionDefinition extends AbstractDefinition{
         this.scope = scope;
     }
 
-    public void setOffsetOfLocals(int offset){
-        this.offsetOfLocals = offset;
+    public void setBytesOfLocals(int offset){
+        this.bytesOfLocals = offset;
     }
 
 
-    public int getOffsetOfLocals(){
-        return this.offsetOfLocals;
+    public int getBytesOfLocals(){
+        return this.bytesOfLocals;
     }
 }

@@ -11,6 +11,8 @@ public class CodeGenerator {
     private String outFile;
     private String srcFile;
 
+    private int labelCounter;
+
     private boolean enableComments = true;
 
 
@@ -28,6 +30,41 @@ public class CodeGenerator {
 
         writeSource();
 
+    }
+
+    public void writeArithmetic(String operator, Type arithmeticType){
+
+        switch (operator){
+
+            case "+": {add(arithmeticType); break;}
+            case "-": {sub(arithmeticType); break;}
+            case "/": {div(arithmeticType); break;}
+            case "*": {mul(arithmeticType); break;}
+            case "%": {mod(arithmeticType); break;}
+        }
+
+    }
+
+    public void comparison(String operand, Type comparisonLeftType){
+
+        switch(operand){
+            case "<": {lt(comparisonLeftType); break;}
+            case ">": {gt(comparisonLeftType); break;}
+            case "<=": {le(comparisonLeftType); break;}
+            case ">=": {ge(comparisonLeftType); break; }
+            case "==": {eq(comparisonLeftType); break; }
+            case "!=": {ne(comparisonLeftType); break; }
+        }
+
+    }
+
+    public int getLabelCounter(){
+        return labelCounter++;
+    }
+
+    public void label(int id){
+        out.write("label_" + id + ":" + "\n");
+        out.flush();
     }
 
     public void ret(int returnBytes, int localBytes, int paramBytes){
@@ -278,6 +315,16 @@ public class CodeGenerator {
 
     public void writeLine(int line){
         out.write("#LINE\t" + line+ "\n");
+        out.flush();
+    }
+
+    public void jz(String label){
+        out.write("jz "+ label+"\n");
+        out.flush();
+    }
+
+    public void jmp(String label){
+        out.write("jmp "+ label+"\n");
         out.flush();
     }
 

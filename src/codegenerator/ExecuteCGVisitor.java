@@ -5,9 +5,8 @@ import ast.definition.Definition;
 import ast.definition.FunctionDefinition;
 import ast.definition.VariableDefinition;
 import ast.expression.Expression;
-import ast.statement.Assignment;
-import ast.statement.Input;
-import ast.statement.Print;
+import ast.expression.FunctionInvocation;
+import ast.statement.*;
 import ast.type.FunctionType;
 import ast.type.Void;
 import visitor.AbstractVisitor;
@@ -216,8 +215,8 @@ public class ExecuteCGVisitor extends AbstractCodeGeneratorVisitor<Void,Object> 
         //Array with bytesLocal and bytesParameters passed as param as INHERITED ATTRIBUTE
         //to allow visit(Return) to know how many bytes to clean
 
-        int finalBytesParameters = bytesParameters;
-        funcDef.getStatements().forEach(stmt -> { stmt.accept(this, new int[] {byteLocals, finalBytesParameters}); });
+
+        funcDef.getStatements().forEach(stmt -> { stmt.accept(this, funcDef); });
 
         //IF IT RETURNS VOID, THERE IS NO RETURN STATEMENT EXECUTED IN LINE ABOVE THIS ONE
         //SO IT IS STILL NECESSARY TO INVOKE RET TO CLEAN THE STACK
@@ -227,5 +226,72 @@ public class ExecuteCGVisitor extends AbstractCodeGeneratorVisitor<Void,Object> 
 
         return null;
     }
+
+
+
+    /**
+     * execute[[While : statement1 --> expression statement2* ]]() =
+     *          int condition = codegenerato.getLabelCounter();
+     *          int end = codegenerator.getLabelCounter();
+     *
+     *          <label_> condition < :>
+     *          value[[expression]]
+     *          <jz label_> end
+     *          statement2*.forEach( stmt -> { execute[[stmt]] })
+     *          <jmp label_> condition
+     *          <label_>end< :>
+     *
+     * @param whileStmt
+     * @param param
+     * @return
+     */
+    @Override
+    public Void visit(While whileStmt , Object param){
+
+        int condition = cg.getLabelCounter();
+        int end = cg.getLabelCounter();
+
+        cg.label(condition);
+        whileStmt.getExpression().accept(this.value,param);
+        cg.jz("label_" + end);
+        whileStmt.getStatements().stream().forEach(stmt -> {stmt.accept(this,param);});
+        cg.jmp("label_" + condition);
+        cg.label(end);
+
+        return null;
+    }
+
+    /**
+     * execute[[If : statement1 --> expression statement2* statement3* ]]() =
+     *          int elseStmt = cg.getLabelCounter();
+     *          int end = cg.getLabelCounter();
+     *          value[[expression]]
+     *          <jz label_>elseStmt
+     *          statement2*.forEach( stmt -> {execute[[stmt]] })
+     *          <jmp label_>end
+     *          <label_>elseStmt < :>
+     *          statement3*.forEach(stmt -> {execute[[stmt]]});
+     *          <label_>end < :>
+     *
+     * @param ifStmt
+     * @param param
+     * @return
+     */
+    @Override
+    public Void visit(If ifStmt , Object param){
+
+        int elseStmt = cg.getLabelCounter();
+        int end = cg.getLabelCounter();
+        ifStmt.getCondition().accept(this.value,param);
+        cg.jz("label_" + elseStmt);
+        ifStmt.getStatementsWhenTrue().stream().forEach(stmt -> {stmt.accept(this,param);});
+        cg.jmp("label_" + end);
+        cg.label(elseStmt);
+        ifStmt.getStatementsWhenFalse().stream().forEach(stmt -> {stmt.accept(this,param);});
+        cg.label(end);
+
+        return null;
+    }
+
 
 }

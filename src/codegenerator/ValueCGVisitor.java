@@ -46,8 +46,6 @@ public class ValueCGVisitor extends AbstractCodeGeneratorVisitor<Void,Object> {
     @Override
     public Void visit(Arithmetic arithmetic, Object param){
 
-        cg.writeLine(arithmetic.getLine());
-        cg.comment(" * Arithmetic: " + arithmetic.getOperator());
 
 
         arithmetic.getLeft().accept(this,param);
@@ -56,16 +54,9 @@ public class ValueCGVisitor extends AbstractCodeGeneratorVisitor<Void,Object> {
         arithmetic.getRight().accept(this,param);
         cg.writeConvertion( arithmetic.getRight().getType().convertTo( arithmetic.getType() ));
 
+        cg.writeArithmetic(arithmetic.getOperator(), arithmetic.getType());
 
 
-        switch (arithmetic.getOperator()){
-
-            case "+": {cg.add(arithmetic.getType()); break;}
-            case "-": {cg.sub(arithmetic.getType()); break;}
-            case "/": {cg.div(arithmetic.getType()); break;}
-            case "*": {cg.mul(arithmetic.getType()); break;}
-            case "%": {cg.mod(arithmetic.getType()); break;}
-        }
 
         return null;
     }
@@ -155,8 +146,6 @@ public class ValueCGVisitor extends AbstractCodeGeneratorVisitor<Void,Object> {
     @Override
     public Void visit(UnaryMinus u, Object param){
 
-        cg.writeLine(u.getLine());
-        cg.comment(" * UnaryMinus");
         //I WILL PERFORm 0 - u.expression
 
 
@@ -250,14 +239,7 @@ public class ValueCGVisitor extends AbstractCodeGeneratorVisitor<Void,Object> {
         c.getLeftExpr().accept(this,param);
         c.getRightExpr().accept(this,param);
 
-        switch(c.getOperand()){
-            case "<": {cg.lt(c.getLeftExpr().getType()); break;}
-            case ">": {cg.gt(c.getLeftExpr().getType()); break;}
-            case "<=": {cg.le(c.getLeftExpr().getType()); break;}
-            case ">=": {cg.ge(c.getLeftExpr().getType()); break; }
-            case "==": {cg.eq(c.getLeftExpr().getType()); break; }
-            case "!=": {cg.ne(c.getLeftExpr().getType()); break; }
-        }
+        cg.comparison(c.getOperand(),c.getLeftExpr().getType());
 
         return null;
     }

@@ -4,7 +4,6 @@ r: double;
 
 def main(): {
 	a, i:int;
-	
 	c='a';
 	print c,'\n';
 

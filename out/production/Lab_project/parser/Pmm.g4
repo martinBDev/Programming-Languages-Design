@@ -322,11 +322,11 @@ NEW_LINE: ('\r')?('\n'| EOF)
             ;
 
 fragment
-FLOATING_POINT: (DIGIT+'.'DIGIT+)
+FLOATING_POINT: (INT_CONSTANT'.'DIGIT+)
                 | ('.'DIGIT+)
-                | (DIGIT+'.');
+                | (INT_CONSTANT'.');
 fragment
-MANTISSA: (FLOATING_POINT|DIGIT+)('E'|'e')('+'|'-')?DIGIT+;
+MANTISSA: (FLOATING_POINT|INT_CONSTANT)('E'|'e')('+'|'-')?DIGIT+;
 
 
 TRASH: ([ \t\n\r]+ | NEW_LINE) -> skip;

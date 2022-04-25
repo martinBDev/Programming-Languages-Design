@@ -90,7 +90,7 @@ modi
 outi
 pushb 32
 outb
-#LINE	21
+#LINE	20
 ' * Arithmetic: +
 pushi 0
 pushb 49
