@@ -1,0 +1,368 @@
+#SOURCE "programs/lab13/input-lab13.txt"
+call main
+halt
+'# GLOBAL VARIABLES
+' * Integer i (offset: 0)
+' * Integer n (offset: 2)
+' * Integer j (offset: 4)
+' * Char c (offset: 6)
+' * Struct: - Fields: [ - RecordField - Type: [Integer] - Name: integer - RecordField - Type: [Char] - Name: character] pair (offset: 7)
+' * Array - Size: 10 - Type: [Array - Size: 10 - Type: [Integer]] matrix (offset: 10)
+'# FUNCTIONS
+' * FunctionDefinition: 
+p:
+' * Locals: 
+	enter 0
+	ret 0,0,0
+' * FunctionDefinition: 
+f:
+' * Locals: 
+' * Double real (offset: -4)
+' * Char c (offset: -5)
+	enter 5
+#line	17
+'    * Assignment statement
+	push bp
+	pushi -4
+	addi
+	pusha 7
+	pushi 2
+	addi
+	loadb
+	b2i
+	i2f
+	pusha 7
+	pushi 0
+	addi
+	loadi
+	i2f
+	addf
+	push bp
+	pushi 6
+	addi
+	loadf
+	addf
+	push bp
+	pushi 4
+	addi
+	loadi
+	i2f
+	addf
+	storef
+#line	18
+'    * Assignment statement
+	push bp
+	pushi -5
+	addi
+	pushb 48
+	storeb
+#line	19
+'    * Return
+	push bp
+	pushi -5
+	addi
+	loadb
+	b2i
+	ret 2,5,6
+' * FunctionDefinition: 
+fill:
+' * Locals: 
+' * Integer i (offset: -2)
+' * Integer inc (offset: -4)
+	enter 4
+#line	26
+'    * Assignment statement
+	push bp
+	pushi -2
+	addi
+	pushi 0
+	storei
+#line	27
+'    * Assignment statement
+	push bp
+	pushi -4
+	addi
+	push bp
+	pushi 4
+	addi
+	loadi
+	storei
+#line	28
+'    * While statement
+	label_0:
+	push bp
+	pushi -2
+	addi
+	loadi
+	pushi 10
+	lti
+	jz label_1
+#line	29
+'    * Assignment statement
+	pusha 10
+	push bp
+	pushi 8
+	addi
+	loadi
+	pushi 20
+	muli
+	addi
+	push bp
+	pushi -2
+	addi
+	loadi
+	pushi 2
+	muli
+	addi
+	push bp
+	pushi 6
+	addi
+	loadi
+	push bp
+	pushi -4
+	addi
+	loadi
+	addi
+	storei
+#line	30
+'    * Assignment statement
+	push bp
+	pushi -2
+	addi
+	push bp
+	pushi -2
+	addi
+	loadi
+	pushi 1
+	addi
+	storei
+#line	31
+'    * Assignment statement
+	push bp
+	pushi -4
+	addi
+	push bp
+	pushi -4
+	addi
+	loadi
+	push bp
+	pushi 4
+	addi
+	loadi
+	addi
+	storei
+	jmp label_0
+	label_1:
+	ret 0,4,6
+' * FunctionDefinition: 
+show:
+' * Locals: 
+' * Integer i (offset: -2)
+	enter 2
+#line	37
+'    * Assignment statement
+	push bp
+	pushi -2
+	addi
+	pushi 0
+	storei
+#line	38
+'    * While statement
+	label_2:
+	push bp
+	pushi -2
+	addi
+	loadi
+	pushi 10
+	lti
+	jz label_3
+#line	39
+'    * Print statement
+	pushb 40
+	outb
+#line	39
+'    * Print statement
+	push bp
+	pushi 4
+	addi
+	loadi
+	outi
+#line	39
+'    * Print statement
+	pushb 44
+	outb
+#line	39
+'    * Print statement
+	push bp
+	pushi -2
+	addi
+	loadi
+	outi
+#line	39
+'    * Print statement
+	pushb 41
+	outb
+#line	39
+'    * Print statement
+	pushb 58
+	outb
+#line	39
+'    * Print statement
+	pusha 10
+	push bp
+	pushi 4
+	addi
+	loadi
+	pushi 20
+	muli
+	addi
+	push bp
+	pushi -2
+	addi
+	loadi
+	pushi 2
+	muli
+	addi
+	loadi
+	outi
+#line	39
+'    * Print statement
+	pushb 32
+	outb
+#line	40
+'    * Assignment statement
+	push bp
+	pushi -2
+	addi
+	push bp
+	pushi -2
+	addi
+	loadi
+	pushi 1
+	addi
+	storei
+	jmp label_2
+	label_3:
+#line	42
+'    * Print statement
+	pushb 10
+	outb
+	ret 0,2,2
+' * FunctionDefinition: 
+main:
+' * Locals: 
+' * Integer i (offset: -2)
+	enter 2
+#line	49
+'    * Function Invocation
+	call p
+#line	50
+'    * Assignment statement
+	push bp
+	pushi -2
+	addi
+	pushi 0
+	storei
+#line	51
+'    * Assignment statement
+	pusha 7
+	pushi 2
+	addi
+	pushb 48
+	storeb
+#line	52
+'    * Assignment statement
+	pusha 7
+	pushi 0
+	addi
+	pushb 48
+	b2i
+	storei
+#line	53
+'    * Print statement
+	push bp
+	pushi -2
+	addi
+	loadi
+	i2f
+	pusha 7
+	pushi 2
+	addi
+	loadb
+	b2i
+	call f
+	outi
+#line	53
+'    * Print statement
+	pushb 10
+	outb
+#line	55
+'    * Function Invocation
+	pushf 1.3
+	pushi 2
+	call f
+	popi
+#line	57
+'    * Assignment statement
+	push bp
+	pushi -2
+	addi
+	pushi 0
+	storei
+#line	58
+'    * Assignment statement
+	pusha 4
+	pushi 0
+	storei
+#line	59
+'    * While statement
+	label_4:
+	push bp
+	pushi -2
+	addi
+	loadi
+	pushi 10
+	lti
+	jz label_5
+#line	60
+'    * Function Invocation
+	push bp
+	pushi -2
+	addi
+	loadi
+	pusha 4
+	loadi
+	pushi 1
+	call fill
+#line	61
+'    * Function Invocation
+	push bp
+	pushi -2
+	addi
+	loadi
+	call show
+#line	62
+'    * Assignment statement
+	push bp
+	pushi -2
+	addi
+	push bp
+	pushi -2
+	addi
+	loadi
+	pushi 1
+	addi
+	storei
+#line	63
+'    * Assignment statement
+	pusha 4
+	push bp
+	pushi -2
+	addi
+	loadi
+	pushi 10
+	muli
+	storei
+	jmp label_4
+	label_5:
+	ret 0,2,0

@@ -106,9 +106,11 @@ public class ExecuteCGVisitor extends AbstractCodeGeneratorVisitor<Void,Object> 
     @Override
     public Void visit(Print print, Object param){
 
-        cg.writeLine(print.getLine());
-        cg.comment("    * Print statement");
+
+
         for(Expression exp : print.getExpressions()){
+            cg.writeLine(print.getLine());
+            cg.comment("    * Print statement");
             exp.accept(this.value,param);
             cg.out(exp.getType());
         }
@@ -130,10 +132,11 @@ public class ExecuteCGVisitor extends AbstractCodeGeneratorVisitor<Void,Object> 
     @Override
     public Void visit(Input input, Object param){
 
-        cg.writeLine(input.getLine());
-        cg.comment("    * Input statement");
 
         for(Expression exp : input.getExpressions()){
+            cg.writeLine(input.getLine());
+
+            cg.comment("    * Input statement");
             exp.accept(this.address,param);
             cg.in(exp.getType());
             cg.store(exp.getType());
@@ -200,12 +203,9 @@ public class ExecuteCGVisitor extends AbstractCodeGeneratorVisitor<Void,Object> 
         funcDef.getVariableDefinitions().forEach(def -> {def.accept(this,param);});
 
         //LOCAL VARIABLES' BYTES
-        int byteLocals = funcDef.getVariableDefinitions().isEmpty() ?
-                0 :
-                - (funcDef
-                        .getVariableDefinitions()
-                        .get(funcDef.getVariableDefinitions().size() -1)
-                        .getOffset());
+        int byteLocals = funcDef.getVariableDefinitions()
+                .isEmpty() ? 0 : - funcDef.getVariableDefinitions().get(
+                        funcDef.getVariableDefinitions().size() -1).getOffset();
 
         cg.enter(byteLocals);
 
@@ -213,10 +213,8 @@ public class ExecuteCGVisitor extends AbstractCodeGeneratorVisitor<Void,Object> 
 
         FunctionType funcType = (FunctionType)funcDef.getType();
 
-        int bytesParameters = 0;
-        for(VariableDefinition def : funcType.getParams()){
-            bytesParameters += def.getType().numberOfBytes();
-        }
+        int bytesParameters = funcType.getBytesOfParams();
+
 
         //RETURN'S PARAMETERS
         int bytesReturn = funcType.getReturningType().numberOfBytes();
@@ -354,6 +352,8 @@ public class ExecuteCGVisitor extends AbstractCodeGeneratorVisitor<Void,Object> 
 
         cg.writeLine(returnStmt.getLine());
         cg.comment("    * Return");
+
+        returnStmt.getExprToReturn().accept(this.value,param);
 
         FunctionDefinition funcDef = (FunctionDefinition) param;
         cg.ret( returnStmt.getExprToReturn().getType().numberOfBytes() ,

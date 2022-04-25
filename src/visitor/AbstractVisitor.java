@@ -152,6 +152,7 @@ public class AbstractVisitor<TR,TP> implements  Visitor<TR,TP>{
 
         f.getStatements().stream().forEach((Statement s)->{s.accept(this,param);});
         f.getVariableDefinitions().stream().forEach((VariableDefinition s)->{s.accept(this,param);});
+        f.getType().accept(this,param);
         return null;
     }
 

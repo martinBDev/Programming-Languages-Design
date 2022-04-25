@@ -16,16 +16,10 @@ public class OffsetVisitor extends AbstractVisitor<Void, Object> {
     public Void visit(VariableDefinition vd, Object param){
 
         vd.getType().accept(this,param);
-        if(vd.getScope() == 0){ //Global variables
+        if(vd.getScope() == 0){ //Global variables --> we check locals in FunctionDefinition
 
             vd.setOffset(currentOffsetGlobals);
             currentOffsetGlobals += vd.getType().numberOfBytes();
-
-
-        }else if(vd.getScope() == 1){ //Parameter or locals, but parameter's offset is calculated when visiting FUNTIONTYPE
-
-            currentOffsetLocals -= vd.getType().numberOfBytes();
-            vd.setOffset(currentOffsetLocals);
 
 
         }
@@ -36,10 +30,18 @@ public class OffsetVisitor extends AbstractVisitor<Void, Object> {
     @Override
     public Void visit(FunctionDefinition fd, Object param){
 
-       currentOffsetLocals = 0;
+        currentOffsetLocals = 0;
         super.visit(fd,param);
+
+        for(VariableDefinition vd  : fd.getVariableDefinitions()){
+            currentOffsetLocals -= vd.getType().numberOfBytes();
+            vd.setOffset(currentOffsetLocals);
+        }
+
+
         fd.setBytesOfLocals(-currentOffsetLocals);
-        currentOffsetGlobals = 0;
+
+        currentOffsetLocals = 0;
         return null;
 
 
@@ -54,7 +56,7 @@ public class OffsetVisitor extends AbstractVisitor<Void, Object> {
         int offset = 4; //Starting with 4
         VariableDefinition currentParam = null;
 
-        for(int i = ft.getParams().size() - 1 ; i < 0 ; i--){
+        for(int i = ft.getParams().size() - 1 ; i >= 0 ; i--){
 
             currentParam =  ft.getParams().get(i);
             currentParam.setOffset(offset);
@@ -62,7 +64,7 @@ public class OffsetVisitor extends AbstractVisitor<Void, Object> {
 
         }
 
-        ft.setBytesOfParams(offset);
+        ft.setBytesOfParams(offset - 4); //REMEMBER SUBSTRACT 4 BECAUSE BP AND IP
 
 
         return null;

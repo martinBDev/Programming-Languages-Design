@@ -66,8 +66,12 @@ main:
 	addi
 	loadi
 	outi
+#line	15
+'    * Print statement
 	pushb 10
 	outb
+#line	15
+'    * Print statement
 	push bp
 	pushi -54
 	addi
@@ -75,8 +79,12 @@ main:
 	addi
 	loadi
 	outi
+#line	15
+'    * Print statement
 	pushb 10
 	outb
+#line	15
+'    * Print statement
 	push bp
 	pushi -54
 	addi
@@ -85,6 +93,8 @@ main:
 	loadi
 	i2f
 	outf
+#line	15
+'    * Print statement
 	pushb 10
 	outb
 #line	17
@@ -133,8 +143,12 @@ main:
 	addi
 	loadi
 	outi
+#line	22
+'    * Print statement
 	pushb 58
 	outb
+#line	22
+'    * Print statement
 	pusha 0
 	push bp
 	pushi -6
@@ -145,6 +159,8 @@ main:
 	addi
 	loadf
 	outf
+#line	22
+'    * Print statement
 	pushb 32
 	outb
 #line	23
@@ -160,10 +176,16 @@ main:
 '    * Print statement
 	pushb 111
 	outb
+#line	24
+'    * Print statement
 	pushb 100
 	outb
+#line	24
+'    * Print statement
 	pushb 100
 	outb
+#line	24
+'    * Print statement
 	pushb 10
 	outb
 	jmp label_3
@@ -172,12 +194,20 @@ main:
 '    * Print statement
 	pushb 101
 	outb
+#line	26
+'    * Print statement
 	pushb 118
 	outb
+#line	26
+'    * Print statement
 	pushb 101
 	outb
+#line	26
+'    * Print statement
 	pushb 110
 	outb
+#line	26
+'    * Print statement
 	pushb 10
 	outb
 	label_3:
@@ -283,6 +313,8 @@ main:
 	addi
 	loadi
 	outi
+#line	36
+'    * Print statement
 	pushb 32
 	outb
 #line	37
