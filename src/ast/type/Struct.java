@@ -37,11 +37,13 @@ public class Struct extends AbstractType{
 
     @Override
     public String toString(){
-        String st = "Struct: - Fields: ";
+        String st = "Struct: - Fields: [";
 
         for(RecordField rf : fields){
-            st += "\n - " + rf.toString();
+            st += " - " + rf.toString();
         }
+
+        st += "]";
         return st;
     }
 

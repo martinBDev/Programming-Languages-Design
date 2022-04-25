@@ -58,22 +58,27 @@ public class CodeGenerator {
 
     }
 
+    public void call(String funcName){
+        out.write("\tcall " + funcName + "\n");
+        out.flush();
+    }
+
     public int getLabelCounter(){
         return labelCounter++;
     }
 
     public void label(int id){
-        out.write("label_" + id + ":" + "\n");
+        out.write("\tlabel_" + id + ":" + "\n");
         out.flush();
     }
 
     public void ret(int returnBytes, int localBytes, int paramBytes){
-        out.write("ret " + returnBytes + "," + localBytes + "," + paramBytes +  "\n");
+        out.write("\tret " + returnBytes + "," + localBytes + "," + paramBytes +  "\n");
         out.flush();
     }
 
     public void enter(int num){
-        out.write("enter " + num + "\n");
+        out.write("\tenter " + num + "\n");
         out.flush();
     }
 
@@ -108,42 +113,42 @@ public class CodeGenerator {
     }
 
     public void push(char c){
-        out.write("pushb " + (int)c + "\n");
+        out.write("\tpushb " + (int)c + "\n");
         out.flush();
     }
 
     public void push(int i){
-        out.write("pushi " + i+ "\n");
+        out.write("\tpushi " + i+ "\n");
         out.flush();
     }
 
     public void push(double d){
-        out.write("pushf " + d+ "\n");
+        out.write("\tpushf " + d+ "\n");
         out.flush();
     }
 
     public void pushAddress(int i){
-        out.write("pusha " + i+ "\n");
+        out.write("\tpusha " + i+ "\n");
         out.flush();
     }
 
     public void pushBP(){
-        out.write("push bp"+ "\n");
+        out.write("\tpush bp"+ "\n");
         out.flush();
     }
 
     public void push(Type type, String number){
-        out.write("push" + type.suffix() + " " + number+ "\n");
+        out.write("\tpush" + type.suffix() + " " + number+ "\n");
         out.flush();
     }
 
     public void pop(Type type){
-        out.write("pop" + type.suffix()+ "\n");
+        out.write("\tpop" + type.suffix()+ "\n");
         out.flush();
     }
 
     public void dup(Type type){
-        out.write("dup" + type.suffix()+ "\n");
+        out.write("\tdup" + type.suffix()+ "\n");
         out.flush();
     }
 
@@ -156,12 +161,12 @@ public class CodeGenerator {
     }
 
     public void load(Type type){
-        out.write("load" + type.suffix() + "\n");
+        out.write("\tload" + type.suffix() + "\n");
         out.flush();
     }
 
     public void store(Type type){
-        out.write("store" + type.suffix()+ "\n");
+        out.write("\tstore" + type.suffix()+ "\n");
         out.flush();
     }
 
@@ -180,7 +185,7 @@ public class CodeGenerator {
 
         //Si sufijo == 'b' --> no lo usamos, porque sumar chars es sumar integers
         String suffix = type.suffix()=='b' ? "" : ""+type.suffix();
-        out.write(operation + suffix+ "\n");
+        out.write("\t"+operation + suffix+ "\n");
         out.flush();
 
     }
@@ -203,7 +208,7 @@ public class CodeGenerator {
 
     public void mod(Type type){
         String suffix = type.suffix()=='i' ? "i" : "";
-        out.write("mod" + suffix+ "\n");
+        out.write("\tmod" + suffix+ "\n");
         out.flush();
     }
 
@@ -211,15 +216,15 @@ public class CodeGenerator {
     //LOGICAL OPERATIONS
 
     public void and(){
-        out.write("and"+ "\n");
+        out.write("\tand"+ "\n");
         out.flush();
     }
     public void or(){
-        out.write("or"+ "\n");
+        out.write("\tor"+ "\n");
         out.flush();
     }
     public void not(){
-        out.write("not"+ "\n");
+        out.write("\tnot"+ "\n");
         out.flush();
     }
 
@@ -240,7 +245,7 @@ public class CodeGenerator {
 
         //Si sufijo == 'b' --> no lo usamos, porque sumar chars es sumar integers
         String suffix = type.suffix()=='b' ? "" : ""+type.suffix();
-        out.write(comparison + suffix+ "\n");
+        out.write("\t"+comparison + suffix+ "\n");
         out.flush();
 
     }
@@ -273,32 +278,32 @@ public class CodeGenerator {
     //Input/Output
 
     public void out(Type type){
-        out.write("out" + type.suffix()+ "\n");
+        out.write("\tout" + type.suffix()+ "\n");
         out.flush();
     }
     public void in(Type type){
-        out.write("in" + type.suffix()+ "\n");
+        out.write("\tin" + type.suffix()+ "\n");
         out.flush();
     }
 
     //Conversion
 
     public void b2i(){
-        out.write("b2i"+ "\n");
+        out.write("\tb2i"+ "\n");
         out.flush();
     }
 
     public void i2f(){
-        out.write("i2f"+ "\n");
+        out.write("\ti2f"+ "\n");
         out.flush();
     }
     public void f2i(){
-        out.write("f2i"+ "\n");
+        out.write("\tf2i"+ "\n");
         out.flush();
     }
 
     public void i2b(){
-        out.write("i2b"+ "\n");
+        out.write("\ti2b"+ "\n");
         out.flush();
     }
 
@@ -314,17 +319,17 @@ public class CodeGenerator {
     }
 
     public void writeLine(int line){
-        out.write("#LINE\t" + line+ "\n");
+        out.write("#line\t" + line + "\n");
         out.flush();
     }
 
     public void jz(String label){
-        out.write("jz "+ label+"\n");
+        out.write("\tjz "+ label+"\n");
         out.flush();
     }
 
     public void jmp(String label){
-        out.write("jmp "+ label+"\n");
+        out.write("\tjmp "+ label+"\n");
         out.flush();
     }
 

@@ -9,7 +9,7 @@ import java.util.List;
 public class FunctionType extends AbstractType{
     private Type returningType;
     private List<VariableDefinition> params;
-    private int offsetOfParams = 0;
+    private int bytesOfParams = 0;
 
     public FunctionType(int line, int column,Type returningType ,  List<VariableDefinition> params) {
         super(line, column);
@@ -90,11 +90,11 @@ public class FunctionType extends AbstractType{
     }
 
 
-    public void setOffsetOfParams(int offset){
-        this.offsetOfParams = offset;
+    public void setBytesOfParams(int offset){
+        this.bytesOfParams = offset;
     }
 
-    public int getOffsetOfParams(){
-        return this.offsetOfParams;
+    public int getBytesOfParams(){
+        return this.bytesOfParams;
     }
 }

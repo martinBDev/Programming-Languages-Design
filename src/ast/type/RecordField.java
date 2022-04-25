@@ -42,7 +42,7 @@ public class RecordField implements AstNode {
 
     @Override
     public String toString(){
-        return "RecordField - Type: " + this.type +
+        return "RecordField - Type: [" + this.type + "]"+
                 " - Name: " + this.name ;
     }
 

@@ -8,6 +8,7 @@ import ast.expression.Expression;
 import ast.expression.FunctionInvocation;
 import ast.statement.*;
 import ast.type.FunctionType;
+import ast.type.Type;
 import ast.type.Void;
 import visitor.AbstractVisitor;
 
@@ -80,6 +81,10 @@ public class ExecuteCGVisitor extends AbstractCodeGeneratorVisitor<Void,Object> 
     @Override
     public Void visit(Assignment assignment, Object param){
 
+
+        cg.writeLine(assignment.getLine());
+        cg.comment("    * Assignment statement");
+
         assignment.getLeftExpr().accept(this.address,param);
         assignment.getRightExpr().accept(this.value,param);
         cg.store(assignment.getLeftExpr().getType());
@@ -101,6 +106,8 @@ public class ExecuteCGVisitor extends AbstractCodeGeneratorVisitor<Void,Object> 
     @Override
     public Void visit(Print print, Object param){
 
+        cg.writeLine(print.getLine());
+        cg.comment("    * Print statement");
         for(Expression exp : print.getExpressions()){
             exp.accept(this.value,param);
             cg.out(exp.getType());
@@ -122,6 +129,9 @@ public class ExecuteCGVisitor extends AbstractCodeGeneratorVisitor<Void,Object> 
      */
     @Override
     public Void visit(Input input, Object param){
+
+        cg.writeLine(input.getLine());
+        cg.comment("    * Input statement");
 
         for(Expression exp : input.getExpressions()){
             exp.accept(this.address,param);
@@ -184,6 +194,7 @@ public class ExecuteCGVisitor extends AbstractCodeGeneratorVisitor<Void,Object> 
     @Override
     public Void visit(FunctionDefinition funcDef , Object param){
 
+        cg.comment(" * FunctionDefinition: "); // ' * locals:
         cg.label(funcDef.getName()); //<label:>
         cg.comment(" * Locals: "); // ' * locals:
         funcDef.getVariableDefinitions().forEach(def -> {def.accept(this,param);});
@@ -248,6 +259,9 @@ public class ExecuteCGVisitor extends AbstractCodeGeneratorVisitor<Void,Object> 
     @Override
     public Void visit(While whileStmt , Object param){
 
+        cg.writeLine(whileStmt.getLine());
+        cg.comment("    * While statement");
+
         int condition = cg.getLabelCounter();
         int end = cg.getLabelCounter();
 
@@ -280,6 +294,9 @@ public class ExecuteCGVisitor extends AbstractCodeGeneratorVisitor<Void,Object> 
     @Override
     public Void visit(If ifStmt , Object param){
 
+        cg.writeLine(ifStmt.getLine());
+        cg.comment("    * If statement");
+
         int elseStmt = cg.getLabelCounter();
         int end = cg.getLabelCounter();
         ifStmt.getCondition().accept(this.value,param);
@@ -293,5 +310,58 @@ public class ExecuteCGVisitor extends AbstractCodeGeneratorVisitor<Void,Object> 
         return null;
     }
 
+
+    /**
+     * execute[[FunctionInvocation : statement -> exp1 exp2*]]() =
+     *         value[[(Expression)statement]]
+     *          Type returningType = ((FunctionType) ((FunctionInvocation)statement).getDefinition().getType()).getReturningType();
+     *         if( ! returningType instanceof Void ){
+     *             <pop> returningType.suffix
+     *         }
+     *
+     * @param func
+     * @param param
+     * @return
+     */
+    @Override
+    public Void visit(FunctionInvocation func, Object param){
+
+        cg.writeLine(func.getLine());
+        cg.comment("    * Function Invocation");
+
+        ((Expression)func).accept(this.value,param);
+        Type returningType = ((FunctionType) func.getDefinition().getType()).getReturningType();
+        if(! returningType.equals(Void.getInstance()) ){
+            cg.pop(returningType);
+        }
+
+        return null;
+    }
+
+
+    /**
+     * execute[[ Return : statement --> expression]](functionDefinition)=
+     *          <ret >expression.getType.numberOfBytes() <,>
+     *                  functionDefinition.getBytesOfLocals() <,>
+     *                  ((FunctionType)functionDefinition.getType()).getBytesOfParams()
+     *
+     * @param returnStmt
+     * @param param
+     * @return
+     */
+    @Override
+    public Void visit(Return returnStmt, Object param){
+
+        cg.writeLine(returnStmt.getLine());
+        cg.comment("    * Return");
+
+        FunctionDefinition funcDef = (FunctionDefinition) param;
+        cg.ret( returnStmt.getExprToReturn().getType().numberOfBytes() ,
+                funcDef.getBytesOfLocals() ,
+                ((FunctionType)funcDef.getType()).getBytesOfParams());
+
+
+        return null;
+    }
 
 }

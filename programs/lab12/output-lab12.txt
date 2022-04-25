@@ -1,0 +1,320 @@
+#SOURCE "programs/lab12/input-lab12.txt"
+call main
+halt
+'# GLOBAL VARIABLES
+' * Array - Size: 10 - Type: [Double] v (offset: 0)
+'# FUNCTIONS
+' * FunctionDefinition: 
+main:
+' * Locals: 
+' * Double value (offset: -4)
+' * Integer i (offset: -6)
+' * Integer j (offset: -8)
+' * Array - Size: 4 - Type: [Array - Size: 5 - Type: [Integer]] w (offset: -48)
+' * Struct: - Fields: [ - RecordField - Type: [Integer] - Name: day - RecordField - Type: [Integer] - Name: month - RecordField - Type: [Integer] - Name: year] date (offset: -54)
+	enter 54
+#line	12
+'    * Input statement
+	push bp
+	pushi -54
+	addi
+	pushi 0
+	addi
+	ini
+	storei
+#line	13
+'    * Assignment statement
+	push bp
+	pushi -54
+	addi
+	pushi 4
+	addi
+	pushb 97
+	b2i
+	storei
+#line	14
+'    * Assignment statement
+	push bp
+	pushi -54
+	addi
+	pushi 2
+	addi
+	push bp
+	pushi -54
+	addi
+	pushi 0
+	addi
+	loadi
+	push bp
+	pushi -54
+	addi
+	pushi 4
+	addi
+	loadi
+	muli
+	pushi 12
+	modi
+	pushi 1
+	addi
+	storei
+#line	15
+'    * Print statement
+	push bp
+	pushi -54
+	addi
+	pushi 0
+	addi
+	loadi
+	outi
+	pushb 10
+	outb
+	push bp
+	pushi -54
+	addi
+	pushi 2
+	addi
+	loadi
+	outi
+	pushb 10
+	outb
+	push bp
+	pushi -54
+	addi
+	pushi 4
+	addi
+	loadi
+	i2f
+	outf
+	pushb 10
+	outb
+#line	17
+'    * Input statement
+	push bp
+	pushi -4
+	addi
+	inf
+	storef
+#line	19
+'    * Assignment statement
+	push bp
+	pushi -6
+	addi
+	pushi 0
+	storei
+#line	20
+'    * While statement
+	label_0:
+	push bp
+	pushi -6
+	addi
+	loadi
+	pushi 10
+	lti
+	jz label_1
+#line	21
+'    * Assignment statement
+	pusha 0
+	push bp
+	pushi -6
+	addi
+	loadi
+	pushi 4
+	muli
+	addi
+	push bp
+	pushi -4
+	addi
+	loadf
+	storef
+#line	22
+'    * Print statement
+	push bp
+	pushi -6
+	addi
+	loadi
+	outi
+	pushb 58
+	outb
+	pusha 0
+	push bp
+	pushi -6
+	addi
+	loadi
+	pushi 4
+	muli
+	addi
+	loadf
+	outf
+	pushb 32
+	outb
+#line	23
+'    * If statement
+	push bp
+	pushi -6
+	addi
+	loadi
+	pushi 2
+	modi
+	jz label_2
+#line	24
+'    * Print statement
+	pushb 111
+	outb
+	pushb 100
+	outb
+	pushb 100
+	outb
+	pushb 10
+	outb
+	jmp label_3
+	label_2:
+#line	26
+'    * Print statement
+	pushb 101
+	outb
+	pushb 118
+	outb
+	pushb 101
+	outb
+	pushb 110
+	outb
+	pushb 10
+	outb
+	label_3:
+#line	27
+'    * Assignment statement
+	push bp
+	pushi -6
+	addi
+	push bp
+	pushi -6
+	addi
+	loadi
+	pushi 1
+	addi
+	storei
+	jmp label_0
+	label_1:
+#line	29
+'    * Print statement
+	pushb 10
+	outb
+#line	31
+'    * Assignment statement
+	push bp
+	pushi -6
+	addi
+	pushi 0
+	storei
+#line	32
+'    * While statement
+	label_4:
+	push bp
+	pushi -6
+	addi
+	loadi
+	pushi 4
+	lti
+	jz label_5
+#line	33
+'    * Assignment statement
+	push bp
+	pushi -8
+	addi
+	pushi 0
+	storei
+#line	34
+'    * While statement
+	label_6:
+	push bp
+	pushi -8
+	addi
+	loadi
+	pushi 5
+	lti
+	jz label_7
+#line	35
+'    * Assignment statement
+	push bp
+	pushi -48
+	addi
+	push bp
+	pushi -6
+	addi
+	loadi
+	pushi 10
+	muli
+	addi
+	push bp
+	pushi -8
+	addi
+	loadi
+	pushi 2
+	muli
+	addi
+	push bp
+	pushi -6
+	addi
+	loadi
+	push bp
+	pushi -8
+	addi
+	loadi
+	addi
+	storei
+#line	36
+'    * Print statement
+	push bp
+	pushi -48
+	addi
+	push bp
+	pushi -6
+	addi
+	loadi
+	pushi 10
+	muli
+	addi
+	push bp
+	pushi -8
+	addi
+	loadi
+	pushi 2
+	muli
+	addi
+	loadi
+	outi
+	pushb 32
+	outb
+#line	37
+'    * Assignment statement
+	push bp
+	pushi -8
+	addi
+	push bp
+	pushi -8
+	addi
+	loadi
+	pushi 1
+	addi
+	storei
+	jmp label_6
+	label_7:
+#line	39
+'    * Print statement
+	pushb 10
+	outb
+#line	40
+'    * Assignment statement
+	push bp
+	pushi -6
+	addi
+	push bp
+	pushi -6
+	addi
+	loadi
+	pushi 1
+	addi
+	storei
+	jmp label_4
+	label_5:
+	ret 0,54,0

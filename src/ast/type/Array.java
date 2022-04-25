@@ -25,7 +25,7 @@ public class Array extends AbstractType{
 
     @Override
     public String toString(){
-        return "Array \n- Size: " + this.size + " \n- Type: " + this.type;
+        return "Array - Size: " + this.size + " - Type: [" + this.type + "]";
     }
 
 

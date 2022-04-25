@@ -1,0 +1,144 @@
+#SOURCE "programs/lab11/input-lab11.txt"
+call main
+halt
+'# GLOBAL VARIABLES
+' * Char c (offset: 0)
+' * Integer i (offset: 1)
+' * Double r (offset: 3)
+'# FUNCTIONS
+' * FunctionDefinition: 
+main:
+' * Locals: 
+' * Integer a (offset: -2)
+' * Integer i (offset: -4)
+	enter 4
+#line	7
+'    * Assignment statement
+	pusha 0
+	pushb 97
+	storeb
+#line	8
+'    * Print statement
+	pusha 0
+	loadb
+	outb
+	pushb 10
+	outb
+#line	10
+'    * Assignment statement
+	push bp
+	pushi -2
+	addi
+	pushi 1
+	storei
+#line	11
+'    * Assignment statement
+	push bp
+	pushi -4
+	addi
+	pushb 48
+	b2i
+	pushi 3
+	muli
+	storei
+#line	12
+'    * Print statement
+	push bp
+	pushi -2
+	addi
+	loadi
+	outi
+	pushb 32
+	outb
+	push bp
+	pushi -4
+	addi
+	loadi
+	outi
+	pushb 10
+	outb
+#line	14
+'    * Input statement
+	pusha 3
+	inf
+	storef
+#line	15
+'    * Print statement
+	pushi 2
+	i2f
+	pusha 3
+	loadf
+	mulf
+	outf
+	pushb 10
+	outb
+#line	17
+'    * Print statement
+	pushi 3
+	i2f
+	pushf 4.5
+	subf
+	outf
+	pushb 32
+	outb
+	pushb 48
+	b2i
+	i2f
+	pushf 48.0
+	divf
+	outf
+	pushb 32
+	outb
+	pushb 48
+	b2i
+	pushb 49
+	b2i
+	modi
+	outi
+	pushb 32
+	outb
+	pushi 0
+	pushb 49
+	b2i
+	addi
+	outi
+	pushb 10
+	outb
+#line	21
+'    * Print statement
+	pushi 1
+	pushi 2
+	lti
+	outi
+	pushb 32
+	outb
+	pushi 4
+	pushi 3
+	gei
+	outi
+	pushb 32
+	outb
+	pushi 5
+	pushi 5
+	eqi
+	outi
+	pushb 32
+	outb
+	pushi 1
+	pushi 2
+	and
+	outi
+	pushb 32
+	outb
+	pushi 0
+	pushi 3
+	or
+	outi
+	pushb 32
+	outb
+	pushi 0
+	not
+	outi
+	pushb 10
+	outb
+	ret 0,4,0

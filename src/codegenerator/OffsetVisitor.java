@@ -2,7 +2,6 @@ package codegenerator;
 
 import ast.definition.FunctionDefinition;
 import ast.definition.VariableDefinition;
-import ast.statement.Statement;
 import ast.type.FunctionType;
 import ast.type.RecordField;
 import ast.type.Struct;
@@ -39,6 +38,7 @@ public class OffsetVisitor extends AbstractVisitor<Void, Object> {
 
        currentOffsetLocals = 0;
         super.visit(fd,param);
+        fd.setBytesOfLocals(-currentOffsetLocals);
         currentOffsetGlobals = 0;
         return null;
 
@@ -58,9 +58,11 @@ public class OffsetVisitor extends AbstractVisitor<Void, Object> {
 
             currentParam =  ft.getParams().get(i);
             currentParam.setOffset(offset);
-            currentOffsetGlobals += currentParam.getType().numberOfBytes();
+            offset += currentParam.getType().numberOfBytes();
 
         }
+
+        ft.setBytesOfParams(offset);
 
 
         return null;

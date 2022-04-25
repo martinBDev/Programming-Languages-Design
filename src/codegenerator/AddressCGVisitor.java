@@ -2,8 +2,11 @@ package codegenerator;
 
 import ast.definition.VariableDefinition;
 import ast.expression.ArrayAccess;
+import ast.expression.FieldAccess;
 import ast.expression.Variable;
 import ast.type.Integer;
+import ast.type.Struct;
+import ast.type.Void;
 import visitor.AbstractVisitor;
 
 public class AddressCGVisitor extends AbstractCodeGeneratorVisitor<Void,Object> {
@@ -90,6 +93,32 @@ public class AddressCGVisitor extends AbstractCodeGeneratorVisitor<Void,Object> 
 
         cg.add(Integer.getInstance());
 
+
+        return null;
+    }
+
+    /**
+     *  1 - Memory address of the record is computed
+     *  2 - Offset of the field is obtained
+     *  3 - Field's address is the sum of previous values
+     *
+     * address[[FieldAccess : exp1 --> exp2 ID]]() =
+     *          address[[exp2]]
+     *          <pushi > exp2.type.find(ID).offset
+     *          <addi>
+     *
+     * @param fa
+     * @param param
+     * @return
+     */
+    @Override
+    public Void visit(FieldAccess fa, Object param){
+
+        fa.getExpression().accept(this,param);
+        Struct struct = (Struct) fa.getExpression().getType();
+        cg.push(struct.findField(fa.getFieldName()).getOffset());
+
+        cg.add(Integer.getInstance());
 
         return null;
     }

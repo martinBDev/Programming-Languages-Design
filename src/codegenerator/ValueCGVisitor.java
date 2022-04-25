@@ -2,9 +2,10 @@ package codegenerator;
 
 import ast.expression.*;
 import ast.statement.Input;
+import ast.type.*;
 import ast.type.Double;
 import ast.type.Integer;
-import ast.type.Struct;
+import ast.type.Void;
 import visitor.AbstractVisitor;
 
 public class ValueCGVisitor extends AbstractCodeGeneratorVisitor<Void,Object> {
@@ -292,9 +293,8 @@ public class ValueCGVisitor extends AbstractCodeGeneratorVisitor<Void,Object> {
      *  3 - Field's address is the sum of previous values
      *
      * value[[FieldAccess : exp1 --> exp2 ID]]() =
-     *          address[[exp2]]
-     *          <pushi > exp2.find(ID).offset
-     *          <addi>
+     *          address[[exp1]]
+     *          <load>exp1.type.suffix()
      *
      * @param fa
      * @param param
@@ -303,11 +303,28 @@ public class ValueCGVisitor extends AbstractCodeGeneratorVisitor<Void,Object> {
     @Override
     public Void visit(FieldAccess fa, Object param){
 
-        fa.getExpression().accept(this.address,param);
+        fa.accept(this.address,param);
         Struct struct = (Struct) fa.getExpression().getType();
-        cg.push(struct.findField(fa.getFieldName()).getOffset());
+        cg.load(fa.getType());
 
-        cg.add(Integer.getInstance());
+        return null;
+    }
+
+
+    /**
+     * value[[FunctionInvocation : exp1-> exp2 exp3*]]() =
+     *         exp3*.forEach(expr -> value[[expr]])
+     *         <call > ((Variable)exp2).getName()
+     *
+     * @param func
+     * @param param
+     * @return
+     */
+    @Override
+    public Void visit(FunctionInvocation func, Object param){
+
+       func.getExpressions().stream().forEach(exp -> {exp.accept(this,param);});
+       cg.call(func.getName().getName());
 
         return null;
     }
