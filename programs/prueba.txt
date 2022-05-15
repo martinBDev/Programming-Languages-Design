@@ -1,0 +1,5 @@
+ka2a3_: char;
+def main() : {
+    ka2a3_ = 'c';
+    print ka2a3_;#hola      d
+}

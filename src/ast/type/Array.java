@@ -39,6 +39,7 @@ public class Array extends AbstractType{
         return "[Array of ]" + type.typeName();
     }
 
+    //a[b]
     @Override
     public Type squareBrackets(Type ofIndexB, AstNode node){
 

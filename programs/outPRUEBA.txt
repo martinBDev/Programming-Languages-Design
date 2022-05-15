@@ -1,0 +1,21 @@
+#SOURCE "programs/prueba.txt"
+call main
+halt
+'# GLOBAL VARIABLES
+' * Char ka2a3_ (offset: 0)
+'# FUNCTIONS
+' * FunctionDefinition: 
+main:
+' * Locals: 
+	enter 0
+#line	3
+'    * Assignment statement
+	pusha 0
+	pushb 99
+	storeb
+#line	4
+'    * Print statement
+	pusha 0
+	loadb
+	outb
+	ret 0,0,0
