@@ -3,6 +3,7 @@ package visitor;
 import ast.Program;
 import ast.definition.FunctionDefinition;
 import ast.definition.VariableDefinition;
+import ast.definition.VariableDefinitionAssignment;
 import ast.expression.*;
 import ast.statement.*;
 import ast.type.*;
@@ -44,7 +45,7 @@ public interface Visitor<TR, TP> {
     //DEFINITION
     TR visit(VariableDefinition v, TP param);
     TR visit(FunctionDefinition f, TP param);
-
+    TR visit(VariableDefinitionAssignment v, TP param);
 
     //TYPE
     TR visit(Array a, TP param);

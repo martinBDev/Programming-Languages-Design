@@ -2,6 +2,7 @@ package semantic;
 
 import ast.definition.FunctionDefinition;
 import ast.definition.VariableDefinition;
+import ast.definition.VariableDefinitionAssignment;
 import ast.expression.*;
 import ast.statement.*;
 import ast.type.*;
@@ -122,6 +123,7 @@ public class TypeCheckingVisitor extends AbstractVisitor<java.lang.Void,Type> {
         //and a message will appear, without this check, the message appears, and then errorTyoe call parenthesis(), and
         //in the abstract visitor it will throw another error
         if(!fi.getDefinition().getType().isErrorType()) {
+
             fi.setType(
                     fi.getDefinition().getType().parenthesis( typesParams, fi)
             );
@@ -309,6 +311,20 @@ public class TypeCheckingVisitor extends AbstractVisitor<java.lang.Void,Type> {
         //We pass the type as param, so visit(ReturnStatement) can use it
         f.getStatements().stream().forEach((Statement s)->{s.accept(this,f.getType());});
         f.getVariableDefinitions().stream().forEach((VariableDefinition s)->{s.accept(this,param);});
+        return null;
+    }
+
+    //For this special kind of definition we can't use the default visit for VariableDefinition.
+    @Override
+    public Void visit(VariableDefinitionAssignment va, Type param){
+        va.getValueAssigned().accept(this,param);
+
+
+        va.setType(
+                va.getValueAssigned().getType().promotesTo(va.getType(),va) //Check type on right of definition can promote
+                                                                            //to type of var defined.
+        );
+        va.getType().accept(this,param);
         return null;
     }
 

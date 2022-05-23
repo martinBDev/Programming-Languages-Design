@@ -59,6 +59,12 @@ public interface PmmVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitVariableDefinition(PmmParser.VariableDefinitionContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link PmmParser#builtInVariablesWithAssignment}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBuiltInVariablesWithAssignment(PmmParser.BuiltInVariablesWithAssignmentContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link PmmParser#builtInVariable}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

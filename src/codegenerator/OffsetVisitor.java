@@ -2,6 +2,7 @@ package codegenerator;
 
 import ast.definition.FunctionDefinition;
 import ast.definition.VariableDefinition;
+import ast.definition.VariableDefinitionAssignment;
 import ast.type.FunctionType;
 import ast.type.RecordField;
 import ast.type.Struct;
@@ -14,6 +15,24 @@ public class OffsetVisitor extends AbstractVisitor<Void, Object> {
 
     @Override
     public Void visit(VariableDefinition vd, Object param){
+
+        vd.getType().accept(this,param);
+        if(vd.getScope() == 0){ //Global variables --> we check locals in FunctionDefinition
+
+            vd.setOffset(currentOffsetGlobals);
+            currentOffsetGlobals += vd.getType().numberOfBytes();
+
+
+        }
+
+        return null;
+    }
+
+    //TODO
+    //Same behaviour as VariableDefinition, duplicated just in case
+    //some extra consideration was needed.
+    @Override
+    public Void visit(VariableDefinitionAssignment vd, Object param){
 
         vd.getType().accept(this,param);
         if(vd.getScope() == 0){ //Global variables --> we check locals in FunctionDefinition

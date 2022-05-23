@@ -3,6 +3,7 @@ package codegenerator;
 import ast.Program;
 import ast.definition.FunctionDefinition;
 import ast.definition.VariableDefinition;
+import ast.definition.VariableDefinitionAssignment;
 import ast.expression.*;
 import ast.statement.*;
 import ast.type.*;
@@ -120,6 +121,11 @@ public class AbstractCodeGeneratorVisitor<TR,TP> implements  Visitor<TR,TP> {
     @Override
     public TR visit(FunctionDefinition f, TP param) {
         throw new IllegalStateException("Cannot generate code for FunctionDefinition.");
+    }
+
+    @Override
+    public TR visit(VariableDefinitionAssignment v, TP param) {
+        throw new IllegalStateException("Cannot generate code here for a variable assigned in the definition.");
     }
 
     @Override

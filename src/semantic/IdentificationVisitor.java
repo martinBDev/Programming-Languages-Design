@@ -3,6 +3,7 @@ package semantic;
 import ast.definition.Definition;
 import ast.definition.FunctionDefinition;
 import ast.definition.VariableDefinition;
+import ast.definition.VariableDefinitionAssignment;
 import ast.expression.FunctionInvocation;
 import ast.expression.Variable;
 import ast.statement.Statement;
@@ -26,6 +27,23 @@ public class IdentificationVisitor extends AbstractVisitor<Object,Object> {
                            + vd.getName()
                            + "' in scope " + vd.getScope()+ ". Variable already defined.");
        }
+        return null;
+    }
+
+    //TODO
+    //Same behaviour as VariableDefinition, but we need to visit
+    //the expression too, because it can be a call to a function
+    //not defined yet, or another variable...
+    @Override
+    public Object visit(VariableDefinitionAssignment va, Object param){
+
+        if(!table.insert(va)){
+            new ErrorType(va.getLine(),va.getColumn(),
+                    "Error in definition of '"
+                            + va.getName()
+                            + "' in scope " + va.getScope()+ ". Variable already defined.");
+        }
+        va.getValueAssigned().accept(this,param);
         return null;
     }
 

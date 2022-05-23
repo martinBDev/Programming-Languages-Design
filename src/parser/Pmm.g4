@@ -120,10 +120,68 @@ stmBody returns [List<Statement> ast] locals [List<Statement> stms = new ArrayLi
 
 
 
-variableDefinition returns [List<VariableDefinition> ast]: v1=variable {$ast = $v1.ast;}';' ;
+variableDefinition returns [List<VariableDefinition> ast]: (v1=variable {$ast = $v1.ast;}
+                                                            | v2=builtInVariablesWithAssignment {
+                                                                $ast = new ArrayList<VariableDefinition>();
+                                                                for(VariableDefinitionAssignment vd : $v2.ast)
+                                                                            {
+                                                                             $ast.add(vd);
+                                                                            }
+                                                                          }
+                                                            ) ';' ;
 
+builtInVariablesWithAssignment returns [List<VariableDefinitionAssignment> ast]: i1=ID
+                                                    {
+                                                      List<VariableDefinitionAssignment> list = new ArrayList<>();
 
-builtInVariable returns [List<VariableDefinition> ast]: i1=ID {
+                                                       list.add(new VariableDefinitionAssignment($i1.getLine(),
+                                                                                       $i1.getCharPositionInLine()+1,
+                                                                                       $i1.text,
+                                                                                       null,
+                                                                                       null));
+
+                                                    }
+
+                                                    (',' id2 =ID
+
+                                                            {
+
+                                                               VariableDefinitionAssignment df = new VariableDefinitionAssignment(
+                                                                                     $id2.getLine(),
+                                                                                     $id2.getCharPositionInLine()+1,
+                                                                                     $id2.text,
+                                                                                     null,
+                                                                                     null);
+
+                                                             if(!list.stream().map(i -> i.getName()).toList().contains($id2.text)){
+
+                                                                list.add(df);
+
+                                                             }else{
+                                                                ErrorType et = new ErrorType(
+                                                                                $id2.getLine(),
+                                                                                $id2.getCharPositionInLine()+1,
+                                                                                "Already defined variable with name: " + $id2.text);
+                                                                    }
+                                                          }
+
+                                                    )* ':' t1=builtInType '=' e1=expression
+
+                                                    {
+                                                      for(VariableDefinitionAssignment vd : list)
+                                                      {
+                                                        vd.setType($t1.ast);
+                                                        vd.setValueAssigned($e1.ast);
+                                                        }
+
+                                                     }
+
+                {$ast = list;}
+;
+
+builtInVariable returns [List<VariableDefinition> ast]:
+            //Variable deffinition without assignment
+                                                    i1=ID {
                                                       List<VariableDefinition> list = new ArrayList<>();
 
                                                        list.add(new VariableDefinition($i1.getLine(),

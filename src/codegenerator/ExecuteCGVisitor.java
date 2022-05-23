@@ -4,8 +4,10 @@ import ast.Program;
 import ast.definition.Definition;
 import ast.definition.FunctionDefinition;
 import ast.definition.VariableDefinition;
+import ast.definition.VariableDefinitionAssignment;
 import ast.expression.Expression;
 import ast.expression.FunctionInvocation;
+import ast.expression.Variable;
 import ast.statement.*;
 import ast.type.FunctionType;
 import ast.type.Type;
@@ -31,10 +33,17 @@ public class ExecuteCGVisitor extends AbstractCodeGeneratorVisitor<Void,Object> 
 
     /**
      * execute[[Program : program --> definition*]]() =
+     *          for(Definition def : definition){
+     *              if(def instanceOf VariableDefinitionAAssignment){
+     *                  execute[[def]]
+     *              }
+     *          }
      *          <call main>
      *          <halt>
      *          for(Definition def : definition*){
-     *              execute[[def]]
+     *              if(! def instanceOf VariableDefinitionAAssignment){
+     *                       execute[[def]]
+     *                   }
      *          }
      * @param program
      * @param param
@@ -43,13 +52,26 @@ public class ExecuteCGVisitor extends AbstractCodeGeneratorVisitor<Void,Object> 
     @Override
     public Void visit(Program program , Object param){
 
+        for( Definition def : program.getDefinitions()){
+
+            //TODO
+            //Visit first the definitions that assign a value, because if not done here, in the source code there will be:
+            //call main
+            //halt
+            //and here the variable def. with assignments, so will never be executed.
+            if(def instanceof VariableDefinitionAssignment){
+                def.accept(this,param);
+            }
+
+        }
+
         cg.mainProgram();
 
         //Primero variables globales
         cg.comment("# GLOBAL VARIABLES");
         for( Definition def : program.getDefinitions()){
 
-            if(def instanceof VariableDefinition){
+            if(def instanceof VariableDefinition && ! (def instanceof VariableDefinitionAssignment)){
                 def.accept(this,param);
             }
 
@@ -162,6 +184,33 @@ public class ExecuteCGVisitor extends AbstractCodeGeneratorVisitor<Void,Object> 
         return null;
     }
 
+    //TODO
+    /**
+     * execute[[VariableDefinitionAssignment : definition --> type ID expression]]() =
+     *          <' * > type.toString  definition.getName() <(offset: > definition.offset <)>
+     *          address[[new Variable(definition.line,definition.column,definition.name,definition)]]
+     *          value[[expression]]
+     *          <store>type.suffix
+     * @param varDef
+     * @param param
+     * @return
+     */
+    @Override
+    public Void visit(VariableDefinitionAssignment varDef, Object param){
+        cg.comment(" * " + varDef.getType().toString() + " " + varDef.getName() + " (offset: " + varDef.getOffset() + ")");
+
+        //TODO
+        //This is just a way of invoking address on this variable with assignment,
+        //we of course can execute the same code here, but i would have to copy-paste and
+        //duplicate code, and i don't want to...
+        Variable wrapUp = new Variable(varDef.getLine(), varDef.getColumn(), varDef.getName(), varDef);
+        wrapUp.accept(this.address,varDef);
+
+        varDef.getValueAssigned().accept(this.value,param);
+        cg.store(varDef.getType());
+        return null;
+    }
+
 
     /**
      * execute[[FunctionDefinition : definition --> type ID variableDefinition* statement*]]() =
@@ -200,14 +249,19 @@ public class ExecuteCGVisitor extends AbstractCodeGeneratorVisitor<Void,Object> 
         cg.comment(" * FunctionDefinition: "); // ' * locals:
         cg.label(funcDef.getName()); //<label:>
         cg.comment(" * Locals: "); // ' * locals:
-        funcDef.getVariableDefinitions().forEach(def -> {def.accept(this,param);});
 
-        //LOCAL VARIABLES' BYTES
+        //TODO
+        //LOCAL VARIABLES' BYTES --> do this before visiting, because some can be variables with assignment. So you need
+        //the <enter>... to be able to allocate the value in the correct stack address.
         int byteLocals = funcDef.getVariableDefinitions()
                 .isEmpty() ? 0 : - funcDef.getVariableDefinitions().get(
-                        funcDef.getVariableDefinitions().size() -1).getOffset();
+                funcDef.getVariableDefinitions().size() -1).getOffset();
 
         cg.enter(byteLocals);
+
+        funcDef.getVariableDefinitions().forEach(def -> {def.accept(this,param);});
+
+
 
         //PARAMETER'S BYTES
 

@@ -4,6 +4,7 @@ import ast.Program;
 import ast.definition.Definition;
 import ast.definition.FunctionDefinition;
 import ast.definition.VariableDefinition;
+import ast.definition.VariableDefinitionAssignment;
 import ast.expression.*;
 import ast.statement.*;
 import ast.type.*;
@@ -144,6 +145,13 @@ public class AbstractVisitor<TR,TP> implements  Visitor<TR,TP>{
     @Override
     public TR visit(VariableDefinition v, TP param) {
         v.getType().accept(this,param);
+        return null;
+    }
+
+    @Override
+    public TR visit(VariableDefinitionAssignment v, TP param){
+        v.getType().accept(this,param);
+        v.getValueAssigned().accept(this,param);
         return null;
     }
 
