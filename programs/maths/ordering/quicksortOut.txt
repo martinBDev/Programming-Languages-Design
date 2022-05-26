@@ -25,7 +25,6 @@ abs:
 	addi
 	loadi
 	ret 2,0,2
-	jmp label_1
 	label_1:
 #line	9
 '    * Return
@@ -245,7 +244,6 @@ partition:
 	pushi 1
 	addi
 	storei
-	jmp label_5
 	label_5:
 #line	48
 '    * Assignment statement
@@ -376,7 +374,6 @@ quickSort:
 	addi
 	loadi
 	call quickSort
-	jmp label_7
 	label_7:
 	ret 0,2,4
 ' * FunctionDefinition: 

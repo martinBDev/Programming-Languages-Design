@@ -289,9 +289,10 @@ public class ExecuteCGVisitor extends AbstractCodeGeneratorVisitor<Void,Object> 
      *
      *          statement2*.forEach( stmt -> {execute[[stmt]] })
      *
-     *          <jmp label_>end
+     *
      *
      *          if(hasElse){
+     *              <jmp label_>end
      *              <label_>elseStmt < :>
      *              statement3*.forEach(stmt -> {execute[[stmt]]});
      *          }
@@ -324,9 +325,10 @@ public class ExecuteCGVisitor extends AbstractCodeGeneratorVisitor<Void,Object> 
         }
 
         ifStmt.getStatementsWhenTrue().stream().forEach(stmt -> {stmt.accept(this,param);});
-        cg.jmp("label_" + end);
+
 
         if(hasElse){
+            cg.jmp("label_" + end);
             cg.label(elseStmt);
             ifStmt.getStatementsWhenFalse().stream().forEach(stmt -> {stmt.accept(this,param);});
         }
