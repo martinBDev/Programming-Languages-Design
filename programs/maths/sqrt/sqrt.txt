@@ -10,7 +10,7 @@ def sqrt(n: double): double {
     min = 0.;
     max = n;
 
-    e = .001;
+    e = 0.001;
     max_iters = 10;
 
     x = n / 2.;
