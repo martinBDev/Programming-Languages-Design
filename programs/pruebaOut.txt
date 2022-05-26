@@ -3,7 +3,6 @@ call main
 halt
 '# GLOBAL VARIABLES
 ' * Char i (offset: 0)
-' * Char g (offset: 1)
 '# FUNCTIONS
 ' * FunctionDefinition: 
 main:
@@ -12,25 +11,20 @@ main:
 #line	5
 '    * Assignment statement
 	pusha 0
-	pushb 97
+	pushb 10
 	storeb
 #line	6
-'    * Assignment statement
-	pusha 1
-	pushb 98
-	storeb
-#line	7
 '    * If statement
 	pusha 0
 	loadb
-	pusha 1
-	loadb
-	lt
+	b2i
+	pushb 10
+	b2i
+	le
 	jz label_1
-#line	7
+#line	6
 '    * Print statement
 	pushb 65
 	outb
-	jmp label_1
 	label_1:
 	ret 0,0,0

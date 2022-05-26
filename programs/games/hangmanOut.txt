@@ -1,0 +1,915 @@
+#SOURCE "programs/games/hangman.txt"
+call main
+halt
+'# GLOBAL VARIABLES
+' * Array - Size: 1 - Type: [Array - Size: 5 - Type: [Char]] words (offset: 0)
+' * Integer rng (offset: 5)
+' * Array - Size: 30 - Type: [Char] tries (offset: 7)
+' * Integer n_tries (offset: 37)
+'# FUNCTIONS
+' * FunctionDefinition: 
+loadWord:
+' * Locals: 
+	enter 0
+#line	10
+'    * Assignment statement
+	pusha 0
+	push bp
+	pushi 9
+	addi
+	loadi
+	pushi 5
+	muli
+	addi
+	pushi 0
+	pushi 1
+	muli
+	addi
+	push bp
+	pushi 8
+	addi
+	loadb
+	storeb
+#line	11
+'    * Assignment statement
+	pusha 0
+	push bp
+	pushi 9
+	addi
+	loadi
+	pushi 5
+	muli
+	addi
+	pushi 1
+	pushi 1
+	muli
+	addi
+	push bp
+	pushi 7
+	addi
+	loadb
+	storeb
+#line	12
+'    * Assignment statement
+	pusha 0
+	push bp
+	pushi 9
+	addi
+	loadi
+	pushi 5
+	muli
+	addi
+	pushi 2
+	pushi 1
+	muli
+	addi
+	push bp
+	pushi 6
+	addi
+	loadb
+	storeb
+#line	13
+'    * Assignment statement
+	pusha 0
+	push bp
+	pushi 9
+	addi
+	loadi
+	pushi 5
+	muli
+	addi
+	pushi 3
+	pushi 1
+	muli
+	addi
+	push bp
+	pushi 5
+	addi
+	loadb
+	storeb
+#line	14
+'    * Assignment statement
+	pusha 0
+	push bp
+	pushi 9
+	addi
+	loadi
+	pushi 5
+	muli
+	addi
+	pushi 4
+	pushi 1
+	muli
+	addi
+	push bp
+	pushi 4
+	addi
+	loadb
+	storeb
+	ret 0,0,7
+' * FunctionDefinition: 
+loadWords:
+' * Locals: 
+	enter 0
+#line	18
+'    * Function Invocation
+	pushi 0
+	pushb 97
+	pushb 98
+	pushb 117
+	pushb 115
+	pushb 101
+	call loadWord
+	ret 0,0,0
+' * FunctionDefinition: 
+abs:
+' * Locals: 
+	enter 0
+#line	24
+'    * If statement
+	push bp
+	pushi 4
+	addi
+	loadi
+	pushi 0
+	gti
+	jz label_1
+#line	24
+'    * Return
+	push bp
+	pushi 4
+	addi
+	loadi
+	ret 2,0,2
+	label_1:
+#line	25
+'    * Return
+	pushi 0
+	push bp
+	pushi 4
+	addi
+	loadi
+	subi
+	ret 2,0,2
+' * FunctionDefinition: 
+seed:
+' * Locals: 
+	enter 0
+#line	29
+'    * Assignment statement
+	pusha 5
+	push bp
+	pushi 4
+	addi
+	loadi
+	storei
+	ret 0,0,2
+' * FunctionDefinition: 
+rand:
+' * Locals: 
+' * Integer a (offset: -2)
+' * Integer c (offset: -4)
+' * Integer m (offset: -6)
+	enter 6
+#line	34
+'    * Assignment statement
+	push bp
+	pushi -6
+	addi
+	pushi 7793
+	storei
+#line	34
+'    * Assignment statement
+	push bp
+	pushi -2
+	addi
+	pushi 1234
+	storei
+#line	34
+'    * Assignment statement
+	push bp
+	pushi -4
+	addi
+	pushi 997
+	storei
+#line	36
+'    * Assignment statement
+	pusha 5
+	push bp
+	pushi -2
+	addi
+	loadi
+	pusha 5
+	loadi
+	muli
+	push bp
+	pushi -4
+	addi
+	loadi
+	addi
+	push bp
+	pushi -6
+	addi
+	loadi
+	modi
+	storei
+#line	37
+'    * Assignment statement
+	pusha 5
+	pusha 5
+	loadi
+	call abs
+	storei
+#line	38
+'    * Return
+	pusha 5
+	loadi
+	ret 2,6,0
+' * FunctionDefinition: 
+in_word:
+' * Locals: 
+' * Integer i (offset: -2)
+' * Integer result (offset: -4)
+	enter 4
+#line	47
+'    * Assignment statement
+	push bp
+	pushi -4
+	addi
+	pushi 0
+	storei
+#line	48
+'    * Assignment statement
+	push bp
+	pushi -2
+	addi
+	pushi 0
+	storei
+#line	49
+'    * While statement
+	label_2:
+	push bp
+	pushi -2
+	addi
+	loadi
+	pusha 37
+	loadi
+	lti
+	jz label_3
+#line	50
+'    * Assignment statement
+	push bp
+	pushi -4
+	addi
+	push bp
+	pushi -4
+	addi
+	loadi
+	pusha 0
+	push bp
+	pushi 4
+	addi
+	loadi
+	pushi 5
+	muli
+	addi
+	push bp
+	pushi -2
+	addi
+	loadi
+	pushi 1
+	muli
+	addi
+	loadb
+	b2i
+	push bp
+	pushi 6
+	addi
+	loadb
+	b2i
+	eq
+	addi
+	storei
+#line	51
+'    * Assignment statement
+	push bp
+	pushi -2
+	addi
+	push bp
+	pushi -2
+	addi
+	loadi
+	pushi 1
+	addi
+	storei
+	jmp label_2
+	label_3:
+#line	54
+'    * Return
+	push bp
+	pushi -4
+	addi
+	loadi
+	ret 2,4,3
+' * FunctionDefinition: 
+in_tries:
+' * Locals: 
+' * Integer i (offset: -2)
+' * Integer result (offset: -4)
+	enter 4
+#line	60
+'    * Assignment statement
+	push bp
+	pushi -4
+	addi
+	pushi 0
+	storei
+#line	61
+'    * Assignment statement
+	push bp
+	pushi -2
+	addi
+	pushi 0
+	storei
+#line	62
+'    * While statement
+	label_4:
+	push bp
+	pushi -2
+	addi
+	loadi
+	pusha 37
+	loadi
+	lti
+	jz label_5
+#line	63
+'    * Assignment statement
+	push bp
+	pushi -4
+	addi
+	push bp
+	pushi -4
+	addi
+	loadi
+	pusha 7
+	push bp
+	pushi -2
+	addi
+	loadi
+	pushi 1
+	muli
+	addi
+	loadb
+	b2i
+	push bp
+	pushi 4
+	addi
+	loadb
+	b2i
+	eq
+	addi
+	storei
+#line	64
+'    * Assignment statement
+	push bp
+	pushi -2
+	addi
+	push bp
+	pushi -2
+	addi
+	loadi
+	pushi 1
+	addi
+	storei
+	jmp label_4
+	label_5:
+#line	67
+'    * Return
+	push bp
+	pushi -4
+	addi
+	loadi
+	ret 2,4,1
+' * FunctionDefinition: 
+print_word:
+' * Locals: 
+' * Integer j (offset: -2)
+' * Char c (offset: -3)
+	enter 3
+#line	74
+'    * Assignment statement
+	push bp
+	pushi -2
+	addi
+	pushi 0
+	storei
+#line	75
+'    * While statement
+	label_6:
+	push bp
+	pushi -2
+	addi
+	loadi
+	pushi 5
+	lti
+	jz label_7
+#line	76
+'    * Assignment statement
+	push bp
+	pushi -3
+	addi
+	pusha 0
+	push bp
+	pushi 4
+	addi
+	loadi
+	pushi 5
+	muli
+	addi
+	push bp
+	pushi -2
+	addi
+	loadi
+	pushi 1
+	muli
+	addi
+	loadb
+	storeb
+#line	77
+'    * If statement
+	push bp
+	pushi -3
+	addi
+	loadb
+	call in_tries
+	jz label_8
+#line	77
+'    * Print statement
+	push bp
+	pushi -3
+	addi
+	loadb
+	outb
+	jmp label_9
+	label_8:
+#line	78
+'    * Print statement
+	pushb 95
+	outb
+	label_9:
+#line	80
+'    * Assignment statement
+	push bp
+	pushi -2
+	addi
+	push bp
+	pushi -2
+	addi
+	loadi
+	pushi 1
+	addi
+	storei
+	jmp label_6
+	label_7:
+	ret 0,3,2
+' * FunctionDefinition: 
+completed:
+' * Locals: 
+' * Integer j (offset: -2)
+' * Integer result (offset: -4)
+	enter 4
+#line	87
+'    * Assignment statement
+	push bp
+	pushi -4
+	addi
+	pushi 1
+	storei
+#line	88
+'    * Assignment statement
+	push bp
+	pushi -2
+	addi
+	pushi 0
+	storei
+#line	89
+'    * While statement
+	label_10:
+	push bp
+	pushi -2
+	addi
+	loadi
+	pushi 5
+	lti
+	jz label_11
+#line	90
+'    * Assignment statement
+	push bp
+	pushi -4
+	addi
+	push bp
+	pushi -4
+	addi
+	loadi
+	pusha 0
+	push bp
+	pushi 4
+	addi
+	loadi
+	pushi 5
+	muli
+	addi
+	push bp
+	pushi -2
+	addi
+	loadi
+	pushi 1
+	muli
+	addi
+	loadb
+	call in_tries
+	muli
+	storei
+#line	91
+'    * Assignment statement
+	push bp
+	pushi -2
+	addi
+	push bp
+	pushi -2
+	addi
+	loadi
+	pushi 1
+	addi
+	storei
+	jmp label_10
+	label_11:
+#line	94
+'    * Return
+	push bp
+	pushi -4
+	addi
+	loadi
+	ret 2,4,2
+' * FunctionDefinition: 
+main:
+' * Locals: 
+' * Integer srng (offset: -2)
+' * Integer word_index (offset: -4)
+' * Char try (offset: -5)
+' * Integer fails (offset: -7)
+' * Integer max_fails (offset: -9)
+	enter 9
+#line	101
+'    * Function Invocation
+	call loadWords
+#line	102
+'    * Assignment statement
+	pusha 37
+	pushi 0
+	storei
+#line	103
+'    * Assignment statement
+	push bp
+	pushi -7
+	addi
+	pushi 0
+	storei
+#line	103
+'    * Assignment statement
+	push bp
+	pushi -9
+	addi
+	pushi 7
+	storei
+#line	105
+'    * Print statement
+	pushb 99
+	outb
+#line	105
+'    * Print statement
+	pushb 104
+	outb
+#line	105
+'    * Print statement
+	pushb 111
+	outb
+#line	105
+'    * Print statement
+	pushb 111
+	outb
+#line	105
+'    * Print statement
+	pushb 115
+	outb
+#line	105
+'    * Print statement
+	pushb 101
+	outb
+#line	105
+'    * Print statement
+	pushb 32
+	outb
+#line	105
+'    * Print statement
+	pushb 97
+	outb
+#line	105
+'    * Print statement
+	pushb 32
+	outb
+#line	105
+'    * Print statement
+	pushb 114
+	outb
+#line	105
+'    * Print statement
+	pushb 97
+	outb
+#line	105
+'    * Print statement
+	pushb 110
+	outb
+#line	105
+'    * Print statement
+	pushb 100
+	outb
+#line	105
+'    * Print statement
+	pushb 111
+	outb
+#line	105
+'    * Print statement
+	pushb 109
+	outb
+#line	105
+'    * Print statement
+	pushb 32
+	outb
+#line	105
+'    * Print statement
+	pushb 110
+	outb
+#line	105
+'    * Print statement
+	pushb 117
+	outb
+#line	105
+'    * Print statement
+	pushb 109
+	outb
+#line	105
+'    * Print statement
+	pushb 98
+	outb
+#line	105
+'    * Print statement
+	pushb 101
+	outb
+#line	105
+'    * Print statement
+	pushb 114
+	outb
+#line	105
+'    * Print statement
+	pushb 58
+	outb
+#line	106
+'    * Input statement
+	push bp
+	pushi -2
+	addi
+	ini
+	storei
+#line	108
+'    * Function Invocation
+	push bp
+	pushi -2
+	addi
+	loadi
+	call seed
+#line	109
+'    * While statement
+	label_12:
+	push bp
+	pushi -2
+	addi
+	loadi
+	pushi 2
+	gti
+	jz label_13
+#line	110
+'    * Function Invocation
+	call rand
+	popi
+#line	111
+'    * Assignment statement
+	push bp
+	pushi -2
+	addi
+	push bp
+	pushi -2
+	addi
+	loadi
+	pushi 2
+	divi
+	storei
+	jmp label_12
+	label_13:
+#line	114
+'    * Assignment statement
+	push bp
+	pushi -4
+	addi
+	call rand
+	pushi 20
+	modi
+	storei
+#line	116
+'    * While statement
+	label_14:
+	push bp
+	pushi -4
+	addi
+	loadi
+	call completed
+	not
+	push bp
+	pushi -7
+	addi
+	loadi
+	push bp
+	pushi -9
+	addi
+	loadi
+	lei
+	and
+	jz label_15
+#line	117
+'    * Function Invocation
+	push bp
+	pushi -4
+	addi
+	loadi
+	call print_word
+#line	118
+'    * Print statement
+	pushb 10
+	outb
+#line	120
+'    * Assignment statement
+	push bp
+	pushi -5
+	addi
+	pushb 10
+	storeb
+#line	121
+'    * While statement
+	label_16:
+	push bp
+	pushi -5
+	addi
+	loadb
+	b2i
+	pushb 10
+	b2i
+	eq
+	jz label_17
+#line	121
+'    * Input statement
+	push bp
+	pushi -5
+	addi
+	inb
+	storeb
+	jmp label_16
+	label_17:
+#line	123
+'    * Assignment statement
+	pusha 7
+	pusha 37
+	loadi
+	pushi 1
+	muli
+	addi
+	push bp
+	pushi -5
+	addi
+	loadb
+	storeb
+#line	124
+'    * If statement
+	push bp
+	pushi -5
+	addi
+	loadb
+	push bp
+	pushi -4
+	addi
+	loadi
+	call in_word
+	not
+	jz label_19
+#line	125
+'    * Assignment statement
+	push bp
+	pushi -7
+	addi
+	push bp
+	pushi -7
+	addi
+	loadi
+	pushi 1
+	addi
+	storei
+	label_19:
+#line	128
+'    * Assignment statement
+	pusha 37
+	pusha 37
+	loadi
+	pushi 1
+	addi
+	storei
+	jmp label_14
+	label_15:
+#line	131
+'    * If statement
+	push bp
+	pushi -7
+	addi
+	loadi
+	push bp
+	pushi -9
+	addi
+	loadi
+	gei
+	jz label_20
+#line	131
+'    * Print statement
+	pushb 89
+	outb
+#line	131
+'    * Print statement
+	pushb 111
+	outb
+#line	131
+'    * Print statement
+	pushb 117
+	outb
+#line	131
+'    * Print statement
+	pushb 32
+	outb
+#line	131
+'    * Print statement
+	pushb 76
+	outb
+#line	131
+'    * Print statement
+	pushb 111
+	outb
+#line	131
+'    * Print statement
+	pushb 115
+	outb
+#line	131
+'    * Print statement
+	pushb 101
+	outb
+	jmp label_21
+	label_20:
+#line	132
+'    * Print statement
+	pushb 89
+	outb
+#line	132
+'    * Print statement
+	pushb 111
+	outb
+#line	132
+'    * Print statement
+	pushb 117
+	outb
+#line	132
+'    * Print statement
+	pushb 32
+	outb
+#line	132
+'    * Print statement
+	pushb 87
+	outb
+#line	132
+'    * Print statement
+	pushb 105
+	outb
+#line	132
+'    * Print statement
+	pushb 110
+	outb
+#line	132
+'    * Print statement
+	pushb 33
+	outb
+	label_21:
+	ret 0,9,0

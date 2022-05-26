@@ -1,8 +1,7 @@
 i:char;
-g:char;
+
 
 def main():{
-    i='a';
-    g='b';
-    if i<g : print 'A';
+    i='\n';
+    if i<='\n' : print 'A';
 }

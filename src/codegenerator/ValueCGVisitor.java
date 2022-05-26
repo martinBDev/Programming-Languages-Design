@@ -238,7 +238,11 @@ public class ValueCGVisitor extends AbstractCodeGeneratorVisitor<Void,Object> {
     public Void visit(Comparison c, Object param){
 
         c.getLeftExpr().accept(this,param);
+        cg.writeConvertion(c.getLeftExpr().getType().convertTo( c.getType() ));
+
         c.getRightExpr().accept(this,param);
+        cg.writeConvertion(c.getRightExpr().getType().convertTo( c.getType() ));
+
 
         cg.comparison(c.getOperand(),c.getLeftExpr().getType());
 
