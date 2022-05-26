@@ -158,6 +158,26 @@ public class TypeCheckingVisitor extends AbstractVisitor<java.lang.Void,Type> {
     }
 
     @Override
+    public Void visit(TernaryOperator to, Type param){
+
+        to.setLValue(false);
+        to.getCondition().accept(this,param);
+        to.getValueIfTrue().accept(this,param);
+        to.getValueIfFalse().accept(this,param);
+
+
+        //Check type on right (valueIfFalse) can promote to type on left
+        to.setType(
+                to.getValueIfFalse().getType().promotesTo(
+                        to.getValueIfTrue().getType()
+                        , to
+                )
+        );
+
+        return null;
+    }
+
+    @Override
     public Void visit(UnaryMinus um , Type param){
         um.setLValue(false);
         um.getExpression().accept(this,param);

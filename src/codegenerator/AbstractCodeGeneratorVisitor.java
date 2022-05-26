@@ -83,6 +83,11 @@ public class AbstractCodeGeneratorVisitor<TR,TP> implements  Visitor<TR,TP> {
     }
 
     @Override
+    public TR visit(TernaryOperator a, TP param) {
+        throw new IllegalStateException("Cannot generate code for Ternary Operator.");
+    }
+
+    @Override
     public TR visit(Assignment a, TP param) {
         throw new IllegalStateException("Cannot generate code for Assignment.");
     }

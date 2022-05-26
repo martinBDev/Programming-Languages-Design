@@ -30,6 +30,7 @@ public interface Visitor<TR, TP> {
     TR visit(Cast c, TP param);
     TR visit(FieldAccess fa, TP param);
     TR visit(UnaryNot u, TP param);
+    TR visit(TernaryOperator a, TP param);
 
 
     //STATEMENT

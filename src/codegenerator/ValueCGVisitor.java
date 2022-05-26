@@ -328,4 +328,36 @@ public class ValueCGVisitor extends AbstractCodeGeneratorVisitor<Void,Object> {
 
         return null;
     }
+
+    /**
+     * value[[TernaryOperator : expression1 --> expression1 expression2 expression3]] =
+     *
+     *          int conditionFalse = cg.getLabelCounter();
+     *          int end = cg.getLabelCounter();
+     *          value[[expression2]]
+     *          <jz label_> conditionFalse
+     *          value[[expression1]]
+     *          <jmp label_> end
+     *          <label_>conditionFalse <:>
+     *          value[[expression3]]
+     *          <label_>end<:>
+     * @param to
+     * @param param
+     * @return
+     */
+    @Override
+    public Void visit(TernaryOperator to, Object param){
+
+        int conditionFalse = cg.getLabelCounter();
+        int end = cg.getLabelCounter();
+        to.getCondition().accept(this,param);
+        cg.jz("label_"+conditionFalse);
+        to.getValueIfTrue().accept(this,param);
+        cg.jmp("label_"+end);
+        cg.label(conditionFalse);
+        to.getValueIfFalse().accept(this,param);
+        cg.label(end);
+
+        return null;
+    }
 }

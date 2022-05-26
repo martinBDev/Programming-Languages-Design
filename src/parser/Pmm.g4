@@ -209,6 +209,14 @@ expression returns [Expression ast]:
                                             LexerHelper.lexemeToChar($CHAR_CONSTANT.text));}
 
     | '(' e1=expression ')' {$ast = $e1.ast;}
+    | val1=expression 'if' con=expression 'else' val2=expression
+        {
+            $ast = new TernaryOperator($val1.ast.getLine(),
+                                       $val1.ast.getColumn(),
+                                       $val1.ast,
+                                       $con.ast,
+                                       $val2.ast);
+        }
     | ID  {
                      FunctionInvocation fi = new FunctionInvocation($ID.getLine(),
                                                    $ID.getCharPositionInLine()+1,
