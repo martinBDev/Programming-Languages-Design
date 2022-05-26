@@ -15,7 +15,7 @@ def sqrt(n: double): double {
 
     x = n / 2.;
     iters = 0;
-    while (abs(x * x - n) > e && iters < max_iters): {
+    while abs(x * x - n) > e && iters < max_iters: {
         if x * x > n: max = x;
         if x * x < n: min = x;
 
@@ -30,7 +30,7 @@ def sqrt(n: double): double {
 
 def main(): {
 	n: double;
-
+	
 	print 'n', ' ', '=', ' ';
 	input n;
 	print sqrt(n);

@@ -58,7 +58,7 @@ public class Double extends AbstractType{
         }
 
         if(otherType.equals(Double.getInstance())){
-            return Double.getInstance();
+            return Integer.getInstance();
         }
 
         return new ErrorType(node.getLine(), node.getColumn()
