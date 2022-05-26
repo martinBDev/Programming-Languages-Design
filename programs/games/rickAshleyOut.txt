@@ -1,0 +1,182 @@
+#SOURCE "programs/games/compiladorC--.txt"
+call main
+halt
+'# GLOBAL VARIABLES
+'# FUNCTIONS
+' * FunctionDefinition: 
+main:
+' * Locals: 
+	enter 0
+#line	4
+'    * Print statement
+	pushb 104
+	outb
+#line	4
+'    * Print statement
+	pushb 116
+	outb
+#line	4
+'    * Print statement
+	pushb 116
+	outb
+#line	4
+'    * Print statement
+	pushb 112
+	outb
+#line	4
+'    * Print statement
+	pushb 115
+	outb
+#line	4
+'    * Print statement
+	pushb 58
+	outb
+#line	4
+'    * Print statement
+	pushb 47
+	outb
+#line	4
+'    * Print statement
+	pushb 47
+	outb
+#line	4
+'    * Print statement
+	pushb 119
+	outb
+#line	4
+'    * Print statement
+	pushb 119
+	outb
+#line	4
+'    * Print statement
+	pushb 119
+	outb
+#line	4
+'    * Print statement
+	pushb 46
+	outb
+#line	4
+'    * Print statement
+	pushb 121
+	outb
+#line	4
+'    * Print statement
+	pushb 111
+	outb
+#line	4
+'    * Print statement
+	pushb 117
+	outb
+#line	4
+'    * Print statement
+	pushb 116
+	outb
+#line	4
+'    * Print statement
+	pushb 117
+	outb
+#line	4
+'    * Print statement
+	pushb 98
+	outb
+#line	4
+'    * Print statement
+	pushb 101
+	outb
+#line	4
+'    * Print statement
+	pushb 46
+	outb
+#line	4
+'    * Print statement
+	pushb 99
+	outb
+#line	4
+'    * Print statement
+	pushb 111
+	outb
+#line	4
+'    * Print statement
+	pushb 109
+	outb
+#line	4
+'    * Print statement
+	pushb 47
+	outb
+#line	5
+'    * Print statement
+	pushb 119
+	outb
+#line	5
+'    * Print statement
+	pushb 97
+	outb
+#line	5
+'    * Print statement
+	pushb 116
+	outb
+#line	5
+'    * Print statement
+	pushb 99
+	outb
+#line	5
+'    * Print statement
+	pushb 104
+	outb
+#line	5
+'    * Print statement
+	pushb 63
+	outb
+#line	5
+'    * Print statement
+	pushb 118
+	outb
+#line	5
+'    * Print statement
+	pushb 61
+	outb
+#line	6
+'    * Print statement
+	pushb 100
+	outb
+#line	6
+'    * Print statement
+	pushb 81
+	outb
+#line	6
+'    * Print statement
+	pushb 119
+	outb
+#line	6
+'    * Print statement
+	pushb 52
+	outb
+#line	6
+'    * Print statement
+	pushb 119
+	outb
+#line	6
+'    * Print statement
+	pushb 57
+	outb
+#line	6
+'    * Print statement
+	pushb 87
+	outb
+#line	6
+'    * Print statement
+	pushb 103
+	outb
+#line	6
+'    * Print statement
+	pushb 88
+	outb
+#line	6
+'    * Print statement
+	pushb 99
+	outb
+#line	6
+'    * Print statement
+	pushb 81
+	outb
+	ret 0,0,0
