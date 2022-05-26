@@ -1,7 +1,7 @@
-i:char;
+i:double;
 
 
 def main():{
-    i='\n';
+    i=2.3;
     if i<='\n' : print 'A';
 }

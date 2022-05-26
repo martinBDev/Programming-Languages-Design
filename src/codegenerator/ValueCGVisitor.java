@@ -219,7 +219,10 @@ public class ValueCGVisitor extends AbstractCodeGeneratorVisitor<Void,Object> {
      *
      * value[[Comparison : exp1 --> exp2 ('<'|'>'|'<='|'>='|'=='|'!=') exp3]]() =
      *          value[[exp2]]
+     *          <>exp2.type.converTo(exp1.type) //To perform b2i if we are comparing chars
      *          value[[exp3]]
+     *          <>exp3.type.converTo(exp1.type)
+     *
      *          //We can assume exp2 and exp3 have the same type (and valid) --> typeChecking visitor
      *          switch(exp1.operand){
      *             case "<": {<lt> exp2.type.suffix();break;}
