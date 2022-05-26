@@ -232,7 +232,7 @@ public class ExecuteCGVisitor extends AbstractCodeGeneratorVisitor<Void,Object> 
      *
      *   int bytesReturn = type.getReturningType().numberOfBytes();
      *
-     *   statement*.forEach(stmt -> { execute[[stmt]] })
+     *   statement*.forEach(stmt -> { execute[[stmt]](bytesReturn,bytesLocals,bytesParams) })
      *
      *   if(type.getReturningType().equals( Void.getInstance() )){
      *       <ret > bytesReturn , bytesLocals , bytesParams

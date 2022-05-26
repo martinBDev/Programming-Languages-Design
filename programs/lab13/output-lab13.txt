@@ -17,9 +17,9 @@ p:
 ' * FunctionDefinition: 
 f:
 ' * Locals: 
+	enter 5
 ' * Double real (offset: -4)
 ' * Char c (offset: -5)
-	enter 5
 #line	17
 '    * Assignment statement
 	push bp
@@ -67,9 +67,9 @@ f:
 ' * FunctionDefinition: 
 fill:
 ' * Locals: 
+	enter 4
 ' * Integer i (offset: -2)
 ' * Integer inc (offset: -4)
-	enter 4
 #line	26
 '    * Assignment statement
 	push bp
@@ -157,8 +157,8 @@ fill:
 ' * FunctionDefinition: 
 show:
 ' * Locals: 
-' * Integer i (offset: -2)
 	enter 2
+' * Integer i (offset: -2)
 #line	37
 '    * Assignment statement
 	push bp
@@ -251,8 +251,8 @@ show:
 ' * FunctionDefinition: 
 main:
 ' * Locals: 
-' * Integer i (offset: -2)
 	enter 2
+' * Integer i (offset: -2)
 #line	49
 '    * Function Invocation
 	call p

@@ -2,11 +2,9 @@ def f(a:int): int {
 return 1;
 }
 i,a : int = f(4);
+
 def main(): {
   eskere : double = 4e2;
   print eskere;
-  eskere = (double) 34;
-  input eskere;
-  print  eskere;
   print i;
 }
