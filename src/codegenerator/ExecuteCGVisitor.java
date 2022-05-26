@@ -277,13 +277,28 @@ public class ExecuteCGVisitor extends AbstractCodeGeneratorVisitor<Void,Object> 
      * execute[[If : statement1 --> expression statement2* statement3* ]]() =
      *          int elseStmt = cg.getLabelCounter();
      *          int end = cg.getLabelCounter();
+     *
+     *          boolean hasElse = statement3*.size() >= 0; //Si no hay else
      *          value[[expression]]
-     *          <jz label_>elseStmt
+     *
+     *          if(hasElse){
+     *              <jz label_>elseStmt
+     *          }else{
+     *              <jz label_>end
+     *          }
+     *
      *          statement2*.forEach( stmt -> {execute[[stmt]] })
+     *
      *          <jmp label_>end
-     *          <label_>elseStmt < :>
-     *          statement3*.forEach(stmt -> {execute[[stmt]]});
+     *
+     *          if(hasElse){
+     *              <label_>elseStmt < :>
+     *              statement3*.forEach(stmt -> {execute[[stmt]]});
+     *          }
+     *
      *          <label_>end < :>
+     *
+     *
      *
      * @param ifStmt
      * @param param
@@ -297,12 +312,25 @@ public class ExecuteCGVisitor extends AbstractCodeGeneratorVisitor<Void,Object> 
 
         int elseStmt = cg.getLabelCounter();
         int end = cg.getLabelCounter();
+        boolean hasElse = ifStmt.getStatementsWhenFalse().size() > 0; //Si no hay else
+
         ifStmt.getCondition().accept(this.value,param);
-        cg.jz("label_" + elseStmt);
+
+
+        if(hasElse){
+            cg.jz("label_" + elseStmt);
+        }else{
+            cg.jz("label_" + end);
+        }
+
         ifStmt.getStatementsWhenTrue().stream().forEach(stmt -> {stmt.accept(this,param);});
         cg.jmp("label_" + end);
-        cg.label(elseStmt);
-        ifStmt.getStatementsWhenFalse().stream().forEach(stmt -> {stmt.accept(this,param);});
+
+        if(hasElse){
+            cg.label(elseStmt);
+            ifStmt.getStatementsWhenFalse().stream().forEach(stmt -> {stmt.accept(this,param);});
+        }
+
         cg.label(end);
 
         return null;
