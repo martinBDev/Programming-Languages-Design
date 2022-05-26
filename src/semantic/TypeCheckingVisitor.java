@@ -7,17 +7,16 @@ import ast.statement.*;
 import ast.type.*;
 import ast.type.Double;
 import ast.type.Integer;
-import ast.type.Void;
 import visitor.AbstractVisitor;
 
+import java.lang.Void;
 import java.util.ArrayList;
 import java.util.List;
 
-
-public class TypeCheckingVisitor extends AbstractVisitor<Type,Type> {
+public class TypeCheckingVisitor extends AbstractVisitor<java.lang.Void,Type> {
 
     @Override
-    public Type visit(Arithmetic a , Type param){
+    public Void visit(Arithmetic a , Type param){
 
         a.setLValue(false);
         a.getRight().accept(this,param);
@@ -33,7 +32,7 @@ public class TypeCheckingVisitor extends AbstractVisitor<Type,Type> {
     }
 
     @Override
-    public Type visit(ArrayAccess a , Type param){
+    public Void visit(ArrayAccess a , Type param){
 
         a.setLValue(true);
         a.getLeftExpr().accept(this,param);
@@ -50,7 +49,7 @@ public class TypeCheckingVisitor extends AbstractVisitor<Type,Type> {
 
 
     @Override
-    public Type visit(Cast c , Type param){
+    public Void visit(Cast c , Type param){
 
         c.setLValue(false);
         c.getToTypeCast().accept(this,param);
@@ -64,7 +63,7 @@ public class TypeCheckingVisitor extends AbstractVisitor<Type,Type> {
     }
 
     @Override
-    public Type visit(CharLiteral c , Type param){
+    public Void visit(CharLiteral c , Type param){
         c.setLValue(false);
         c.setType(
                 Char.getInstance()
@@ -73,7 +72,7 @@ public class TypeCheckingVisitor extends AbstractVisitor<Type,Type> {
     }
 
     @Override
-    public Type visit(Comparison c , Type param){
+    public Void visit(Comparison c , Type param){
         c.setLValue(false);
         c.getRightExpr().accept(this,param);
         c.getLeftExpr().accept(this,param);
@@ -86,7 +85,7 @@ public class TypeCheckingVisitor extends AbstractVisitor<Type,Type> {
     }
 
     @Override
-    public Type visit(DoubleLiteral dl , Type param){
+    public Void visit(DoubleLiteral dl , Type param){
         dl.setLValue(false);
 
         dl.setType(
@@ -96,7 +95,7 @@ public class TypeCheckingVisitor extends AbstractVisitor<Type,Type> {
     }
 
     @Override
-    public Type visit(FieldAccess fa , Type param){
+    public Void visit(FieldAccess fa , Type param){
         fa.setLValue(true);
         fa.getExpression().accept(this,param);
 
@@ -108,7 +107,7 @@ public class TypeCheckingVisitor extends AbstractVisitor<Type,Type> {
     }
 
     @Override
-    public Type visit(FunctionInvocation fi , Type param){
+    public Void visit(FunctionInvocation fi , Type param){
         fi.setLValue(false);
         fi.getExpressions().stream().forEach((Expression e)->{e.accept(this,param);});
 
@@ -136,7 +135,7 @@ public class TypeCheckingVisitor extends AbstractVisitor<Type,Type> {
     }
 
     @Override
-    public Type visit(IntLiteral i , Type param){
+    public Void visit(IntLiteral i , Type param){
         i.setLValue(false);
         i.setType(
                 Integer.getInstance()
@@ -145,7 +144,7 @@ public class TypeCheckingVisitor extends AbstractVisitor<Type,Type> {
     }
 
     @Override
-    public Type visit(Logical lo , Type param){
+    public Void visit(Logical lo , Type param){
         lo.setLValue(false);
         lo.getRightExpr().accept(this,param);
         lo.getLeftExpr().accept(this,param);
@@ -158,7 +157,7 @@ public class TypeCheckingVisitor extends AbstractVisitor<Type,Type> {
     }
 
     @Override
-    public Type visit(UnaryMinus um , Type param){
+    public Void visit(UnaryMinus um , Type param){
         um.setLValue(false);
         um.getExpression().accept(this,param);
 
@@ -171,7 +170,7 @@ public class TypeCheckingVisitor extends AbstractVisitor<Type,Type> {
 
 
     @Override
-    public Type visit(UnaryNot un , Type param){
+    public Void visit(UnaryNot un , Type param){
         un.setLValue(false);
         un.getExpression().accept(this,param);
 
@@ -186,7 +185,7 @@ public class TypeCheckingVisitor extends AbstractVisitor<Type,Type> {
 
 
     @Override
-    public Type visit(Variable va , Type param){
+    public Void visit(Variable va , Type param){
         va.setLValue(true);
 
         va.setType(
@@ -198,16 +197,16 @@ public class TypeCheckingVisitor extends AbstractVisitor<Type,Type> {
 
 
     @Override
-    public Type visit(Assignment a, Type param){
+    public Void visit(Assignment a, Type param){
         a.getLeftExpr().accept(this,param);
         a.getRightExpr().accept(this,param);
 
         if( !a.getLeftExpr().getLValue() )
         {
             new ErrorType(
-                a.getLeftExpr().getLine(),
-                a.getLeftExpr().getColumn(),
-                "Invalid expression on left hand side of an assignment, must be Lvalue");
+                    a.getLeftExpr().getLine(),
+                    a.getLeftExpr().getColumn(),
+                    "Invalid expression on left hand side of an assignment, must be Lvalue");
         }
 
         a.getLeftExpr().setType(
@@ -218,7 +217,7 @@ public class TypeCheckingVisitor extends AbstractVisitor<Type,Type> {
     }
 
     @Override
-    public Type visit(Print printStmnt , Type param){
+    public Void visit(Print printStmnt , Type param){
 
         printStmnt.getExpressions().stream().forEach(exp -> {exp.accept(this,param);});
 
@@ -253,7 +252,7 @@ public class TypeCheckingVisitor extends AbstractVisitor<Type,Type> {
     }
 
     @Override
-    public Type visit(Input inputStmnt , Type param){
+    public Void visit(Input inputStmnt , Type param){
 
         inputStmnt.getExpressions().stream().forEach(exp -> {exp.accept(this,param);});
 
@@ -289,7 +288,7 @@ public class TypeCheckingVisitor extends AbstractVisitor<Type,Type> {
     }
 
     @Override
-    public Type visit(While whileStmnt , Type param){
+    public Void visit(While whileStmnt , Type param){
 
         whileStmnt.getExpression().accept(this,param);
         whileStmnt.getStatements().stream().forEach(stm -> {stm.accept(this,param);});
@@ -304,33 +303,11 @@ public class TypeCheckingVisitor extends AbstractVisitor<Type,Type> {
     }
 
     @Override
-    public Type visit(FunctionDefinition f, Type param) {
+    public Void visit(FunctionDefinition f, Type param) {
 
-
-        Type retStatementType = Void.getInstance();
-        Type accepted = null;
-        for(Statement s : f.getStatements()){
-            //SI se espera return, pero no hay, queda como tipo Void
-            //We pass the type as param, so visit(ReturnStatement) can use it
-             accepted = s.accept(this,f.getType());
-            if( accepted != null && ! accepted.equals(Void.getInstance())){
-                retStatementType = accepted;
-            }
-        }
-
+        //We pass the type as param, so visit(ReturnStatement) can use it
+        f.getStatements().stream().forEach((Statement s)->{s.accept(this,f.getType());});
         f.getVariableDefinitions().stream().forEach((VariableDefinition s)->{s.accept(this,param);});
-
-        Type resultOfExec = retStatementType.promotesTo(
-                ((FunctionType)f.getType()).getReturningType()  , f
-        );
-
-
-        //Check that last statement is a return if its needed
-        if( !( ((FunctionType)f.getType()).getReturningType().equals(Void.getInstance())) &&
-                !(f.getStatements().get(f.getStatements().size()-1) instanceof Return)){
-            new ErrorType(f.getLine(),f.getColumn(),"Cannot be an statement aftr the last return");
-        }
-
         return null;
     }
 
@@ -338,7 +315,7 @@ public class TypeCheckingVisitor extends AbstractVisitor<Type,Type> {
 
     //TODO
     @Override
-    public Type visit(Return returnStmnt , Type param){
+    public Void visit(Return returnStmnt , Type param){
 
         FunctionType retType = (FunctionType) param;
         returnStmnt.getExprToReturn().accept(this,retType.getReturningType());
@@ -348,12 +325,12 @@ public class TypeCheckingVisitor extends AbstractVisitor<Type,Type> {
                 returnStmnt.getExprToReturn().getType().promotesTo(retType.getReturningType(),returnStmnt)
         );
 
-        //Return upwards the type of the return to check if there is a return inside a function
-        return returnStmnt.getExprToReturn().getType();
+
+        return null;
     }
     //TODO
     @Override
-    public Type visit(If ifStmnt , Type param){
+    public Void visit(If ifStmnt , Type param){
 
         //Visit children
         super.visit(ifStmnt,param);
