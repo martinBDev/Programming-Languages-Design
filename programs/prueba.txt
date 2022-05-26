@@ -1,7 +1,16 @@
-i:double;
+i:char;
 
+def lol():int{
+
+    if(1):{
+        return 3;
+    }else{
+        return 3;
+    }
+
+}
 
 def main():{
-    i=2.3;
+    i='a';
     if i<='\n' : print 'A';
 }

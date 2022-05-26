@@ -1,5 +1,6 @@
 package ast.type;
 
+import ast.node.AstNode;
 import visitor.Visitor;
 
 public class Void extends AbstractType{
@@ -37,5 +38,18 @@ public class Void extends AbstractType{
         return 0;
     }
 
+    @Override
+    public Type promotesTo(Type otherType, AstNode node){
+        if(otherType.equals(Void.getInstance())){
+            return this;
+        }
+
+        if(otherType.isErrorType()){
+            return otherType;
+        }
+
+        return new ErrorType(node.getLine(),node.getColumn()
+                , "Void cannot promote to " +otherType.typeName());
+    }
 
 }
