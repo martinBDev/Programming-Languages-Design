@@ -1,0 +1,148 @@
+#SOURCE "programs/maths/fibonacci/fibonacci.txt"
+call main
+halt
+'# GLOBAL VARIABLES
+'# FUNCTIONS
+' * FunctionDefinition: 
+fib:
+' * Locals: 
+	enter 0
+#line	2
+'    * If statement
+	push bp
+	pushi 4
+	addi
+	loadi
+	pushi 0
+	eqi
+	jz label_1
+#line	2
+'    * Return
+	pushi 0
+	ret 2,0,2
+	jmp label_1
+	label_1:
+#line	3
+'    * If statement
+	push bp
+	pushi 4
+	addi
+	loadi
+	pushi 1
+	eqi
+	jz label_3
+#line	3
+'    * Return
+	pushi 1
+	ret 2,0,2
+	jmp label_3
+	label_3:
+#line	4
+'    * Return
+	push bp
+	pushi 4
+	addi
+	loadi
+	pushi 1
+	subi
+	call fib
+	push bp
+	pushi 4
+	addi
+	loadi
+	pushi 2
+	subi
+	call fib
+	addi
+	ret 2,0,2
+' * FunctionDefinition: 
+main:
+' * Locals: 
+' * Integer i (offset: -2)
+' * Integer limit (offset: -4)
+	enter 4
+#line	10
+'    * Assignment statement
+	push bp
+	pushi -2
+	addi
+	pushi 0
+	storei
+#line	11
+'    * Input statement
+	push bp
+	pushi -4
+	addi
+	ini
+	storei
+#line	12
+'    * While statement
+	label_4:
+	push bp
+	pushi -2
+	addi
+	loadi
+	push bp
+	pushi -4
+	addi
+	loadi
+	lei
+	jz label_5
+#line	13
+'    * Print statement
+	pushb 70
+	outb
+#line	13
+'    * Print statement
+	pushb 40
+	outb
+#line	13
+'    * Print statement
+	push bp
+	pushi -2
+	addi
+	loadi
+	outi
+#line	13
+'    * Print statement
+	pushb 41
+	outb
+#line	13
+'    * Print statement
+	pushb 32
+	outb
+#line	13
+'    * Print statement
+	pushb 61
+	outb
+#line	13
+'    * Print statement
+	pushb 32
+	outb
+#line	13
+'    * Print statement
+	push bp
+	pushi -2
+	addi
+	loadi
+	call fib
+	outi
+#line	13
+'    * Print statement
+	pushb 10
+	outb
+#line	14
+'    * Assignment statement
+	push bp
+	pushi -2
+	addi
+	push bp
+	pushi -2
+	addi
+	loadi
+	pushi 1
+	addi
+	storei
+	jmp label_4
+	label_5:
+	ret 0,4,0

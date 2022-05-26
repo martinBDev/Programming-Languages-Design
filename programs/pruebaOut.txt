@@ -1,0 +1,36 @@
+#SOURCE "programs/prueba.txt"
+call main
+halt
+'# GLOBAL VARIABLES
+' * Char i (offset: 0)
+' * Char g (offset: 1)
+'# FUNCTIONS
+' * FunctionDefinition: 
+main:
+' * Locals: 
+	enter 0
+#line	5
+'    * Assignment statement
+	pusha 0
+	pushb 97
+	storeb
+#line	6
+'    * Assignment statement
+	pusha 1
+	pushb 98
+	storeb
+#line	7
+'    * If statement
+	pusha 0
+	loadb
+	pusha 1
+	loadb
+	lt
+	jz label_1
+#line	7
+'    * Print statement
+	pushb 65
+	outb
+	jmp label_1
+	label_1:
+	ret 0,0,0

@@ -1,0 +1,901 @@
+#SOURCE "programs/maths/mandelbrot/mandelbrot.txt"
+call main
+halt
+'# GLOBAL VARIABLES
+' * Array - Size: 20 - Type: [Array - Size: 20 - Type: [Integer]] matrix (offset: 0)
+'# FUNCTIONS
+' * FunctionDefinition: 
+numToChar:
+' * Locals: 
+	enter 0
+#line	4
+'    * If statement
+	push bp
+	pushi 4
+	addi
+	loadf
+	pushf 0.1
+	ltf
+	jz label_1
+#line	4
+'    * Return
+	pushb 32
+	ret 1,0,4
+	jmp label_1
+	label_1:
+#line	5
+'    * If statement
+	push bp
+	pushi 4
+	addi
+	loadf
+	pushf 0.2
+	ltf
+	jz label_3
+#line	5
+'    * Return
+	pushb 183
+	ret 1,0,4
+	jmp label_3
+	label_3:
+#line	6
+'    * If statement
+	push bp
+	pushi 4
+	addi
+	loadf
+	pushf 0.3
+	ltf
+	jz label_5
+#line	6
+'    * Return
+	pushb 42
+	ret 1,0,4
+	jmp label_5
+	label_5:
+#line	7
+'    * If statement
+	push bp
+	pushi 4
+	addi
+	loadf
+	pushf 0.4
+	ltf
+	jz label_7
+#line	7
+'    * Return
+	pushb 126
+	ret 1,0,4
+	jmp label_7
+	label_7:
+#line	8
+'    * If statement
+	push bp
+	pushi 4
+	addi
+	loadf
+	pushf 0.5
+	ltf
+	jz label_9
+#line	8
+'    * Return
+	pushb 58
+	ret 1,0,4
+	jmp label_9
+	label_9:
+#line	9
+'    * If statement
+	push bp
+	pushi 4
+	addi
+	loadf
+	pushf 0.6
+	ltf
+	jz label_11
+#line	9
+'    * Return
+	pushb 111
+	ret 1,0,4
+	jmp label_11
+	label_11:
+#line	10
+'    * If statement
+	push bp
+	pushi 4
+	addi
+	loadf
+	pushf 0.7
+	ltf
+	jz label_13
+#line	10
+'    * Return
+	pushb 48
+	ret 1,0,4
+	jmp label_13
+	label_13:
+#line	11
+'    * If statement
+	push bp
+	pushi 4
+	addi
+	loadf
+	pushf 0.8
+	ltf
+	jz label_15
+#line	11
+'    * Return
+	pushb 68
+	ret 1,0,4
+	jmp label_15
+	label_15:
+#line	12
+'    * If statement
+	push bp
+	pushi 4
+	addi
+	loadf
+	pushf 0.9
+	ltf
+	jz label_17
+#line	12
+'    * Return
+	pushb 37
+	ret 1,0,4
+	jmp label_17
+	label_17:
+#line	13
+'    * Return
+	pushb 35
+	ret 1,0,4
+' * FunctionDefinition: 
+show:
+' * Locals: 
+' * Integer i (offset: -2)
+' * Integer j (offset: -4)
+	enter 4
+#line	18
+'    * Assignment statement
+	push bp
+	pushi -2
+	addi
+	pushi 0
+	storei
+#line	20
+'    * While statement
+	label_18:
+	push bp
+	pushi -2
+	addi
+	loadi
+	pushi 20
+	lti
+	jz label_19
+#line	21
+'    * Assignment statement
+	push bp
+	pushi -4
+	addi
+	pushi 0
+	storei
+#line	22
+'    * While statement
+	label_20:
+	push bp
+	pushi -4
+	addi
+	loadi
+	pushi 20
+	lti
+	jz label_21
+#line	23
+'    * Print statement
+	pusha 0
+	push bp
+	pushi -2
+	addi
+	loadi
+	pushi 40
+	muli
+	addi
+	push bp
+	pushi -4
+	addi
+	loadi
+	pushi 2
+	muli
+	addi
+	loadi
+	i2f
+	pushf 25.0
+	divf
+	call numToChar
+	outb
+#line	24
+'    * Assignment statement
+	push bp
+	pushi -4
+	addi
+	push bp
+	pushi -4
+	addi
+	loadi
+	pushi 1
+	addi
+	storei
+	jmp label_20
+	label_21:
+#line	26
+'    * Print statement
+	pushb 10
+	outb
+#line	28
+'    * Assignment statement
+	push bp
+	pushi -2
+	addi
+	push bp
+	pushi -2
+	addi
+	loadi
+	pushi 1
+	addi
+	storei
+	jmp label_18
+	label_19:
+	ret 0,4,0
+' * FunctionDefinition: 
+abs:
+' * Locals: 
+	enter 0
+#line	33
+'    * If statement
+	push bp
+	pushi 4
+	addi
+	loadf
+	pushf 0.0
+	gtf
+	jz label_23
+#line	33
+'    * Return
+	push bp
+	pushi 4
+	addi
+	loadf
+	ret 4,0,4
+	jmp label_23
+	label_23:
+#line	34
+'    * Return
+	pushf 0
+	push bp
+	pushi 4
+	addi
+	loadf
+	subf
+	ret 4,0,4
+' * FunctionDefinition: 
+sqrt:
+' * Locals: 
+' * Double x (offset: -4)
+' * Double min (offset: -8)
+' * Double max (offset: -12)
+' * Double e (offset: -16)
+' * Integer max_iters (offset: -18)
+' * Integer iters (offset: -20)
+	enter 20
+#line	41
+'    * Assignment statement
+	push bp
+	pushi -8
+	addi
+	pushf 0.0
+	storef
+#line	42
+'    * Assignment statement
+	push bp
+	pushi -12
+	addi
+	push bp
+	pushi 4
+	addi
+	loadf
+	storef
+#line	44
+'    * Assignment statement
+	push bp
+	pushi -16
+	addi
+	pushf 0.01
+	storef
+#line	45
+'    * Assignment statement
+	push bp
+	pushi -18
+	addi
+	pushi 6
+	storei
+#line	47
+'    * Assignment statement
+	push bp
+	pushi -4
+	addi
+	push bp
+	pushi 4
+	addi
+	loadf
+	pushf 2.0
+	divf
+	storef
+#line	48
+'    * Assignment statement
+	push bp
+	pushi -20
+	addi
+	pushi 0
+	storei
+#line	49
+'    * While statement
+	label_24:
+	push bp
+	pushi -4
+	addi
+	loadf
+	push bp
+	pushi -4
+	addi
+	loadf
+	mulf
+	push bp
+	pushi 4
+	addi
+	loadf
+	subf
+	call abs
+	push bp
+	pushi -16
+	addi
+	loadf
+	gtf
+	push bp
+	pushi -20
+	addi
+	loadi
+	push bp
+	pushi -18
+	addi
+	loadi
+	lti
+	and
+	jz label_25
+#line	50
+'    * If statement
+	push bp
+	pushi -4
+	addi
+	loadf
+	push bp
+	pushi -4
+	addi
+	loadf
+	mulf
+	push bp
+	pushi 4
+	addi
+	loadf
+	gtf
+	jz label_27
+#line	50
+'    * Assignment statement
+	push bp
+	pushi -12
+	addi
+	push bp
+	pushi -4
+	addi
+	loadf
+	storef
+	jmp label_27
+	label_27:
+#line	51
+'    * If statement
+	push bp
+	pushi -4
+	addi
+	loadf
+	push bp
+	pushi -4
+	addi
+	loadf
+	mulf
+	push bp
+	pushi 4
+	addi
+	loadf
+	ltf
+	jz label_29
+#line	51
+'    * Assignment statement
+	push bp
+	pushi -8
+	addi
+	push bp
+	pushi -4
+	addi
+	loadf
+	storef
+	jmp label_29
+	label_29:
+#line	53
+'    * Assignment statement
+	push bp
+	pushi -4
+	addi
+	push bp
+	pushi -12
+	addi
+	loadf
+	push bp
+	pushi -8
+	addi
+	loadf
+	addf
+	pushf 2.0
+	divf
+	storef
+#line	55
+'    * Assignment statement
+	push bp
+	pushi -20
+	addi
+	push bp
+	pushi -20
+	addi
+	loadi
+	pushi 1
+	addi
+	storei
+	jmp label_24
+	label_25:
+#line	58
+'    * Return
+	push bp
+	pushi -4
+	addi
+	loadf
+	ret 4,20,4
+' * FunctionDefinition: 
+module:
+' * Locals: 
+	enter 0
+#line	62
+'    * Return
+	push bp
+	pushi 8
+	addi
+	loadf
+	push bp
+	pushi 8
+	addi
+	loadf
+	mulf
+	push bp
+	pushi 4
+	addi
+	loadf
+	push bp
+	pushi 4
+	addi
+	loadf
+	mulf
+	addf
+	call sqrt
+	ret 4,0,8
+' * FunctionDefinition: 
+iters:
+' * Locals: 
+' * Struct: - Fields: [ - RecordField - Type: [Double] - Name: x - RecordField - Type: [Double] - Name: y] z (offset: -8)
+' * Integer i (offset: -10)
+' * Integer max_iters (offset: -12)
+	enter 12
+#line	68
+'    * Assignment statement
+	push bp
+	pushi -10
+	addi
+	pushi 0
+	storei
+#line	68
+'    * Assignment statement
+	push bp
+	pushi -12
+	addi
+	pushi 25
+	storei
+#line	69
+'    * Assignment statement
+	push bp
+	pushi -8
+	addi
+	pushi 0
+	addi
+	pushf 0.0
+	storef
+#line	69
+'    * Assignment statement
+	push bp
+	pushi -8
+	addi
+	pushi 4
+	addi
+	pushf 0.0
+	storef
+#line	71
+'    * While statement
+	label_30:
+	push bp
+	pushi -8
+	addi
+	pushi 0
+	addi
+	loadf
+	push bp
+	pushi -8
+	addi
+	pushi 4
+	addi
+	loadf
+	call module
+	pushf 2.0
+	ltf
+	push bp
+	pushi -10
+	addi
+	loadi
+	push bp
+	pushi -12
+	addi
+	loadi
+	lti
+	and
+	jz label_31
+#line	72
+'    * Assignment statement
+	push bp
+	pushi -8
+	addi
+	pushi 0
+	addi
+	push bp
+	pushi -8
+	addi
+	pushi 0
+	addi
+	loadf
+	push bp
+	pushi -8
+	addi
+	pushi 0
+	addi
+	loadf
+	mulf
+	push bp
+	pushi -8
+	addi
+	pushi 4
+	addi
+	loadf
+	push bp
+	pushi -8
+	addi
+	pushi 4
+	addi
+	loadf
+	mulf
+	subf
+	push bp
+	pushi 8
+	addi
+	loadf
+	addf
+	storef
+#line	73
+'    * Assignment statement
+	push bp
+	pushi -8
+	addi
+	pushi 4
+	addi
+	pushf 2.0
+	push bp
+	pushi -8
+	addi
+	pushi 0
+	addi
+	loadf
+	mulf
+	push bp
+	pushi -8
+	addi
+	pushi 4
+	addi
+	loadf
+	mulf
+	push bp
+	pushi 4
+	addi
+	loadf
+	addf
+	storef
+#line	75
+'    * Assignment statement
+	push bp
+	pushi -10
+	addi
+	push bp
+	pushi -10
+	addi
+	loadi
+	pushi 1
+	addi
+	storei
+	jmp label_30
+	label_31:
+#line	78
+'    * Return
+	push bp
+	pushi -10
+	addi
+	loadi
+	ret 2,12,8
+' * FunctionDefinition: 
+map:
+' * Locals: 
+' * Double t (offset: -4)
+	enter 4
+#line	84
+'    * Assignment statement
+	push bp
+	pushi -4
+	addi
+	push bp
+	pushi 4
+	addi
+	loadi
+	push bp
+	pushi 8
+	addi
+	loadi
+	subi
+	i2f
+	push bp
+	pushi 6
+	addi
+	loadi
+	push bp
+	pushi 8
+	addi
+	loadi
+	subi
+	i2f
+	divf
+	storef
+#line	85
+'    * Return
+	push bp
+	pushi 14
+	addi
+	loadf
+	push bp
+	pushi 10
+	addi
+	loadf
+	push bp
+	pushi 14
+	addi
+	loadf
+	subf
+	push bp
+	pushi -4
+	addi
+	loadf
+	mulf
+	addf
+	ret 4,4,14
+' * FunctionDefinition: 
+main:
+' * Locals: 
+' * Double minX (offset: -4)
+' * Double minY (offset: -8)
+' * Double maxX (offset: -12)
+' * Double maxY (offset: -16)
+' * Integer minM (offset: -18)
+' * Integer maxM (offset: -20)
+' * Integer i (offset: -22)
+' * Integer j (offset: -24)
+	enter 24
+#line	93
+'    * Assignment statement
+	push bp
+	pushi -4
+	addi
+	pushf 0
+	pushf 2.0
+	subf
+	storef
+#line	93
+'    * Assignment statement
+	push bp
+	pushi -8
+	addi
+	pushf 0
+	pushf 2.0
+	subf
+	storef
+#line	93
+'    * Assignment statement
+	push bp
+	pushi -12
+	addi
+	pushf 2.0
+	storef
+#line	93
+'    * Assignment statement
+	push bp
+	pushi -16
+	addi
+	pushf 2.0
+	storef
+#line	94
+'    * Assignment statement
+	push bp
+	pushi -18
+	addi
+	pushi 0
+	storei
+#line	94
+'    * Assignment statement
+	push bp
+	pushi -20
+	addi
+	pushi 20
+	storei
+#line	96
+'    * Assignment statement
+	push bp
+	pushi -22
+	addi
+	push bp
+	pushi -18
+	addi
+	loadi
+	storei
+#line	97
+'    * While statement
+	label_32:
+	push bp
+	pushi -22
+	addi
+	loadi
+	push bp
+	pushi -20
+	addi
+	loadi
+	lti
+	jz label_33
+#line	98
+'    * Assignment statement
+	push bp
+	pushi -24
+	addi
+	push bp
+	pushi -18
+	addi
+	loadi
+	storei
+#line	99
+'    * While statement
+	label_34:
+	push bp
+	pushi -24
+	addi
+	loadi
+	push bp
+	pushi -20
+	addi
+	loadi
+	lti
+	jz label_35
+#line	100
+'    * Assignment statement
+	pusha 0
+	push bp
+	pushi -22
+	addi
+	loadi
+	pushi 40
+	muli
+	addi
+	push bp
+	pushi -24
+	addi
+	loadi
+	pushi 2
+	muli
+	addi
+	push bp
+	pushi -4
+	addi
+	loadf
+	push bp
+	pushi -12
+	addi
+	loadf
+	push bp
+	pushi -18
+	addi
+	loadi
+	push bp
+	pushi -20
+	addi
+	loadi
+	push bp
+	pushi -24
+	addi
+	loadi
+	call map
+	push bp
+	pushi -8
+	addi
+	loadf
+	push bp
+	pushi -16
+	addi
+	loadf
+	push bp
+	pushi -18
+	addi
+	loadi
+	push bp
+	pushi -20
+	addi
+	loadi
+	push bp
+	pushi -22
+	addi
+	loadi
+	call map
+	call iters
+	storei
+#line	105
+'    * Assignment statement
+	push bp
+	pushi -24
+	addi
+	push bp
+	pushi -24
+	addi
+	loadi
+	pushi 1
+	addi
+	storei
+	jmp label_34
+	label_35:
+#line	107
+'    * Assignment statement
+	push bp
+	pushi -22
+	addi
+	push bp
+	pushi -22
+	addi
+	loadi
+	pushi 1
+	addi
+	storei
+	jmp label_32
+	label_33:
+#line	110
+'    * Function Invocation
+	call show
+	ret 0,24,0

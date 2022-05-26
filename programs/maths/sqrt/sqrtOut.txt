@@ -1,4 +1,4 @@
-#SOURCE "programs/prueba.txt"
+#SOURCE "programs/maths/sqrt.txt"
 call main
 halt
 '# GLOBAL VARIABLES
@@ -15,7 +15,7 @@ abs:
 	loadf
 	pushf 0.0
 	gtf
-	jz label_0
+	jz label_1
 #line	2
 '    * Return
 	push bp
@@ -24,7 +24,6 @@ abs:
 	loadf
 	ret 4,0,4
 	jmp label_1
-	label_0:
 	label_1:
 #line	3
 '    * Return
@@ -145,7 +144,7 @@ sqrt:
 	addi
 	loadf
 	gtf
-	jz label_4
+	jz label_5
 #line	19
 '    * Assignment statement
 	push bp
@@ -157,7 +156,6 @@ sqrt:
 	loadf
 	storef
 	jmp label_5
-	label_4:
 	label_5:
 #line	20
 '    * If statement
@@ -175,7 +173,7 @@ sqrt:
 	addi
 	loadf
 	ltf
-	jz label_6
+	jz label_7
 #line	20
 '    * Assignment statement
 	push bp
@@ -187,7 +185,6 @@ sqrt:
 	loadf
 	storef
 	jmp label_7
-	label_6:
 	label_7:
 #line	22
 '    * Assignment statement

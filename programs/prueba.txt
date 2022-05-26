@@ -1,10 +1,8 @@
-def f(a:int): int {
-return 1;
-}
-i,a : int = f(4);
+i:char;
+g:char;
 
-def main(): {
-  eskere : double = 4e2;
-  print eskere;
-  print i;
+def main():{
+    i='a';
+    g='b';
+    if i<g : print 'A';
 }
