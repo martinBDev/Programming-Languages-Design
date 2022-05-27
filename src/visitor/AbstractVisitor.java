@@ -102,6 +102,16 @@ public class AbstractVisitor<TR,TP> implements  Visitor<TR,TP>{
     }
 
     @Override
+    public TR visit(TrueLiteral tl, TP param) {
+        return null;
+    }
+
+    @Override
+    public TR visit(FalseLiteral fl, TP param) {
+        return null;
+    }
+
+    @Override
     public TR visit(Assignment a, TP param) {
         a.getLeftExpr().accept(this,param);
         a.getRightExpr().accept(this,param);
@@ -205,6 +215,11 @@ public class AbstractVisitor<TR,TP> implements  Visitor<TR,TP>{
     @Override
     public TR visit(RecordField rf, TP param) {
         rf.getType().accept(this,param);
+        return null;
+    }
+
+    @Override
+    public TR visit(BooleanType bt, TP param) {
         return null;
     }
 }

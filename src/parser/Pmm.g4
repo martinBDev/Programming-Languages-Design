@@ -196,8 +196,13 @@ variable returns [List<VariableDefinition> ast]: i1=ID {
 
 
 expression returns [Expression ast]:
-      ID { $ast = new Variable($ID.getLine(),
+     TRUE_LITERAL { $ast = new TrueLiteral($TRUE_LITERAL.getLine(),
+                                         $TRUE_LITERAL.getCharPositionInLine()+1);}
+    |FALSE_LITERAL {$ast = new FalseLiteral($FALSE_LITERAL.getLine(),
+                                                             $FALSE_LITERAL.getCharPositionInLine()+1);}
+     | ID { $ast = new Variable($ID.getLine(),
                     $ID.getCharPositionInLine()+1, $ID.text);}
+
     | INT_CONSTANT { $ast = new IntLiteral($INT_CONSTANT.getLine(),
                                        $INT_CONSTANT.getCharPositionInLine()+1,
                                        LexerHelper.lexemeToInt($INT_CONSTANT.text));}
@@ -307,6 +312,7 @@ type returns [Type ast] locals [List<RecordField> fields = new ArrayList<RecordF
  builtInType returns [Type ast]:'char' {$ast = Char.getInstance();}
               | 'int' {$ast = Integer.getInstance();}
               | 'double'{$ast = Double.getInstance();}
+              | 'boolean' {$ast = BooleanType.getInstance();}
               ;
 
 
@@ -339,7 +345,13 @@ INT_CONSTANT: [1-9]DIGIT*
             |'0'
             ;
 
+
+FALSE_LITERAL: 'false';
+
+TRUE_LITERAL: 'true';
+
 ID: (LETTER|'_')(DIGIT|'_'|LETTER)*;
+
 
 CHAR_CONSTANT: ('\'' . '\'')
             | ('\'\\n\'')

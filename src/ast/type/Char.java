@@ -59,7 +59,7 @@ public class Char extends AbstractType{
         }
 
         if(otherType.equals(Char.getInstance())){
-            return Integer.getInstance();
+            return BooleanType.getInstance();
         }
 
         return new ErrorType(node.getLine(), node.getColumn()
@@ -130,9 +130,9 @@ public class Char extends AbstractType{
 
     @Override
     public String convertTo(Type type){
-        if(type.equals(Integer.getInstance())){
+        if(type.equals(Integer.getInstance()) ){
             return "b2i";
-        }else if(type.equals(Char.getInstance())){
+        }else if(type.equals(Char.getInstance()) || type.equals(BooleanType.getInstance())){
             return "";
         }else if(type.equals(Double.getInstance())){
             return "b2i\ni2f";

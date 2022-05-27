@@ -95,6 +95,26 @@ public class TypeCheckingVisitor extends AbstractVisitor<java.lang.Void,Type> {
     }
 
     @Override
+    public Void visit(TrueLiteral tl , Type param){
+        tl.setLValue(false);
+
+        tl.setType(
+                BooleanType.getInstance()
+        );
+        return null;
+    }
+
+    @Override
+    public Void visit(FalseLiteral fl , Type param){
+        fl.setLValue(false);
+
+        fl.setType(
+                BooleanType.getInstance()
+        );
+        return null;
+    }
+
+    @Override
     public Void visit(FieldAccess fa , Type param){
         fa.setLValue(true);
         fa.getExpression().accept(this,param);
@@ -231,7 +251,8 @@ public class TypeCheckingVisitor extends AbstractVisitor<java.lang.Void,Type> {
                 if(!exp.getLValue()
                         && !exp.getType().equals(Char.getInstance())
                         && !exp.getType().equals(Integer.getInstance())
-                        && !exp.getType().equals(Double.getInstance())){
+                        && !exp.getType().equals(Double.getInstance())
+                        && !exp.getType().equals(BooleanType.getInstance())){
 
 
                     new ErrorType(printStmnt.getLine(),printStmnt.getColumn(),

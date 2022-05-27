@@ -30,7 +30,8 @@ public interface Visitor<TR, TP> {
     TR visit(Cast c, TP param);
     TR visit(FieldAccess fa, TP param);
     TR visit(UnaryNot u, TP param);
-
+    TR visit(TrueLiteral tl, TP param);
+    TR visit(FalseLiteral fl, TP param);
 
     //STATEMENT
     TR visit(Assignment a, TP param);
@@ -56,6 +57,7 @@ public interface Visitor<TR, TP> {
     TR visit(Void v, TP param);
     TR visit(ErrorType e, TP param);
     TR visit(RecordField rf, TP param);
+    TR visit(BooleanType bt, TP param);
 
 
 }

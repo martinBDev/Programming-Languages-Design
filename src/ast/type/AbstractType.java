@@ -77,7 +77,7 @@ public  abstract class AbstractType implements Type{
 
 
         return new ErrorType(node.getLine(),node.getColumn()
-                , "Can only perform unary negation on logical type: integer");
+                , "Can only perform unary negation on logical type: boolean type");
 
     }
 

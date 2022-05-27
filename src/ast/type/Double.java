@@ -58,7 +58,7 @@ public class Double extends AbstractType{
         }
 
         if(otherType.equals(Double.getInstance())){
-            return Integer.getInstance();
+            return BooleanType.getInstance();
         }
 
         return new ErrorType(node.getLine(), node.getColumn()
@@ -120,9 +120,9 @@ public class Double extends AbstractType{
 
     @Override
     public String convertTo(Type type){
-        if(type.equals(Integer.getInstance())){
+        if(type.equals(Integer.getInstance()) ){
             return "f2i";
-        }else if(type.equals(Double.getInstance())){
+        }else if(type.equals(Double.getInstance()) || type.equals(BooleanType.getInstance())){
             return "";
         }else if(type.equals(Char.getInstance())){
             return "f2i\ni2b";

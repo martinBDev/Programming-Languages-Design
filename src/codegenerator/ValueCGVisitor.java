@@ -81,6 +81,37 @@ public class ValueCGVisitor extends AbstractCodeGeneratorVisitor<Void,Object> {
 
 
     /**
+     * value[[TrueLiteral : expression --> TRUE_LITERAL]]() =
+     *          <pushi > 1
+     * @param tl
+     * @param param
+     * @return
+     */
+    @Override
+    public Void visit(TrueLiteral tl, Object param){
+
+        cg.push(1);
+
+        return null;
+    }
+
+    /**
+     * value[[TrueLiteral : expression --> FALSE_LITERAL]]() =
+     *          <pushi > 0
+     * @param fl
+     * @param param
+     * @return
+     */
+    @Override
+    public Void visit(FalseLiteral fl, Object param){
+
+        cg.push(0);
+
+        return null;
+    }
+
+
+    /**
      * value[[CharLiteral : expression --> CHARACTER]]() =
      *          <pushb > CHARACTER
      * @param c

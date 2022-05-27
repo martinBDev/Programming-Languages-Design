@@ -30,10 +30,7 @@ public class Integer extends AbstractType{
         return v.visit(this,param);
     }
 
-    @Override
-    public boolean isLogical(){
-        return  true;
-    }
+
 
     @Override
     public Type arithmetic(Type otherType, AstNode node){
@@ -66,35 +63,16 @@ public class Integer extends AbstractType{
         }
 
         if(otherType.equals(Integer.getInstance())){
-            return Integer.getInstance();
+            return BooleanType.getInstance();
         }
 
         return new ErrorType(node.getLine(), node.getColumn()
                 , "Cannot perform comparison between an Integer and something else different from an Integer.");
     }
 
-    @Override
-    public Type logical(Type otherType, AstNode node){
 
-        if(otherType instanceof ErrorType){
-            return otherType;
-        }
 
-        if (otherType.isLogical()) {
-            return Integer.getInstance();
-        }
 
-        return new ErrorType(node.getLine(),node.getColumn()
-                ,"Cannot perform logical operation between logical and non-logical operands.");
-
-    }
-
-    @Override
-    public Type unaryNegation(AstNode node){
-
-        return Integer.getInstance();
-
-    }
 
     @Override
     public boolean isBuiltIn(){
@@ -153,7 +131,7 @@ public class Integer extends AbstractType{
         }else if(type.equals(Double.getInstance())){
             return "i2f";
 
-        }else if(type.equals(Integer.getInstance())){
+        }else if(type.equals(Integer.getInstance()) || type.equals(BooleanType.getInstance())){
             return "";
         }
 

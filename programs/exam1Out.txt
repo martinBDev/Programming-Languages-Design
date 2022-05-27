@@ -1,0 +1,166 @@
+#SOURCE "programs/exam1.txt"
+call main
+halt
+'# GLOBAL VARIABLES
+'# FUNCTIONS
+' * FunctionDefinition: 
+f:
+' * Locals: 
+	enter 0
+#line	3
+'    * Return
+	push bp
+	pushi 8
+	addi
+	loadi
+	push bp
+	pushi 6
+	addi
+	loadi
+	and
+	push bp
+	pushi 4
+	addi
+	loadi
+	not
+	or
+	ret 2,0,6
+' * FunctionDefinition: 
+main:
+' * Locals: 
+' * ast.type.BooleanType@1cd072a9 b1 (offset: -2)
+' * ast.type.BooleanType@1cd072a9 b2 (offset: -4)
+' * ast.type.BooleanType@1cd072a9 b3 (offset: -6)
+' * Integer a (offset: -8)
+	enter 8
+#line	11
+'    * Print statement
+	pushi 1
+	pushi 0
+	pushi 0
+	call f
+	outi
+#line	12
+'    * Print statement
+	pushi 1
+	pushi 0
+	pushi 1
+	call f
+	outi
+#line	13
+'    * Print statement
+	pushi 0
+	pushi 1
+	pushi 1
+	call f
+	outi
+#line	14
+'    * Print statement
+	pushi 0
+	pushi 0
+	pushi 0
+	call f
+	outi
+#line	16
+'    * Assignment statement
+	push bp
+	pushi -2
+	addi
+	pushi 1
+	storei
+#line	17
+'    * Assignment statement
+	push bp
+	pushi -4
+	addi
+	pushi 3
+	pushi 1
+	gti
+	storei
+#line	18
+'    * Assignment statement
+	push bp
+	pushi -6
+	addi
+	pushf 4.5
+	pushf 4.2
+	lef
+	storei
+#line	19
+'    * Print statement
+	push bp
+	pushi -2
+	addi
+	loadi
+	outi
+#line	20
+'    * Print statement
+	push bp
+	pushi -4
+	addi
+	loadi
+	outi
+#line	21
+'    * Print statement
+	push bp
+	pushi -6
+	addi
+	loadi
+	outi
+#line	23
+'    * If statement
+	push bp
+	pushi -2
+	addi
+	loadi
+	jz label_0
+#line	23
+'    * Print statement
+	pushb 89
+	outb
+	jmp label_1
+	label_0:
+#line	24
+'    * Print statement
+	pushb 78
+	outb
+	label_1:
+#line	26
+'    * Assignment statement
+	push bp
+	pushi -8
+	addi
+	pushi 0
+	storei
+#line	27
+'    * While statement
+	label_2:
+	push bp
+	pushi -8
+	addi
+	loadi
+	pushi 10
+	lti
+	jz label_3
+#line	28
+'    * Print statement
+	push bp
+	pushi -8
+	addi
+	loadi
+	outi
+#line	29
+'    * Assignment statement
+	push bp
+	pushi -8
+	addi
+	push bp
+	pushi -8
+	addi
+	loadi
+	pushi 1
+	addi
+	storei
+	jmp label_2
+	label_3:
+	ret 0,8,0

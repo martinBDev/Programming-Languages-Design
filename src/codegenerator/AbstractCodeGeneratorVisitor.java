@@ -83,6 +83,16 @@ public class AbstractCodeGeneratorVisitor<TR,TP> implements  Visitor<TR,TP> {
     }
 
     @Override
+    public TR visit(TrueLiteral tl, TP param) {
+        throw new IllegalStateException("Cannot generate code for trueLiteral.");
+    }
+
+    @Override
+    public TR visit(FalseLiteral fl, TP param) {
+        throw new IllegalStateException("Cannot generate code for FalseLiteral.");
+    }
+
+    @Override
     public TR visit(Assignment a, TP param) {
         throw new IllegalStateException("Cannot generate code for Assignment.");
     }
@@ -165,5 +175,10 @@ public class AbstractCodeGeneratorVisitor<TR,TP> implements  Visitor<TR,TP> {
     @Override
     public TR visit(RecordField rf, TP param) {
         throw new IllegalStateException("Cannot generate code for RecordField.");
+    }
+
+    @Override
+    public TR visit(BooleanType bt, TP param) {
+        throw new IllegalStateException("Cannot generate code for BooleanType.");
     }
 }
