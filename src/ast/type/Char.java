@@ -141,4 +141,6 @@ public class Char extends AbstractType{
         throw new IllegalStateException("Char can only be converted to integer, you try to convert to: " + type.toString());
 
     }
+
+
 }

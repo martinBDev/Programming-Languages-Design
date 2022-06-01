@@ -244,26 +244,19 @@ public class TypeCheckingVisitor extends AbstractVisitor<java.lang.Void,Type> {
         int count = 0;
         for(Expression exp : printStmnt.getExpressions()){
 
+
             //Just to generate errors referring to INPUT only where an error has been raised before
             if(!exp.getType().isErrorType() ) {
 
-                //IF EXP IS NOT LVALUE OR CHAR OR DOUBLE OR INT
-                if(!exp.getLValue()
-                        && !exp.getType().equals(Char.getInstance())
-                        && !exp.getType().equals(Integer.getInstance())
-                        && !exp.getType().equals(Double.getInstance())
-                        && !exp.getType().equals(BooleanType.getInstance())){
-
+                //IF EXP IS NOT LVALUE or NOT BUILT IN
+                if(!exp.getLValue() ||
+                    !exp.getType().isBuiltIn()){
 
                     new ErrorType(printStmnt.getLine(),printStmnt.getColumn(),
                             "Expression number " + count + " on Print statement has to be an LValue");
                 }
 
-                //IF EXP HAS NOT NUILT IN TYPE
-                if(!exp.getType().isBuiltIn() ){
-                    new ErrorType(printStmnt.getLine(),printStmnt.getColumn(),
-                            "Expression number " + count + " on Print statement has to be built in type");
-                }
+                count++;
 
 
             }
@@ -284,18 +277,11 @@ public class TypeCheckingVisitor extends AbstractVisitor<java.lang.Void,Type> {
             //Just to generate errors referring to INPUT only where an error has been raised before
             if(!exp.getType().isErrorType() ) {
 
-                //IF EXP IS NOT LVALUE
-                if(!exp.getLValue() ){
-
+                //IF EXP IS NOT LVALUE or NOT BUILT IN
+                if(!exp.getLValue() || !exp.getType().isBuiltIn()){
 
                     new ErrorType(inputStmnt.getLine(),inputStmnt.getColumn(),
                             "Expression number " + count + " on Input statement has to be an LValue");
-                }
-
-                //IF EXP HAS NOT NUILT IN TYPE
-                if(!exp.getType().isBuiltIn() ){
-                    new ErrorType(inputStmnt.getLine(),inputStmnt.getColumn(),
-                            "Expression number " + count + " on Input statement has to be built in type");
                 }
 
 

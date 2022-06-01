@@ -131,4 +131,5 @@ public class Double extends AbstractType{
         throw new IllegalStateException("Double can only be converted to integer, you try to convert to: " + type.toString());
 
     }
+
 }
