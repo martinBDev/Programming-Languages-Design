@@ -57,7 +57,7 @@ In the following subsections, i will display different nodes accepted in the AST
 - VariableDefinition: a : int; (Currently i'm developing an extension to allow asignment of a variable when its defined: a : int = 3;)
 - FunctionDefinition: def func(a:boolean) : int { ..... }
 
-### Type
+### Types
 - Array
 - Integer
 - Double
