@@ -23,7 +23,7 @@ Language used to develop the compiler for my own programming language.
 
 ### MAPL 
 Visual IDE for the MAPL virtual machine. Academic tool to asist in the implementation of programming languages. 
-Implemented by Raul Izquierdo (raul@uniovi.es), professor at University of Ovieddo.
+Implemented by Raul Izquierdo (raul@uniovi.es), professor at University of Oviedo.
 
 
 ## ✍️ About The Project
@@ -52,6 +52,7 @@ In the following subsections, i will display different nodes accepted in the AST
 - UnaryNot: !true
 - Cast: (int)5.6
 - FieldAccess: struct.field
+- TernaryOperator: currently under development
 
 ### Definitions
 - VariableDefinition: a : int; (Currently i'm developing an extension to allow asignment of a variable when its defined: a : int = 3;)
