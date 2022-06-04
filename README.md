@@ -55,7 +55,7 @@ In the following subsections, i will display different nodes accepted in the AST
 - TernaryOperator: currently under development
 
 ### Definitions
-- VariableDefinition: a : int; (Currently i'm developing an extension to allow asignment of a variable when its defined: a : int = 3;)
+- VariableDefinition: a : int; (Currently i'm developing an extension to allow assignment of a variable when its defined: a : int = 3;)
 - FunctionDefinition: def func(a:boolean) : int { ..... }
 
 ### Types
