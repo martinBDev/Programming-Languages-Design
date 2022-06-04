@@ -50,10 +50,10 @@ public class ValueCGVisitor extends AbstractCodeGeneratorVisitor<Void,Object> {
 
 
         arithmetic.getLeft().accept(this,param);
-        cg.writeConvertion( arithmetic.getLeft().getType().convertTo( arithmetic.getType() ));
+        cg.writeConvertion( arithmetic.getLeft().getType(), arithmetic.getType() );
 
         arithmetic.getRight().accept(this,param);
-        cg.writeConvertion( arithmetic.getRight().getType().convertTo( arithmetic.getType() ));
+        cg.writeConvertion( arithmetic.getRight().getType(),arithmetic.getType() );
 
         cg.writeArithmetic(arithmetic.getOperator(), arithmetic.getType());
 
@@ -272,10 +272,10 @@ public class ValueCGVisitor extends AbstractCodeGeneratorVisitor<Void,Object> {
     public Void visit(Comparison c, Object param){
 
         c.getLeftExpr().accept(this,param);
-        cg.writeConvertion(c.getLeftExpr().getType().convertTo( c.getType() ));
+        cg.writeConvertion(c.getLeftExpr().getType() ,c.getType() );
 
         c.getRightExpr().accept(this,param);
-        cg.writeConvertion(c.getRightExpr().getType().convertTo( c.getType() ));
+        cg.writeConvertion(c.getRightExpr().getType(),c.getType() );
 
 
         cg.comparison(c.getOperand(),c.getLeftExpr().getType());
@@ -299,7 +299,7 @@ public class ValueCGVisitor extends AbstractCodeGeneratorVisitor<Void,Object> {
 
 
         c.getExpression().accept(this,param);
-        cg.writeConvertion( c.getExpression().getType().convertTo( c.getToTypeCast() ) );
+        cg.writeConvertion( c.getExpression().getType(), c.getToTypeCast() );
 
         return null;
     }

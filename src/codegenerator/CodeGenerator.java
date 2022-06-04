@@ -1,6 +1,8 @@
 package codegenerator;
 
-import ast.type.Type;
+import ast.type.*;
+import ast.type.Double;
+import ast.type.Integer;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -92,25 +94,42 @@ public class CodeGenerator {
         out.flush();
     }
 
-    public void writeConvertion(String instruction){
+    public void writeConvertion(Type firstType , Type convertTo){
 
-        String[] conversions = instruction.split("\n");
+        if(firstType.equals(Integer.getInstance())){
 
-        for(String s : conversions){
 
-            switch (s){
-                case "b2i": {this.b2i();break;}
-                case "i2f": {this.i2f();break;}
-                case "f2i": {this.f2i();break;}
-                case "i2b": {this.i2b();break;}
+            if(convertTo.equals(Double.getInstance())){
+                out.write( "i2f" + "\n");
+            }else if(convertTo.equals(Char.getInstance())){
+                out.write( "i2b" + "\n");
             }
+            out.flush();
 
+        }else if(firstType.equals(Double.getInstance())){
 
+            if(convertTo.equals(Integer.getInstance())){
+                out.write( "f2i" + "\n");
+            }else if(convertTo.equals(Char.getInstance())){
+                out.write( "f2i" + "\n" + "i2b" + "\n");
+            }
+            out.flush();
+
+        }else if(firstType.equals(Char.getInstance())){
+
+            if(convertTo.equals(Integer.getInstance())){
+                out.write( "b2i" + "\n");
+            }else if(convertTo.equals(Char.getInstance())){
+                out.write( "b2i" + "\n" + "i2f" + "\n");
+            }
+            out.flush();
 
         }
 
 
     }
+
+
 
     public void push(char c){
         out.write("\tpushb " + (int)c + "\n");
